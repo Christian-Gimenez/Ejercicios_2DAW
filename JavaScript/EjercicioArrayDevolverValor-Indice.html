@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Web 1</title>
+</head>
+
+<body>
+    <script>
+        'use strict';
+        /*
+        Escribe una función que pueda devolver el valor más pequeño de un array numérico o el índice de ese valor.
+        El segundo parámetro de la función dirá si debe devolver el valor ("v") o el índice ("i"). No uses métodos del objeto array.
+        Se supone que el primer parámetro siempre será una matriz llena con al menos 1 número y sin duplicados.
+        Se supone el segundo parámetro será una letra con uno de dos valores: 'v' 'i'
+        */
+
+        function NoHayRepetidosEnElArray(array) {
+            if(array.length > 0) {
+                for(let i = 0; i < array.length; i++) {
+                    if(i + 1 === array.length-1) return true;
+                    for(let j = i; j < array.length; j++) {
+                        if(array[i] === array[j+1]) return false;
+                    }
+                }
+            }
+        }
+
+        function indiceMasPeque(array) {
+            let masPeque = 0;
+            for(let i = 1; i < array.length; i++) {
+                if(array[i] < array[masPeque]) masPeque = i;
+            }
+            return masPeque;
+        }
+
+        
+       function buscarMasPeque(array, aDevolver) {
+        
+            if (NoHayRepetidosEnElArray(array)) {
+                aDevolver = aDevolver.toLowerCase();
+                let indice = indiceMasPeque(array);
+                console.log("indiceMasPeque() -> " + indice);
+                if(aDevolver === "v") alert("El valor más pequeño del array [" + array + "] es: " + array[indice]);
+                if(aDevolver === "i") alert("El índice del valor más pequeño del array [" + array + "] es: " + indice);
+            } else {
+                alert("¡No se puede buscar el número más pequeño porque el array tiene numeros repetidos!");
+            }
+        }
+
+
+        function pedirNumsArray(mensaje) {
+            let array = [];
+            let i = 0;
+            let num = prompt(mensaje, 0);
+            do {
+                if(num.toLowerCase() === "exit") return array;
+                (!isNaN(Number(num)) && !isNaN(parseInt(num)))? array[i++] = Number(num) : alert("¡Dato erroneo!");
+                num = prompt("Actualmente el array es [" + array + "]\n" + mensaje, (Math.floor(Math.random()*10) + 1));
+
+            } while(true);
+        }
+
+        function seleccionarOpcion() {
+            let opcion;
+            let seguirIterando = true;
+            do {
+                opcion = prompt("Ahora se mostrará el elemento más pequeño de tu array.\nIntroduce 'i' para el indice o 'v' para el valor");
+                (opcion.toLocaleLowerCase() == "v" || opcion.toLocaleLowerCase() == "i")? seguirIterando = false : alert("¡Opción incorrecta!");
+            } while (seguirIterando);
+            return opcion;
+        }
+
+        let miArray = pedirNumsArray("Introduce un número, pero no puedes repetir ninguno ('exit' para salir):");
+        buscarMasPeque(miArray, seleccionarOpcion());
+
+
+
+    </script>
+</body>
+
+</html>

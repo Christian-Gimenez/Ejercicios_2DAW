@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Area y Perimetro de un Rectángulo</title>
+</head>
+
+<body>
+  <h1>Calcula el Área y/o el Perímetro de un Rectángulo</h1>
+  <fieldset>
+    <form action="Ej-AreaYPerimetroRectangulo.php" method="get">
+      <p><strong>Introduce los datos:</strong></p>
+      <p>
+        <label for="base">Base: </label>
+        <input type="text" name="base" id="base" />
+      </p>
+      <p>
+        <label for="altura">Altura: </label>
+        <input type="text" name="altura" id="altura" />
+      </p>
+
+      <hr/>
+      <p><strong>Selecciona los que desees calcular</strong></p>
+
+      <p>
+        <input type="radio" id="area" name="opcion" value="area" />
+        <label for="area">Area</label>
+      </p>
+      <p>
+        <input type="radio" id="perimetro" name="opcion" value="perimetro" />
+        <label for="perimetro">Perímetro</label>
+      </p>
+      <p>
+        <input type="radio" id="ambos" name="opcion" value="ambos" />
+        <label for="ambos">Ambos</label>
+      </p>
+      <p>
+        <input type="submit" value="Enviar"/>
+      </p>
+    </form>
+  </fieldset>
+
+</body>
+
+</html>

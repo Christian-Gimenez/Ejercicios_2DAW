@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Web 1</title>
+</head>
+
+<body>
+    <script>
+        'use strict';
+        /*
+        Mezclar de 3 en 3
+        Leer los datos correspondientes a dos tablas de 12 elementos numéricos
+        y mezclarlos en una tercera de la forma:
+        3 de la tabla A, 3 de la B, otros 3 de la A, otros 3 de la B, etc...
+        */
+       function rellenarArray(mensaje) {
+        let array = [];
+        let num; 
+        for(let i = 0; i < 12; i++) {
+            num = prompt(mensaje + "Introduce un número: ", (Math.floor(Math.random() * 10)-1));
+            if(isNaN(Number(num)) || isNaN(parseInt(num))) {
+                alert("Error. Por favor introduce un número válido");
+                i--;
+            } else {
+                array.push(Number(num));
+            }
+        }
+        return array;
+       }
+
+       function mezclar3en3(arrA, arrB) {
+        //0,1,2 - 3,4,5 - 6,7,8 - 9,10,11 -> if (x%3==0)
+        let a = 0;
+        let b = 0;
+        let metaArray = [];
+        for(let i = 0; i < arrA.length+arrB.length; i++) {
+            if(a % 3 == 0 && b < arrB.length) {
+                for(let j = 0; j < 3; j++) {
+                    if(b < arrB.length) metaArray.push(arrB[b++]);
+                }
+            }
+            if(a < arrB.length) metaArray.push(arrA[a++]);
+        }
+        return metaArray;
+       }
+
+       let arrA = rellenarArray("Array A:\n");
+       alert("Array A: [" + arrA.join() + "]");
+       console.log("Array A: [" + arrA.join() + "]");
+
+       let arrB = rellenarArray("Array B: \n");
+       alert("Array B: [" + arrB.join() + "]");
+       console.log("Array B: [" + arrB.join() + "]");
+
+       let metaArray = mezclar3en3(arrA, arrB);
+       alert("Array resultante tras mezclar los arrays de 3 en 3: \nA: [" + arrA.join() + "]"
+       + "\nB: [" + arrB.join() + "]" +
+       "\nResultado mezclado: [" + metaArray.join() + "]");
+    </script>
+</body>
+
+</html>

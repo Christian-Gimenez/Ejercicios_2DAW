@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+        Escribir una función que divida un array en grupos de un tamaño determinado y
+        los devuelva en un array bidimensional
+         */
+        function dividirEnGrupos(array, tam) {
+            let resultado = [];
+            //Recorremos todo el array, de X en X posiciones (X=tamaño determinado)
+            for(let i = 0; i < array.length; i+=tam) {
+                //Introducimos el array resultante que devuelve slice como array de una de las posiciones del array bidimensional
+                resultado.push(array.slice(i, i+tam));
+            }
+            return resultado;
+        }
+        let arr1 = ["a", "b", "c", "d"];
+        let arr2 = [0, 1, 2, 3, 4, 5];
+        let arr1Mod = dividirEnGrupos(arr1, 2);
+        let arr2Mod1 = dividirEnGrupos(arr2, 3);
+        let arr2Mod2 = dividirEnGrupos(arr2, 2);
+        console.log(arr1Mod, arr2Mod1, arr2Mod2);
+        
+         // ["a", "b", "c", "d"], 2 --> [["a", "b"],["c", "d"]]
+         // [0, 1, 2, 3, 4, 5], 3 --> [[0, 1, 2], [3, 4, 5]] 
+         // [0, 1, 2, 3, 4, 5], 2 --> [[0, 1], [2, 3], [4, 5]] 
+    </script>
+</body>
+</html>

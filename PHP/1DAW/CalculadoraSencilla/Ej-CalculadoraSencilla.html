@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora</title>
+</head>
+<body>
+  <h1>Calculadora Sencilla</h1>
+  <fieldset>
+    <form action="Ej-CalculadoraSencilla.php" method="get">
+      <p>
+        <label for="num1">1ºNúmero: </label>
+        <input type="text" id="num1" name="num1"/>
+      </p>
+      <p>
+        <label for="num2">2ºNúmero: </label>
+        <input type="text" id="num2" name="num2"/>
+      </p>
+      <p>
+        <label for="sumar">sumar +</label>
+        <input type="radio" value="+" name="operacion" id="sumar"/>
+      </p>  
+      <p>
+        <label for="restar">restar -</label>
+        <input type="radio" value="-" name="operacion" id="restar"/>
+      </p>
+      <p>
+        <label for="multiplicar">multiplicar x</label>
+        <input type="radio" value="*" name="operacion" id="multiplicar"/>
+      </p>
+      <p>
+        <label for="dividir">dividir /</label>
+        <input type="radio" value="/" name="operacion" id="dividir"/>
+      </p>
+      <p>
+        <label for="resto">resto %</label>
+        <input type="radio" value="%" name="operacion" id="resto"/>
+      </p>
+      <p>
+        <label for="potencia">potencia ^</label>
+        <input type="radio" value="^" name="operacion" id="potencia"/>
+      </p>
+      <p>
+        <input type="submit" value="Calcular resultado"/>
+      </p>
+    </form>
+  </fieldset>
+  
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         Desarrollar al menos 3 formas distintas de encontrar el valor más alto de un array
+         numérico (enteros + y -) Implementa cada una de ellas en una función diferente
+         */
+        let array = [1,4,5,2,8,-8,3,0,-9];
+
+        //1ªForma (sort): Ordena el array de menor a mayor y devuelve el 1º (más alto)
+        function valorMasAlto1(array) {
+            //Resta el valor de b-a, si dá negativo=a > b, si da positivo=b > a
+            array.sort((a, b) => b - a); 
+            //array.reverse(); No hace falta darle la vuelta
+            return array.shift(); //Devolvemos el 1º Valor del array.
+        }
+        console.log("Valor mas alto v1(sort): ",valorMasAlto1(array));
+
+        array = [1,4,5,2,8,-8,3,0,-9];
+
+        //2ªForma (find): Buscamos el elemento mayor hasta que la búsqueda=undefined
+        function valorMasAlto2(array) {
+            let mayor = Number.MIN_SAFE_INTEGER; //Ponemos el mínimo entero posible
+            let encontrado;
+            do {
+                //Almacenamos en encontrado el 1ºelemento > a 'mayor'
+                encontrado = array.find(elemento => {
+                    return elemento > mayor;
+                });
+                //Si el encontrado es mayor, ahora 'mayor' es encontrado
+                if (encontrado > mayor) mayor = encontrado; //Así evitamos guardar mayor=undefined
+
+            } while (encontrado != undefined); //Repetimos hasta que no encuentre nº mayores
+            return mayor;
+        }
+        console.log("Valor mas alto v2(find): ",valorMasAlto2(array));
+
+        array = [1,4,5,2,8,-8,3,0,-9];
+
+        //3ªForma (for clásico): Guardamos el 1ºElemento e iteramos guardando el mayor encontrado en cada vuelta
+        function valorMasAlto3(array) {
+            let mayor = array.shift();
+            for(valor of array) {
+                if(mayor < valor) mayor = valor;
+            }
+            return mayor;
+        }
+        console.log("Valor mas alto v3(for clásico): ",valorMasAlto3(array));
+
+        array = [1,4,5,2,8,-8,3,0,-9];
+
+        //4ªForma (probando a usar reduce): Compara cada valor con el anterior y devuelve el mayor  
+        function valorMasAlto4(array) {
+            let valorInicial = array.shift();
+            //Reduce va comparando el valor anterior con el actual, devolviendo el mayor de todos
+            let mayor = array.reduce((anterior, actual) => {
+                return (anterior < actual)? actual : anterior; 
+            }, valorInicial); //Comparamos con el inicial array[0]
+            return mayor;
+        }
+        console.log("Valor mas alto v4(reduce): ",valorMasAlto4(array));
+
+        
+    </script>
+</body>
+</html>

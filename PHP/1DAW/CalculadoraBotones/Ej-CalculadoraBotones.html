@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="./Ej-CalculadoraBotones.css" /> 
+  <title>Calculadora en PHP Vanilla</title>
+</head>
+<body>
+  <h1>Bienvenido a la calculadora Online hecha en PHP</h1>
+    <form action="Ej-CalculadoraBotones.php" method="GET">
+      <table>
+        <tr>
+          <td colspan="6"><input type="text" name="numeroCompleto" id="numeroCompleto"/></td>
+        </tr>
+        <tr>
+          <td><input type="button" value="7" id="siete"/></td>
+          <td><input type="button" value="8" id="ocho"/></td>
+          <td><input type="button" value="9" id="nueve"/></td>
+          <td colspan="3"><input type="button" value="borrar" id="borrar"/></td>
+        </tr>
+        <tr>
+          <td><input type="button" value="4" id="cuatro"/></td>
+          <td><input type="button" value="5" id="cinco"/> </td>
+          <td><input type="button" value="6" id="seis"/></td>
+          <td><input type="button" value="+" id="sumar"/></td>
+          <td><input type="button" value="-" id="restar"/></td>
+          <td><input type="button" value="x" id="multiplicar"/></td>
+        </tr>
+        <tr>
+          <td><input type="button" value="1" id="uno"/></td>
+          <td><input type="button" value="2" id="dos"/></td>
+          <td><input type="button" value="3" id="tres"/></td>
+          <td><input type="button" value="/" id="dividir"/></td>
+          <td><input type="button" value="%" id="resto"/></td>
+          <td><input type="button" value="^" id="potencia"/></td>
+        </tr>
+        <tr>
+          <td colspan="6"><input type="submit" value="="/></td>
+        </tr>
+      </table>
+      
+    </form>
+  <script src="./Ej-CalculadoraBotones.js" type="text/javascript"></script>
+</body>
+</html>

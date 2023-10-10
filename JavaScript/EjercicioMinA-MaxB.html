@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Web 1</title>
+</head>
+
+<body>
+    <script>
+        'use strict';
+        /*
+        Dadas dos matrices A y B intercambiar los mínimos de A con los máximos de B
+        */
+        function minimo(array) {
+            let min = array[0];
+            for (let valor of array) {
+                if (valor < min) min = valor;
+            }
+            return min;
+        }
+
+        function maximo(array) {
+            let max = array[0];
+            for (let valor of array) {
+                if (valor > max) max = valor;
+            }
+            return max;
+        }
+
+        /*
+        function sustituir(array, este, porEste) {
+            const nuevoArr = array.filter((x) => {
+                if (x == este) return porEste;
+            });
+        }*/
+
+        function sustituir(array, este, porEste) {
+            for(let i = 0; i < array.length; i++) {
+                if(array[i] == este) array[i] = porEste;
+            }
+        }
+
+        let a = [1, 3, 5, 1, 6, 1, 20, 5];
+        let b = [4, 2, 99, 23, 45, 99, 99];
+
+        console.log("Array A antes: [" + a.join() + "]");
+        console.log("Array B antes: [" + b.join() + "]");
+        let minA = minimo(a);
+        let maxB = maximo(b);
+        console.log("Min A: " + minA);
+        console.log("Max B: " + maxB);
+        
+        sustituir(a, minA, maxB);
+        sustituir(b, maxB, minA);
+        console.log("Array A después: [" + a.join() + "]");
+        console.log("Array B después: [" + b.join() + "]");
+
+
+    </script>
+</body>
+
+</html>

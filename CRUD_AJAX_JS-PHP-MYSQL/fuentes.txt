@@ -1,0 +1,2 @@
+Tutorial completo blog: https://parzibyte.me/blog/2021/01/17/crud-php-mysql-ajax/
+Explicación parcial YouTube del CRUD con AJAX (PHP/JS/SQL): https://youtu.be/sg-lH5lMU8g?si=uvyKtz2kel0rdi2U

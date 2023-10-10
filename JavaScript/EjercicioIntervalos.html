@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Web 1</title>
+</head>
+
+<body>
+    <script>
+        'use strict';
+        /*
+        Crea un programa que pida el límite inferior y superior de un intervalo.
+        Si limInf > limSup -> intercambiar
+        A continuación, se van pidiendo números enteros positivos hasta que se introduzca un número negativo
+        Al terminar se mostrará: cuántos están dentro del intervalo, cuántos están fuera y si se ha introducido
+        algún número igual a alguno de los límites del intervalo.
+        */
+        //Declaración de variables
+
+
+        /*
+         function pedirEntero(mensaje) {
+             let resultado;
+             do {
+                 resultado = Number(prompt(mensaje)); // pedimos número
+                 if (resultado === "") { // Si resultado es cadena vacía
+                     resultado = NaN; // resultado no es un número, porque cuando le meto cadena vacía devuelve 0 y de esta manera se soluciona.
+                 }
+                 resultado = Number(resultado);
+                 mensaje = "Por favor, " + mensaje;
+             } while (isNaN(Number(resultado))); // Si no es un número se repite
+ 
+             return Number(resultado);
+         }*/
+
+         function pedirEntero(mensaje) {
+            let resultado;
+            do {
+                resultado = prompt(mensaje); // pedimos número
+                //console.log(resultado);
+                let resultado2 = Number(resultado); //Formateamos con Number
+                let resultado3 = parseInt(resultado); //Formateamos con parseInt
+                //Si NO es un NaN ninguno de los formateos -> Retornamos el de Number
+                if (!isNaN(resultado2) && !isNaN(resultado3)) return resultado2; //si ninguno de los dos es NaN devuelve número.
+
+                mensaje = "Por favor, " + mensaje;
+            } while (true); // Si no es un número se repite
+        }
+
+        function pedirLimite(mensaje) {
+            mensaje = "Introduce el límite " + mensaje + " (nº Entero Positivo): ";
+            let limite;
+            do {
+                limite = pedirEntero(mensaje);
+                if (limite < 0) {
+                    mensaje = "Por favor, " + mensaje;
+                }
+            } while (limite < 0);
+
+            return limite;
+        }
+        
+        /*
+        function pedirNumerosHastaNegativo(limInf, limSup) {
+            let fueraIntervalo = 0;
+            let dentroIntervalo = 0;
+            let igualLimite = false;
+            let numero;
+            do {
+                numero = pedirEntero("Intervalo (" + limInf + " - " + limSup + ") \nIntroduce un número entero (introduce uno negativo para salir): ");
+                
+                if(numero >= 0) break;
+
+                if (numero > limSup || numero < limInf) {
+                    fueraIntervalo++;
+                } else if (numero >= limInf && numero <= limSup) {
+                    dentroIntervalo++;
+                    if (numero == limInf || numero == limSup) {
+                        igualLimite = true;
+                    }
+                }
+
+            } while (true);
+
+            return "Intervalo (" + limInf + " - " + limSup + "). Se han introducido:\n" +
+                fueraIntervalo + " número/s fuera del intervalo\n" +
+                dentroIntervalo + " número/s dentro del intervalo\n" +
+                "Y " + (igualLimite?"SÍ ha introducido algún número igual a los intervalos":"NO se ha introducido ningún número igual a los intervalos");
+        }
+        */
+
+        function pedirEntero(mensaje) {
+            let resultado;
+            do {
+                resultado = prompt(mensaje); // pedimos número
+                //console.log(resultado);
+                let resultado2 = Number(resultado); //Formateamos con Number
+                let resultado3 = parseInt(resultado); //Formateamos con parseInt
+                //Si NO es un NaN ninguno de los formateos -> Retornamos el de Number
+                if (!isNaN(resultado2) && !isNaN(resultado3)) return resultado2; //si ninguno de los dos es NaN devuelve número.
+
+                mensaje = "Por favor, " + mensaje;
+            } while (true); // Si no es un número se repite
+        }
+
+        function pedirLimite(mensaje) {
+            mensaje = "Introduce el límite " + mensaje + " (nº Entero Positivo): ";
+            let limite;
+            do {
+                limite = pedirEntero(mensaje);
+                if (limite < 0) {
+                    mensaje = "Por favor, " + mensaje;
+                }
+            } while (limite < 0);
+
+            return limite;
+        }
+
+        function pedirNumerosHastaNegativo(limInf, limSup) {
+            let fueraIntervalo = 0;
+            let dentroIntervalo = 0;
+            let igualLimite = false;
+            let numero;
+            do {
+                numero = pedirEntero("Intervalo (" + limInf + " - " + limSup + ") \nIntroduce un número entero (introduce uno negativo para salir): ");
+
+                //Si el numero es < 0 -> Salimos de la funcion
+                if(numero < 0) break;
+                /*
+                //Devuelve dentroIntervalo++ si las 2 condiciones previas son true
+                (numero <= limSup && numero >= limInf) && dentroIntervalo++;
+                //Devuelve fueraIntervalo++ si alguna de las otras condiciones son true
+                (numero > limSup || numero < limInf) && fueraIntervalo++;
+                //Si igualLimite ya era true, lo devuelve, si no comprueba si algun numero era igual a los límites
+                igualLimite = igualLimite || (numero == limSup || numero == limInf);
+                */
+
+                fueraIntervalo += (numero > limSup || numero < limInf);
+                dentroIntervalo += (numero >= limInf && numero <= limSup);
+                igualLimite = (numero == limInf || numero == limSup) || igualLimite;
+
+            } while(true);
+
+            return "Intervalo (" + limInf + " - " + limSup + "). Se han introducido:\n" +
+                fueraIntervalo + " número/s fuera del intervalo\n" +
+                dentroIntervalo + " número/s dentro del intervalo\n" +
+                "Y " + (igualLimite?"SÍ ha introducido algún número igual a los intervalos":"NO se ha introducido ningún número igual a los intervalos");
+        }
+
+                        /*
+                //Si el numero es < 0 -> Salimos de la funcion
+                if(numero < 0) break;
+                //Si el número está dentro del intervalo -> Sumamos a dentroIntervalo, si no a fueraIntervalo
+                (numero <= limSup && numero >= limInf)? dentroIntervalo++ : fueraIntervalo++;
+                //Si alguno de los números es igual a uno de los límites, igualLimite = true
+                if (numero == limInf || numero == limSup) igualLimite = true;
+                */
+
+        /*
+        function intercambiarValor(a, b) {
+            let aux = a;
+            a = b;
+            b = a;
+            return b;
+        }*/
+
+
+        // EJECUCIÓN PRINCIPAL
+        let limSup = pedirLimite("superior");
+        let limInf = pedirLimite("inferior");
+        if (limSup < limInf) {
+            let aux = limInf;
+            limInf = limSup;
+            limSup = aux;
+        }
+        alert(pedirNumerosHastaNegativo(limInf, limSup));
+
+        //!(a||b) -> !a && !b
+        //!(a&&b) -> !a || !b
+
+
+    </script>
+</body>
+
+</html>

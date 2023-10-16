@@ -15,7 +15,25 @@
      * 
     */
    "use strict";
+
+
+   function genFechaRandom_60dias() {
+    document.write("<h1>Fecha aleatoria entre hoy y dentro de 60 días: </h1>");
+
+    let hoy = new Date(Date.now());
+    document.write("<p>Hoy: <b>" + hoy.toLocaleDateString() + "</b></p>");
+
+    let dentroDe60Dias = new Date();
+    dentroDe60Dias.setDate(hoy.getDate() + 60);
+    document.write("<p>Dentro de 60 dias: <b>" + dentroDe60Dias.toLocaleDateString() + "</b></p>");
+
+    let fechaRandom = new Date(hoy.valueOf() + (dentroDe60Dias.valueOf() - hoy.valueOf()) * Math.random());
+    document.write("<p>Resultado: <b>" + fechaRandom.toLocaleDateString() + "</b></p>");
+   }
+   genFechaRandom_60dias();
+   
   </script>
+  <!--<button onclick="genFechaRandom_60dias();" >Generar fecha Random (hoy -> +60 días):</button>-->
   
 </body>
 </html>

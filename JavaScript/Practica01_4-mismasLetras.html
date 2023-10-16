@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Práctica 01 - 1.esPorductoIgual</title>
+</head>
+
+<body>
+  <script>
+    /**mismasLetras: funcion con un array de argumento, el cual tendrá 2 elementos string
+     * Devolverá true si en el primer elemento se encuentran todas las letras del segundo elemento del array
+     * independientemente de Mayus/minus.
+     * ["javascript", "JavaScript"] = true
+     * ["java", "JavaScript"] = false
+     * ["JavaScript", "java"] = true
+     * ["Hola", "aLoh"] = true
+    */
+    "use strict";
+    //Reciber un array y transforma cada una de sus cadenas en minus
+    function transformarMinus(array) {
+      return array.map(letra => {
+        return letra.toLowerCase();
+      });
+    }
+
+    function mismasLetras(array) {
+      if (array.length != 2) return false;
+
+      //Transformamos a array para ponerlo a minus, y de nuevo
+      //transformamos a string, para evaluar toda la cadena con .includes()
+      let string1 = transformarMinus(array.shift().split(""));
+      string1 = string1.join("");
+
+      //Transformamos a array para ponerlo a minus
+      let arrString2 = transformarMinus(array.shift().split(""));
+
+      //Si la 2a cadena, cada una de sus letras las incluye la 1a cadena = true
+      return arrString2.every(letra => {
+        return string1.includes(letra);
+      });
+    }
+
+    let arr1 = ["javascript", "JavaScript"];
+    let arr2 = ["java", "JavaScript"];
+    let arr3 = ["JavaScript", "java"];
+    let arr4 = ["Hola", "aLoh"];
+
+    console.log(mismasLetras(arr1));
+    console.log(mismasLetras(arr2));
+    console.log(mismasLetras(arr3));
+    console.log(mismasLetras(arr4));
+
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Práctica 01 - 1.esPorductoIgual</title>
+</head>
+
+<body>
+  <script>
+    /**palabraMasLarga: Encontrar la palabra más larga de la frase
+     * que se pase como argumento
+    */
+    "use strict";
+    function palabraMasLarga(frase) {
+      frase = frase.trim(frase);
+      let arrayPalabras = frase.split(" ");
+      let masLarga = arrayPalabras.pop();
+      do {
+        let buscarMasLarga = arrayPalabras.find(palabra => {
+          if (palabra.length > masLarga.length) return palabra;
+        });
+        if (buscarMasLarga == undefined) return masLarga;
+        masLarga = buscarMasLarga;
+      } while (true);
+    }
+    let frase = prompt("Introduce una frase:", "Vegeta es el Super Saiyan más puto flipante que hay en el MULTI-UNIVERSO de DBZ");
+    document.write(`Tu frase: <i>"${frase}"</i><br/>` + " La palabra más larga: <strong>" + palabraMasLarga(frase) + "</strong>");
+
+  </script>
+
+</body>
+
+</html>

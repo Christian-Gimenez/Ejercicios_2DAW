@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Práctica 01 - 1.esPorductoIgual</title>
+</head>
+<body>
+  <script>
+    /**pedirFecha("aaaa/mm/dd") -> Date
+     * diasEntreFechas(Date, Date) -> numDias entre fechas, decimal en h, seg y min
+    */
+   "use strict";
+   let fecha1Prueba = new Date("2013/09/13");
+   let fecha2Prueba = new Date("1913/11/13");
+
+   function pedirFecha() {
+    let stringFecha = "1958/12/31";
+    let fecha;
+    do {
+      stringFecha = prompt("Introduce una fecha. Formato 'AAAA/MM/DD':", "1958/12/31");
+      fecha = new Date(stringFecha);
+      console.log(fecha.toLocaleDateString());
+      if(fecha != "Invalid Date") {
+        return fecha;
+      }
+      alert("¡Fecha incorrecta!")
+    } while (true);
+   }
+
+   function diasEntreFechas(fecha1, fecha2) {
+    let fechaMayor = (fecha1 > fecha2)? fecha1 : fecha2;
+    let fechaMenor = (fecha1 < fecha2)? fecha1 : fecha2;
+
+    let dias = (fechaMayor - fechaMenor) / 86400000;
+    console.log("Dias: " + dias);
+    let horas = dias / 24;
+    console.log("Horas: " + horas);
+    let minutos = horas / 60;
+    console.log("Minutos: " + minutos);
+    let segundos = minutos / 60;
+    console.log("Segundos: " + segundos);
+    
+    dias = Math.floor(dias);
+    horas = Math.floor(horas);
+    minutos = Math.floor(minutos);
+    segundos = Number(segundos.toFixed(2));
+    
+    return "Tiempo pasado entre las fechas " + fechaMayor.toLocaleDateString() + " y " + fechaMenor.toLocaleDateString()
+          + ": " + dias + " días" + ((horas >= 0)? ", " + horas + " horas" : "")
+          + ((minutos >= 0)? ", " + minutos + " minutos" : "")
+          + ((segundos >= 0)? ", " + segundos + " segundos": "");
+   }
+
+   
+   let fecha1 = pedirFecha();
+   let fecha2 = pedirFecha();
+   document.write(diasEntreFechas(fecha1, fecha2));
+   //document.write(diasEntreFechas(fecha1Prueba, fecha2Prueba));
+   
+  </script>
+  
+</body>
+</html>

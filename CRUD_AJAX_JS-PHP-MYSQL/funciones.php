@@ -7,7 +7,7 @@ function actualizarProducto($nombre, $precio, $descripcion, $id) {
   //Prepara la sentencia SQL de UPDATE
   $sentencia = $bd->prepare("UPDATE productos SET nombre = ?, precio = ?, descripcion = ? WHERE id = ?");
   //Ejecuta la sentencia para modificar el objeto del id especificado
-  $sentencia->execute([$nombre, $precio, $descripcion, $id]);
+  return $sentencia->execute([$nombre, $precio, $descripcion, $id]);
 }
 
 //Obtiene un objeto del producto según su id, util para modificar un producto
@@ -47,7 +47,7 @@ function guardarProducto($nombre, $precio, $descripcion) {
   //Llama a obtenerConexion() Para instanciar el obj PDO ya preparado 
   $bd = obtenerConexion();
   //Prepara la sentencia, evitando SQL INJECTION
-  $sentencia = $bd->prepare("INSERT INTO productos(nombre, precio, descripcion) VALUES(?, ?, ?)");
+  $sentencia = $bd->prepare("INSERT INTO productos(nombre, precio, descripcion) VALUES (?, ?, ?)");
   //Ejecuta la sentencia pasando el array con los argumentos
   return $sentencia->execute([$nombre, $precio, $descripcion]);
 }

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Práctica 01 - 1.esPorductoIgual</title>
+</head>
+
+<body>
+  <script>
+    /**Funcion que recibe un array numerico.
+     * Tiene que decir si el producto de los valores que se encuentran en las posiciones pares
+     * es el mismo del producto de los valores de las posiciones impares.
+     * El valor en la posición 0 se considera impar.
+     * 
+     * Crear el método crearArrayAleatorio(numElems, n) -> retorna un array generado con números
+     * comprendidos entre numElems y numElems*2
+     * y los valores tienen que ser también aleatorios, entre 1 y n, siendo n > 1.
+     * 
+     * Hay que mostrar la info con document.write(), mostrando el array generado, el producto de los pares e impares
+     * y la indicación de si el producto es igual o no.
+     * */
+    "use strict";
+    function esProductoIgual(arrayNums) {
+      let prodImpares = arrayNums[0];
+      let prodPares = arrayNums[2];
+      arrayNums.forEach((elem, i) => {
+        if (i != 0 && i != 2) {
+          (i % 2 == 0) ? prodPares *= elem : prodImpares *= elem;
+        }
+      });
+
+      return "El producto de los elementos pares = <strong>" + prodPares + "</strong></br>"
+        + "El producto de los elementos impares = <strong>" + prodImpares + "</strong></br>"
+        + "Los productos de pares e impares son: <strong>" + ((prodPares == prodImpares) ? "IGUALES" : "DISTINTOS") + "</strong><br/>";
+    }
+
+    function genNumRandom(num) {
+      let numRandom = 0;
+      do {
+        //Redondeamos con Math.floor el resultado de ((hastaDonde - 1) * Math.random())
+        numRandom = num + Math.floor((num - 1) * Math.random()); //Sumamos a num lo generado para obtener desde 1 hasta num
+        if (numRandom > 1) return numRandom;
+      } while (true);
+
+    }
+
+    function crearArrayAleatorio(numElems, n) {
+      //Vamos desde numElems hasta un número aleatorio entre el doble de numElems y numElems
+      const tamArray = numElems + Math.floor(((numElems * 2) - numElems + 1) * Math.random());
+      let array = [];
+      for (let i = 0; i < tamArray; i++) {
+        array.push(genNumRandom(n));
+      }
+      return array;
+    }
+
+    //Ejecución del programa
+    let arrayIgualesPrueba = [1, 2, 2, 3, 3]; //Para probar que salen iguales
+    const arrayGenerado = crearArrayAleatorio(10, 5);
+    document.write("<h1>Resultado:</h1>" +
+      "<p>El array generado es: <strong>[" + arrayGenerado.join(", ") + "]</strong> -> Longitud: <strong>" + arrayGenerado.length + "</strong></p>" +
+      esProductoIgual(arrayGenerado));
+    document.write("<hr/>");
+    document.write("<p><i>Nota: Por si siempre genera DISTINTO <br/>aquí está el resultado de esProductoIgual([1,2,2,3,3]): <br/>" + esProductoIgual(arrayIgualesPrueba) + "</i></p>");
+
+  </script>
+
+</body>
+
+</html>

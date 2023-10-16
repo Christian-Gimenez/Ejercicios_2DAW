@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Práctica 01 - 1.esPorductoIgual</title>
+</head>
+
+<body>
+  <script>
+    /**invertirCadena: Invertir el orden de los caracteres de la frase
+     * que se pasa como argumento
+    */
+    "use strict";
+    function invertirCadenaLiteralmente(cadena) {
+      let resultado = "";
+      for (let i = cadena.length - 1; i >= 0; i--) {
+        resultado += cadena.charAt(i);
+      }
+      return resultado;
+    }
+
+    function invertirCadenaPorPalabra(cadena, separador) {
+      let resultado = "";
+      let array = cadena.split(separador);
+      array.forEach(palabra => {
+        resultado += invertirCadenaLiteralmente(palabra) + separador;
+      });
+      return resultado;
+    }
+
+    function primeraEnMayus(cadena) {
+      let resultado = cadena.trim();
+      resultado = resultado.toLowerCase();
+      const primeraLetra = resultado[0].toUpperCase();
+      resultado = primeraLetra + resultado.substring(1);
+      return resultado;
+    }
+    let cadena = "Hola don pepito";
+    cadena1 = invertirCadenaLiteralmente("Hola don pepito");
+    cadena1_2 = primeraEnMayus(cadena1);
+    cadena2 = invertirCadenaPorPalabra("Hola don pepito", " ");
+    cadena2_2 = primeraEnMayus(cadena2);
+
+    document.write("Invertir cadena tal cual: <br/><b>" + cadena1 + "</b>");
+    document.write("<hr/>");
+    document.write("Invertir cadena como la anterior, pero con las Mayus bien puestas: <br/><b>" + cadena1_2 + "</b>");
+    document.write("<hr/>");
+    document.write("Invertir cadena palabra por palabra (manteniendo estructura): <br/><b>" + cadena2 + "</b>");
+    document.write("<hr/>");
+    document.write("Invertir cadena como la anterior, pero con las Mayus bien puestas: <br/><b>" + cadena2_2 + "</b>");  </script>
+
+</body>
+
+</html>

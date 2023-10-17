@@ -33,9 +33,20 @@
     //FOR OF guarda cada valor. Si salta undefined
     for(let v of a) console.log(v); //Imprime cada valor
 
-    //REDUCE
+    /*REDUCE puede hacer TODO. Si en el 2ºarg metes un valor, será el valor inicial
+    del acumulador, si no, el acumulador será la primera posición del array
+    */
     b = a.reduce(function(acc, valor, pos, arr) {
-      
+      return acc + v; //El valor inicial = 0, y va sumando el anterior + siguiente
+    }, 0);
+
+    let bRed = a.reduce(function(acc, valor, pos, arr) {
+      acc[pos] = valor * 2;
+      return acc;
+    }, []); //Si le indicamos que el 1ºValor es un array, devolverá un array
+
+    let bMap = a.map(function(valor, pos, arr) {
+      return valor * 2;
     });
   </script>
   

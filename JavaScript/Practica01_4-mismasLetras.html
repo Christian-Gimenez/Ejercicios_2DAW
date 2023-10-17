@@ -52,6 +52,17 @@
     console.log(mismasLetras(arr3));
     console.log(mismasLetras(arr4));
 
+    //SOLUCIÓN JOSE
+    function mismasLetrasJose(arr) {
+      let cad0 = arr[0].toLowerCase();
+      let cad1 = arr[1].toLowerCase();
+
+      for(let i = 0; i < cad1.length(); i++) {
+        if(cad0.indexOf(cad1[i]) == -1) return false;
+      }
+      return true;
+    }
+
   </script>
 
 </body>

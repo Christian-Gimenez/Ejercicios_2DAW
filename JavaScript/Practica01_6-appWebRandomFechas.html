@@ -29,9 +29,11 @@
       color: rgb(0, 203, 0);
       border-radius: 10px;
       padding: 3px;
+      font-weight: bold;
     }
 
     header {
+      position: fixed;
       text-align: center;
       background-color: rgb(27, 27, 27);
       color: rgb(0, 203, 0);
@@ -59,19 +61,20 @@
       text-align: center;
     }
 
-    #menu, #contenedor {
+    #menu,
+    #terminal {
       background-color: rgb(27, 27, 27);
       color: rgb(0, 203, 0);
       border: 3px solid rgb(0, 0, 0);
       font-family: monospace;
     }
 
-    #contenedor {      
-      position: relative;
+    #terminal {
+      position: fixed;
       padding: 20px;
-      top: 20px;
+      top: 100px;
       left: 20px;
-      max-width: 45%;
+      width: 450px;
       min-height: 169px;
       font-size: 14px;
     }
@@ -135,7 +138,7 @@
     }
 
     function pintarDentro60Dias(borrar) {
-      let escribir = document.getElementById("contenedor");
+      let escribir = document.getElementById("terminal");
       let hoy = new Date(Date.now());
       let dentroDe60Dias = new Date(sumar60Dias());
       let random60Dias = new Date(genFechaRandom(hoy, dentroDe60Dias));
@@ -161,7 +164,7 @@
     }
 
     function pintarDentro13Meses(borrar) {
-      let escribir = document.getElementById("contenedor");
+      let escribir = document.getElementById("terminal");
       let hoy = new Date(Date.now());
       let dentroDe13Meses = new Date(sumar13Meses());
       let random13Meses = new Date(genFechaRandom(hoy, dentroDe13Meses));
@@ -187,7 +190,7 @@
     }
 
     function pintarTodo() {
-      let escribir = document.getElementById("contenedor");
+      let escribir = document.getElementById("terminal");
       escribir.innerHTML = "";
       pintarDentro60Dias(false);
       escribir.innerHTML += "<br/><hr style='color: green'/>";
@@ -200,18 +203,20 @@
     <h1>Generador de fechas aleatorias</h1>
   </header>
 
-  <div id="contenedor">Esperando respuesta del usuario...</div>
-  <div id="menu">
-    <h2>Selecciona lo que desees realizar</h2>
-    <p>Generar una fecha aleatoria entre hoy y <input type="button" value="+60 días"
-        onclick="pintarDentro60Dias(true);" />
-    </p>
+  <div id="contenedor">
+    <div id="terminal">Esperando respuesta del usuario...</div>
+    <div id="menu">
+      <h2>Selecciona lo que desees realizar</h2>
+      <p>Generar una fecha aleatoria entre hoy y <input type="button" value="+60 días"
+          onclick="pintarDentro60Dias(true);" />
+      </p>
 
-    <p>Generar una fecha aleatoria entre hoy y <input type="button" value="+13 meses"
-        onclick="pintarDentro13Meses(true);" />
-    </p>
-    <p>Realizar <input type="button" value="Ambas opciones" onclick="pintarTodo();" /></p>
-    <p>O <input type="button" value="Borrar todo" onclick="location.reload();" /></p>
+      <p>Generar una fecha aleatoria entre hoy y <input type="button" value="+13 meses"
+          onclick="pintarDentro13Meses(true);" />
+      </p>
+      <p>Realizar <input type="button" value="Ambas opciones" onclick="pintarTodo();" /></p>
+      <p>O <input type="button" value="Borrar todo" onclick="location.reload();" /></p>
+    </div>
   </div>
 
 

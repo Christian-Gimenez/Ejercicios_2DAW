@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    "use strict";
+    let a = [3,4,7,8,10,45,undefined,-1,3];
+    a[12] = 8888;
+
+    //FOR EACH se utiliza para MOSTRAR. No devuelve nada.
+    a.forEach(function(valor, pos, arr) {
+      document.write(valor + "<br/>");
+      //return valor; -> NO DEVUELVE NADA.
+    });
+
+    //MAP se utiliza para DEVOLVER.
+    let b = a.map(function(valor, pos, arr) {
+      return valor - pos; //Eliminaría el undefined. -> [3, 3, 5, 5, 6, 40, NaN, -8, -5, empty × 3, 8876]
+    });
+
+    //FOR CONVENCIONAL no salta los undefined
+    for(let i = 0; i < a.length; i++) {
+      document.write(a[i] + "<br/>"); //Si imprimiria los undefined
+    }
+
+    //FOR IN guarda cada índice. Si salta undefined
+    for(let i in a) console.log(a[i]); //Para imprimir valor hay que -> array[indice]
+
+    //FOR OF guarda cada valor. Si salta undefined
+    for(let v of a) console.log(v); //Imprime cada valor
+
+    //REDUCE
+    b = a.reduce(function(acc, valor, pos, arr) {
+      
+    });
+  </script>
+  
+</body>
+</html>

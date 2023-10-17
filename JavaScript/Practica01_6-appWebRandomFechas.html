@@ -1,10 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Práctica 01 - 1.esPorductoIgual</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(rgb(148, 62, 202), blue);
+      min-height: 1080px;
+    }
+
+    p {
+      margin-top: 8px;
+    }
+
+    hr {
+      border: 1px dashed rgb(0, 203, 0);
+    }
+
+    input[type="button"] {
+      background-color: rgb(36, 50, 50);
+      color: rgb(0, 203, 0);
+      border-radius: 10px;
+      padding: 3px;
+    }
+
+    header {
+      text-align: center;
+      background-color: rgb(27, 27, 27);
+      color: rgb(0, 203, 0);
+      width: 100%;
+      height: 80px;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    h1 {
+      position: relative;
+      top: 20px;
+    }
+
+    #menu {
+      background-color: rgb(221, 221, 221);
+      padding: 20px;
+      position: fixed;
+      top: 100px;
+      right: 20px;
+    }
+
+    #menu p,
+    #menu h2 {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    #menu, #contenedor {
+      background-color: rgb(27, 27, 27);
+      color: rgb(0, 203, 0);
+      border: 3px solid rgb(0, 0, 0);
+      font-family: monospace;
+    }
+
+    #contenedor {      
+      position: relative;
+      padding: 20px;
+      top: 20px;
+      left: 20px;
+      max-width: 45%;
+      min-height: 169px;
+      font-size: 14px;
+    }
+  </style>
 </head>
+
 <body>
   <script>
     /**App web que genere 2 fechas random:
@@ -14,26 +87,134 @@
      * Escribir resultados en el DOM
      * 
     */
-   "use strict";
+    "use strict";
 
+    function genFechaRandom(desde, hasta) {
+      let fechaRandom = new Date(desde.valueOf() + (hasta.valueOf() - desde.valueOf()) * Math.random());
+      return fechaRandom;
+    }
 
-   function genFechaRandom_60dias() {
-    document.write("<h1>Fecha aleatoria entre hoy y dentro de 60 días: </h1>");
+    function sumar13Meses() {
+      let hoy = new Date(Date.now());
+      let dentroDe13Meses = new Date();
+      dentroDe13Meses.setDate(hoy.getDate() + (30 * 13));
+      return dentroDe13Meses;
+    }
 
-    let hoy = new Date(Date.now());
-    document.write("<p>Hoy: <b>" + hoy.toLocaleDateString() + "</b></p>");
+    function sumar60Dias() {
+      let hoy = new Date(Date.now());
+      let dentroDe60Dias = new Date();
+      dentroDe60Dias.setDate(hoy.getDate() + 60);
+      return dentroDe60Dias;
+    }
 
-    let dentroDe60Dias = new Date();
-    dentroDe60Dias.setDate(hoy.getDate() + 60);
-    document.write("<p>Dentro de 60 dias: <b>" + dentroDe60Dias.toLocaleDateString() + "</b></p>");
+    function tiempoEntreFechas(desde, hasta) {
+      let fechaMenor = (desde < hasta) ? desde : hasta;
+      let fechaMayor = (desde > hasta) ? desde : hasta;
 
-    let fechaRandom = new Date(hoy.valueOf() + (dentroDe60Dias.valueOf() - hoy.valueOf()) * Math.random());
-    document.write("<p>Resultado: <b>" + fechaRandom.toLocaleDateString() + "</b></p>");
-   }
-   genFechaRandom_60dias();
-   
+      let milisegundos = fechaMayor - fechaMenor;
+
+      let dias = milisegundos / 86400000;
+      let diasDeMas = 0;
+      if (dias > 30) {
+        diasDeMas = dias;
+        dias = 0;
+      }
+
+      let meses = diasDeMas / 30;
+      let mesesDeMas = 0;
+      if (meses > 12) {
+        mesesDeMas = meses;
+        meses = 0;
+      }
+
+      let anios = mesesDeMas / 12;
+
+      let resultado = [Math.round(anios), Math.round(meses), Math.round(dias)];
+      return resultado;
+    }
+
+    function pintarDentro60Dias(borrar) {
+      let escribir = document.getElementById("contenedor");
+      let hoy = new Date(Date.now());
+      let dentroDe60Dias = new Date(sumar60Dias());
+      let random60Dias = new Date(genFechaRandom(hoy, dentroDe60Dias));
+      let hoy_60Dias = tiempoEntreFechas(hoy, dentroDe60Dias);
+      let hoy_random60Dias = tiempoEntreFechas(hoy, random60Dias);
+
+      if (borrar) escribir.innerHTML = "";
+
+      escribir.innerHTML += `<p><u>Hoy: <b> ${hoy.toLocaleDateString()} </b></u></p>`;
+
+      escribir.innerHTML += "<p>Dentro de 60 dias: <b>" + dentroDe60Dias.toLocaleDateString() + "</b></p>";
+      escribir.innerHTML += "<p>- Tiempo pasado entre hoy <b>" + hoy.toLocaleDateString() +
+        "</b> y dentro de 60 días <b>" + dentroDe60Dias.toLocaleDateString() + "</b>: <b>"
+        + hoy_60Dias.shift() + "</b> año&#47;s, <b>" + hoy_60Dias.shift() + "</b> mes&#47;es y <b>" +
+        hoy_60Dias.shift() + "</b> día&#47;s</p>";
+
+      escribir.innerHTML += "<p>Fecha random entre " + hoy.toLocaleDateString() + " y "
+        + dentroDe60Dias.toLocaleDateString() + ": <b>" + random60Dias.toLocaleDateString() + "</b></p>";
+      escribir.innerHTML += "<p>- Tiempo pasado entre hoy <b>" + hoy.toLocaleDateString() +
+        "</b> y <b>" + random60Dias.toLocaleDateString() + "</b>: <b>"
+        + hoy_random60Dias.shift() + "</b> año&#47;s, <b>" + hoy_random60Dias.shift() + "</b> mes&#47;es y <b>" +
+        hoy_random60Dias.shift() + "</b> día&#47;s</p>";
+    }
+
+    function pintarDentro13Meses(borrar) {
+      let escribir = document.getElementById("contenedor");
+      let hoy = new Date(Date.now());
+      let dentroDe13Meses = new Date(sumar13Meses());
+      let random13Meses = new Date(genFechaRandom(hoy, dentroDe13Meses));
+      let hoy_13Meses = tiempoEntreFechas(hoy, dentroDe13Meses);
+      let hoy_random13Meses = tiempoEntreFechas(hoy, random13Meses);
+
+      if (borrar) escribir.innerHTML = "";
+
+      escribir.innerHTML += "<p><u>Hoy: <b>" + hoy.toLocaleDateString() + "</b></u></p>";
+
+      escribir.innerHTML += "<p>Dentro de 13 Meses: <b>" + dentroDe13Meses.toLocaleDateString() + "</b></p>";
+      escribir.innerHTML += "<p>- Tiempo pasado entre hoy <b>" + hoy.toLocaleDateString() +
+        "</b> y dentro de 13 meses <b>" + dentroDe13Meses.toLocaleDateString() + "</b>: <b>"
+        + hoy_13Meses.shift() + "</b> año&#47;s, <b>" + hoy_13Meses.shift() + "</b> mes&#47;es y <b>" +
+        hoy_13Meses.shift() + "</b> día&#47;s</p>";
+
+      escribir.innerHTML += "<p>Fecha random entre " + hoy.toLocaleDateString() + " y "
+        + dentroDe13Meses.toLocaleDateString() + ": <b>" + random13Meses.toLocaleDateString() + "</b></p>";
+      escribir.innerHTML += "<p>- Tiempo pasado entre <b>" + hoy.toLocaleDateString() +
+        "</b> y <b>" + random13Meses.toLocaleDateString() + "</b>: <b>"
+        + hoy_random13Meses.shift() + "</b> año&#47;s, <b>" + hoy_random13Meses.shift() + "</b> mes&#47;es y <b>" +
+        hoy_random13Meses.shift() + "</b> día&#47;s</p>";
+    }
+
+    function pintarTodo() {
+      let escribir = document.getElementById("contenedor");
+      escribir.innerHTML = "";
+      pintarDentro60Dias(false);
+      escribir.innerHTML += "<br/><hr style='color: green'/>";
+      pintarDentro13Meses(false);
+    }
+
   </script>
   <!--<button onclick="genFechaRandom_60dias();" >Generar fecha Random (hoy -> +60 días):</button>-->
-  
+  <header>
+    <h1>Generador de fechas aleatorias</h1>
+  </header>
+
+  <div id="contenedor">Esperando respuesta del usuario...</div>
+  <div id="menu">
+    <h2>Selecciona lo que desees realizar</h2>
+    <p>Generar una fecha aleatoria entre hoy y <input type="button" value="+60 días"
+        onclick="pintarDentro60Dias(true);" />
+    </p>
+
+    <p>Generar una fecha aleatoria entre hoy y <input type="button" value="+13 meses"
+        onclick="pintarDentro13Meses(true);" />
+    </p>
+    <p>Realizar <input type="button" value="Ambas opciones" onclick="pintarTodo();" /></p>
+    <p>O <input type="button" value="Borrar todo" onclick="location.reload();" /></p>
+  </div>
+
+
 </body>
+
 </html>

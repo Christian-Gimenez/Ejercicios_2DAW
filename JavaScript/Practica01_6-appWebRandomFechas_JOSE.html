@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Práctica 01 - 1.esPorductoIgual</title>
+  < </head>
+
+<body>
+  <script>
+    /**App web que genere 2 fechas random:
+     * Una comprendida entre hoy + 60 días
+     * Otra comprendida entre hoy + 14 meses
+     * Calcular nº años, meses y días desde hoy a esas fechas random
+     * Escribir resultados en el DOM
+     * 
+    */
+    "use strict";
+    function main() {
+      //No hace falta Date.now(). directamente new Date() sin args te da HOY.r
+      let fechaActual = new Date();
+
+      fecha60 = new Date(fechaActual);
+      //Hay que de nuevo poner fechaInicial.getDate() por que si no añade 60 dias desde el 1970
+      fecha60.setDate(fechaInicial.getDate() + 60);
+
+
+      let fecha13 = new Date(fechaActual);
+      fecha13.setMonth(fechaInicial.getMonth() + 13);
+
+      let fechaG1 = fechaAleatoria(fechaInicial, fecha60);
+      let fechaG2 = fechaAleatoria(fechaInicial, fecha13);
+
+      let cadG1 = "Años" + fechaG1[2] + ", meses: " + fechaG1[1] + ", días: " + fechaG1[0];
+      let cadG2 = "Años" + fechaG2[2] + ", meses: " + fechaG2[1] + ", días: " + fechaG2[0];
+      document.write(cadG1);
+      document.write(cadG2);
+    }
+
+    function calcularInterval(fI, fF) {
+      //Si me pasan fI > fF, vuelvo a llamar a la funcion con los arg al reves
+      if (fI < fF) return calcularIntervalo(fF, fI);
+      let dif = fF.getTime() - fI.getTime();
+      let res = [];
+
+      res[2] = fF.getDate() - 1970;
+      res[1] = fF.getMonth() - 0;
+      res[0] = fF.getFullYear() - 1;
+
+      return res;
+    }
+
+    function fechaAleatoria(fechaInicio, fechaFinal) {
+      const msegInicio = fechaInicio.getTime();
+      const msegFinal = fechaFinal.getTime();
+
+      return new Date(msegInicio + Math.floor(msegFinal - msegInicio + 1) * Math.random());
+    }
+
+    main();
+
+  </script>
+
+
+</body>
+
+</html>

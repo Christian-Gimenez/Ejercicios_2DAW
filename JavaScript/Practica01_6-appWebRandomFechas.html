@@ -93,7 +93,7 @@
     "use strict";
 
     function genFechaRandom(desde, hasta) {
-      let fechaRandom = new Date(desde.valueOf() + (hasta.valueOf() - desde.valueOf()) * Math.random());
+      let fechaRandom = new Date(desde.valueOf() + Math.floor((hasta.valueOf() - desde.valueOf() + 1) * Math.random()));
       return fechaRandom;
     }
 

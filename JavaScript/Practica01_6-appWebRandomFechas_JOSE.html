@@ -31,9 +31,11 @@
 
       let fechaG1 = fechaAleatoria(fechaInicial, fecha60);
       let fechaG2 = fechaAleatoria(fechaInicial, fecha13);
+      let int1 = calcularInterval(fechaActual, fecha60);
+      let int2 = calcularInterval(fechaActual, fecha13);
 
-      let cadG1 = "Años" + fechaG1[2] + ", meses: " + fechaG1[1] + ", días: " + fechaG1[0];
-      let cadG2 = "Años" + fechaG2[2] + ", meses: " + fechaG2[1] + ", días: " + fechaG2[0];
+      let cadG1 = "Años" + int1[2] + ", meses: " + int1[1] + ", días: " + int1[0];
+      let cadG2 = "Años" + int2[2] + ", meses: " + int2[1] + ", días: " + int2[0];
       document.write(cadG1);
       document.write(cadG2);
     }
@@ -41,7 +43,7 @@
     function calcularInterval(fI, fF) {
       //Si me pasan fI > fF, vuelvo a llamar a la funcion con los arg al reves
       if (fI < fF) return calcularIntervalo(fF, fI);
-      let dif = fF.getTime() - fI.getTime();
+      let dif = new Date(fF.getTime() - fI.getTime());
       let res = [];
 
       res[2] = fF.getDate() - 1970;

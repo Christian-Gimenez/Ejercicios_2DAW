@@ -14,30 +14,30 @@ $btnGuardar.onclick = async() => {
   const precio = parseFloat($precio.value);
   //Validamos en el frontend los datos, aunque habrá que validarlos en el backend igualmente
   if(!nombre) {
-    //alert("Error: Escribe el nombre");
-    return Swal.fire({
+    return alert("Error: Escribe el nombre");
+    /*return Swal.fire({
       icon: "error",
       text: "Escribe el nombre",
       timer: 700 //Ocultar dentro de 0.7 segundos
-    });
+    });*/
   }
 
   if(!descripcion) {
-    //alert("Error: Escribe la descripción");
-    return Swal.fire({
+    return alert("Error: Escribe la descripción");
+    /*return Swal.fire({
       icon: "error",
       text: "Escribe la descripción",
       timer: 700 //Ocultar dentro de 0.7 segundos
-    });
+    });*/
   }
 
   if(!precio) {
-    //alert("Error: Escribe el precio");
-    return Swal.fire({
+    return alert("Error: Escribe el precio");
+    /*return Swal.fire({
       icon: "error",
       text: "Escribe el precio",
       timer: 700 //Ocultar dentro de 0.7 segundos
-    });
+    });*/
   }
 
   //El JSON que se mandará al backend de PHP
@@ -63,12 +63,12 @@ $btnGuardar.onclick = async() => {
     //Si obtuvimos respuesta true del backend
     if(respuesta) {
       //Avisamos al user de que se realizó correctamente
-      //alert("Producto guardado");
-      Swal.fire({
+      alert("Producto guardado");
+      /*Swal.fire({
         icon: "success",
         text: "Producto guardado",
         timeR: 700
-      });
+      });*/
       //Limpiamos el formulario
       $nombre.value = "";
       $descripcion.value = "";
@@ -76,20 +76,20 @@ $btnGuardar.onclick = async() => {
 
     } else {
       //Si hubo error, lo notificamos al user
-      //alert("El servidor no envió una respuesta exitosa");
-      Swal.fire({
+      alert("El servidor no envió una respuesta exitosa");
+      /*Swal.fire({
         icon: "error",
         text: "El servidor no envió una respuesta exitosa"
-      });
+      });*/
     }
   } catch (e) {
     //En caso de que haya un error en el servidor
-    Swal.fire({
-      //alert("Error de servidor. Inténtelo de nuevo.\nEl error es: " + e);
+    alert("Error de servidor. Inténtelo de nuevo.\nEl error es: " + e);
+    /*Swal.fire({
       icon: "error",
       title: "Error de servidor",
       text: "Inténtelo de nuevo. el error es: " + e
-    });
+    });*/
   }
 
 };

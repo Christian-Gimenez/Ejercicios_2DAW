@@ -1,6 +1,6 @@
 <?php
 //Decodificamos el JSON que vino del frontend
-$cargaUtil = json_decode("php://input");
+$cargaUtil = json_decode(file_get_contents("php://input"));
 if(!$cargaUtil) {
   //Devolvemos error http 500 si no
   http_response_code(500);

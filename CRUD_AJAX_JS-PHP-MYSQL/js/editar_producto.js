@@ -35,30 +35,30 @@ $btnGuardar.onclick = async () => {
   const precio = $precio.value;
 
   if (!nombre) {
-    //alert("Error: Escribe el nombre");
-    return Swal.fire({
+    return alert("Error: Escribe el nombre");
+    /*return Swal.fire({
       icon: "error",
       text: "Escribe el nombre",
       timer: 700
-    });
+    });*/
   }
 
   if (!descripcion) {
-    //alert("Error: Escribe la descripción");
-    return Swal.fire({
+    return alert("Error: Escribe la descripción");
+    /*return Swal.fire({
       icon: "error",
       text: "Escribe la descripción",
       timer: 700
-    });
+    });*/
   }
 
   if (!precio) {
-    //alert("Error: Escribe el precio");
-    return Swal.fire({
+    return alert("Error: Escribe el precio");
+    /*return Swal.fire({
       icon: "error",
       text: "Escribe el precio",
       timer: 700
-    });
+    });*/
   }
 
   //Codificamos el JSON que mandaremos al backend
@@ -75,23 +75,23 @@ $btnGuardar.onclick = async () => {
     const respuesta = await respuestaRAW.json();
     if(respuesta) {
       //Y si llegamos hasta aquí, todo ha ido bien
-      //await alert("Producto actualizado");
-      await Swal.fire({ //Esperamos a que la alerta se muestre
+      alert("Producto actualizado");
+      /*await Swal.fire({ //Esperamos a que la alerta se muestre
         icon: "success",
         text: "Producto actualizado",
         timer: 700
-      });
+      });*/
       //Redireccionamos a todos los productos
       window.location.href = "./productos.php";
     }
   } catch (e) {
     //En caso de que haya un error
-    //alert("Error de servidor");
-    Swal.fire({
+    alert("Error de servidor");
+    /*Swal.fire({
       icon: "error",
       title: "Error de servidor",
       text: "Inténtelo de nuevo. El error es: " + e
-    });
+    });*/
   }
 
 }

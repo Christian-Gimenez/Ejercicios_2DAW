@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nombres de bebés</title>
+  <script src="nomnac21-01.js"></script>
+</head>
+<body>
+  <script>
+    const datos = nombres //Cogemos la cadena
+                    .split("\n") //La dividimos en un array
+                    .map(dato => dato.trim()) //Devolvemos el mismo array sin espacios extras
+                    .filter(reg => reg !== "") //Eliminamos las posiciones del array vacías. Podría haberse hecho tambien con .filter(reg => reg.lenght)
+                    .map(dato => dato.split(";;")); //Dividimos en niños y niñas
+    
+    const niños = datos.map(dato => dato[0].split(";"));
+    const niñas = datos.map(dato => dato[1].split(";").filter(dato => dato !== ""));
+    //Solución JUAN -> const losNombres = (niños.map(dato => dato[0]) + niñas.map(dato => dato[0])).split(",");
+
+    //Solucion: CONCAT
+    const losNombres = niños-map()
+    
+  </script>
+  
+</body>
+</html>

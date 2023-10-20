@@ -42,10 +42,10 @@
       document.write(cadG1 + "<br/>");
       document.write(cadG2 + "<br/>");
     }
-
+//5 por que var no admite ambito de bloque, entonces recoge el valor global
     function calcularIntervalo(fI, fF) {
       //Si me pasan fI > fF, vuelvo a llamar a la funcion con los arg al reves
-      if (fI < fF) return calcularIntervalo(fF, fI);
+      if (fI > fF) return calcularIntervalo(fF, fI);
       let dif = new Date(fF.valueOf() - fI.valueOf());
       let res = [];
 

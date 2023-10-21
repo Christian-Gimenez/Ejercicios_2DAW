@@ -111,13 +111,41 @@
       return dentroDe60Dias;
     }
 
-    function tiempoEntreFechas(desde, hasta) {
-      let fechaMenor = (desde < hasta) ? desde : hasta;
-      let fechaMayor = (desde > hasta) ? desde : hasta;
+    function calcularBisiestos(fechaInicio, fechaFin) {
+      if(fechaInicio > fechaFin) calcularBisiestos(fechaFin, fechaInicio);
 
-      let milisegundos = fechaMayor - fechaMenor;
+      const anioInicio = fechaInicio.getFullYear();
+      const anioFin = fechaFin.getFullYear();
+      let cantidadBisiestos = 0;
+
+      for(let i = anioInicio; i <= anioFin; i++) {
+        //Si es divisor de 4 y no de 100. O si es divisor de 400
+        if((i % 4 === 0 && i % 100 !== 0) || i % 400 === 0) cantidadBisiestos++; 
+      }
+      return cantidadBisiestos;
+    }
+
+    function tiempoEntreFechas(fechaInicio, fechaFin) {
+      if(fechaInicio > fechaFin) tiempoEntreFechas(fechaFin, fechaInicio);
+      let diferencia = new Date(fechaFin.valueOf() - fechaInicio.valueOf());
+      let bisiestos = calcularBisiestos(fechaInicio, fechaFin);
+      let resultado = [];
+
+      resultado[0] = Math.abs(diferencia.getFullYear() - 1970);
+      resultado[1] = diferencia.getMonth();
+      resultado[2] = diferencia.getDate() - 1 + bisiestos;
+
+      return resultado;
+    }
+
+    /*
+    function tiempoEntreFechas(desde, hasta) {
+      if (desde > hasta) tiempoEntreFechas(hasta, desde);
+      let milisegundos = hasta - desde;
 
       let dias = milisegundos / 86400000;
+      
+
       let diasDeMas = 0;
       if (dias > 30) {
         diasDeMas = dias;
@@ -135,7 +163,7 @@
 
       let resultado = [Math.round(anios), Math.round(meses), Math.round(dias)];
       return resultado;
-    }
+    }*/
 
     function pintarDentro60Dias(borrar) {
       let escribir = document.getElementById("terminal");

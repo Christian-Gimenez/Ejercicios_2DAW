@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+h1, h2, h3, h4, div, p, header,
+body, section, article, footer, figure {
+  margin: 0; padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.cabecera p {
+  float: left;
+}
+
+.cabecera button {
+  float: right;
+}
+
+div {
+  clear: both;
+}

@@ -9,12 +9,24 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-.cabecera p {
+
+.cabecera p, .cabecera img {
   float: left;
+}
+
+.cabecera p {
+  margin-top: 10px;
+  margin-left: 15px;
 }
 
 .cabecera button {
   float: right;
+  margin-top: 15px;
+  margin-right: 10px;
+}
+
+.cabecera img {
+  margin-left: 10px;
 }
 
 div {

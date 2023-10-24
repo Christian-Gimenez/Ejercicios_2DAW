@@ -17,13 +17,10 @@
     
     const niños = datos.map(dato => dato[0].split(";"));
     const niñas = datos.map(dato => dato[1].split(";").filter(dato => dato !== ""));
-    //Solución JUAN -> const losNombres = (niños.map(dato => dato[0]) + niñas.map(dato => dato[0])).split(",");
-    //Solucion: CONCAT
 
     //EJERCICIO PARA CASA: Hay que coger ambos arrays y juntarlos, pero sólo los nombres
-    let losNombres = [];
-    losNombres = losNombres.concat(niños.map(dato => dato[0]), niñas.map(dato => dato[0]));
-    losNombres.forEach(valor => document.write(valor + "<br/>"));
+    //Pista que dio Jose: Se hace con concat()
+
     
   </script>
   

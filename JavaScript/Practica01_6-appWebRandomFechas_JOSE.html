@@ -49,6 +49,9 @@
       let dif = new Date(fF.valueOf() - fI.valueOf());
       let res = [];
 
+      //EJERCICIO PARA CASA:
+      //Falta implementar que se tengan en cuenta los años bisiestos que hayan pasado
+
       res[2] = Math.abs(dif.getFullYear() - 1970);
       res[1] = dif.getMonth();
       res[0] = dif.getDate() - 1;

@@ -21,10 +21,250 @@
     //Solucion: CONCAT
 
     //EJERCICIO PARA CASA: Hay que coger ambos arrays y juntarlos, pero sólo los nombres
-    let losNombres = [];
-    losNombres = losNombres.concat(niños.map(dato => dato[0]), niñas.map(dato => dato[0]));
-    losNombres.forEach(valor => document.write(valor + "<br/>"));
+    //let losNombres = [];
+    //losNombres = losNombres.concat(niños.map(dato => dato[0]), niñas.map(dato => dato[0]));
+    //losNombres.forEach(valor => document.write(valor + "<br/>"));
     
+    //Solucion Jose
+    const dummy = [];
+    const losNombres = niños.map(dato => dato[0])
+                .concat(niñas.map(dato => dato[0]));
+
+    //Hacer un metodo que me diga cuantos nombres tienen la letra pasada por argumento
+    function cuantosNombresTienenLaLetra(array, letra) {
+      letra = letra.toLocaleUpperCase();
+      let contador = 0;
+      array.forEach(valor => {
+        if(valor.includes(letra)) contador++;
+      });
+      return contador;
+    }
+    console.log("Hay " + cuantosNombresTienenLaLetra(losNombres, "A") + " niño/s con la letra 'A'");
+
+    //ret: Array de nombres
+    function nombresQueComienzanPor(arr, letra) {
+      letra = letra.toLocaleUpperCase();
+      return arr.filter(valor => {
+        return valor.charAt(0) == letra;
+      });
+    }
+
+    //ret: bool
+    function estaMiNombre(arr, nombre) {
+      nombre = nombre.toLocaleUpperCase();
+      return arr.includes(nombre);
+    }
+
+    //ret: Número
+    function cuantasVecesApareceLaLetra(arr, letra) {
+      letra = letra.toLocaleUpperCase();
+      let contador = 0;
+      arr.reduce((anterior, valor, indice) => {
+       if(arr.includes(letra, anterior)) contador++;
+       anterior = indice;
+      });
+      return contador;
+    }
+
+    /*
+    [
+    "MARTIN",
+    "HUGO",
+    "MATEO",
+    "LEO",
+    "DANIEL",
+    "ALEJANDRO",
+    "PABLO",
+    "ENZO",
+    "ALVARO",
+    "MARIO",
+    "ADRIAN",
+    "DIEGO",
+    "THIAGO",
+    "BRUNO",
+    "OLIVER",
+    "DAVID",
+    "ALEX",
+    "MARCO",
+    "GONZALO",
+    "MARCOS",
+    "NICOLAS",
+    "ANTONIO",
+    "IZAN",
+    "MIGUEL",
+    "JAVIER",
+    "LUCA",
+    "LIAM",
+    "GAEL",
+    "MARC",
+    "DYLAN",
+    "JUAN",
+    "ANGEL",
+    "CARLOS",
+    "JOSE",
+    "GABRIEL",
+    "SERGIO",
+    "ERIC",
+    "JORGE",
+    "DARIO",
+    "ADAM",
+    "SAMUEL",
+    "HECTOR",
+    "RODRIGO",
+    "IKER",
+    "FRANCISCO",
+    "PAU",
+    "JESUS",
+    "GUILLERMO",
+    "JAIME",
+    "LUIS",
+    "IAN",
+    "NOAH",
+    "AARON",
+    "VICTOR",
+    "MOHAMED",
+    "RAFAEL",
+    "PEDRO",
+    "AMIR",
+    "UNAI",
+    "JULEN",
+    "RUBEN",
+    "SANTIAGO",
+    "IVAN",
+    "ERIK",
+    "NIL",
+    "POL",
+    "SAUL",
+    "NEIZAN",
+    "JAN",
+    "MARTI",
+    "MATIAS",
+    "RAUL",
+    "ALBERTO",
+    "AITOR",
+    "JOEL",
+    "RAYAN",
+    "ANDER",
+    "AXEL",
+    "ALAN",
+    "ALONSO",
+    "FERNANDO",
+    "ASIER",
+    "ISAAC",
+    "ANDRES",
+    "FABIO",
+    "BIEL",
+    "IGNACIO",
+    "LUKA",
+    "MAX",
+    "ARNAU",
+    "ISMAEL",
+    "ADAY",
+    "ALEIX",
+    "JON",
+    "NICO",
+    "YOUSSEF",
+    "ELIAS",
+    "KAI",
+    "LUCIA",
+    "MARTINA",
+    "SOFIA",
+    "MARIA",
+    "PAULA",
+    "EMMA",
+    "DANIELA",
+    "CARLA",
+    "ALMA",
+    "OLIVIA",
+    "SARA",
+    "CARMEN",
+    "VEGA",
+    "MIA",
+    "LARA",
+    "ALBA",
+    "NOA",
+    "LOLA",
+    "VALENTINA",
+    "CHLOE",
+    "CLAUDIA",
+    "JIMENA",
+    "AITANA",
+    "LAIA",
+    "VERA",
+    "ABRIL",
+    "ALEJANDRA",
+    "ANA",
+    "TRIANA",
+    "CANDELA",
+    "ADRIANA",
+    "MANUELA",
+    "ELENA",
+    "CARLOTA",
+    "INES",
+    "BLANCA",
+    "MARINA",
+    "MARTA",
+    "LIA",
+    "VICTORIA",
+    "NORA",
+    "ZOE",
+    "ROCIO",
+    "ALICIA",
+    "CLARA",
+    "GALA",
+    "LUNA",
+    "ARIADNA",
+    "IRENE",
+    "LAURA",
+    "CELIA",
+    "EVA",
+    "AMIRA",
+    "INDIA",
+    "LEIRE",
+    "AFRICA",
+    "ONA",
+    "ANGELA",
+    "GABRIELA",
+    "MAR",
+    "IRIA",
+    "ANDREA",
+    "ISABEL",
+    "MARA",
+    "AINHOA",
+    "AINARA",
+    "JULIETA",
+    "ELSA",
+    "IRIS",
+    "AINA",
+    "JANA",
+    "NEREA",
+    "LEYRE",
+    "NAIA",
+    "NAHIA",
+    "CAYETANA",
+    "LINA",
+    "CLOE",
+    "DIANA",
+    "ELIA",
+    "HELENA",
+    "NOUR",
+    "YASMIN",
+    "MAIA",
+    "CRISTINA",
+    "NATALIA",
+    "MACARENA",
+    "ADARA",
+    "AURORA",
+    "CAROLINA",
+    "VIOLETA",
+    "FATIMA",
+    "ISABELLA",
+    "ARLET",
+    "AROA",
+    "CAMILA",
+    "BERTA",
+    "AMAIA"
+]*/
   </script>
   
 </body>

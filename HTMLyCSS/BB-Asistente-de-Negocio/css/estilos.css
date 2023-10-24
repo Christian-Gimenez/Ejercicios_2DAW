@@ -9,26 +9,73 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
 
-.cabecera p, .cabecera img {
+.contenedor {
+  width: 86%;
+  margin: 0 auto;
+}
+
+/* Cabecera */
+.cabecera {
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* Logo */
+.cabecera img {
+  width: 42px;
+  margin-right: 10px;
   float: left;
 }
 
-.cabecera p {
-  margin-top: 10px;
-  margin-left: 15px;
+
+/*Los p */
+.cabecera div {
+  margin-top: 6px;
+  display: inline-block;  
+}
+
+.cabecera > div p {
+  color: #333333;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.cabecera div p span {
+  color: #707F89;
+  font-size: 10px;
+  font-weight: 400;
 }
 
 .cabecera button {
   float: right;
-  margin-top: 15px;
-  margin-right: 10px;
 }
 
-.cabecera img {
-  margin-left: 10px;
+/* Hero */
+.hero {
+  height: 400px;
+  background-image: url("../img/hero.jpg");
+  background-position: center;
+  background-size: cover;
+  position: relative;
 }
 
-div {
-  clear: both;
+.hero div {
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(255,255,255,0.75);
 }
+
+.hero div img {
+  max-width: 100%;
+  height: auto;
+
+}
+
+

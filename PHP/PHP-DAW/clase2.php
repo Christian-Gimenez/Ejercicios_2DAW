@@ -71,4 +71,40 @@ array_splice($a, 1, 0, [["orange", "melon"]]); //Agrega un array en esa posició
 
 print_r($a);
 echo "</pre>";
+
+array_slice($arr, 3); //Extrae una parte de un array
+array_combine($arrKeys, $arrValues); //Crea un array con llaves y con claves y los combina
+array_values($arr); //Devuelve todos los valores de un array
+array_keys($arr); //Devuelve todas las keys de un array
+array_flip($arr); //Intercambia claves por valores
+array_key_exists($key, $arr); //Verifica si el indice o clave existe en el array
+
+//SORT
+sort($arr);
+//a ordena preservando las claves
+//k ordena por las claves
+//r ordena en orden inverso
+//u ordena con una funcuon del usuario
+//asort() preserva claves
+//arsort() preserva claves al reves
+//ksort() por claves
+//krsort() por claves al reves
+//rsort() al reves
+//uasort() como diga user preservando claves
+//usort() como diga user
+
+//Buscar
+//array_search() Busca un valor en un array y devuelve la 1ªclave
+//in_array() Comprueba si un valor existe en un array
+//array_key_exists() Verifica si el indice o clave dada existe en el array
+//array_keys() Devuelve todas las claves de un array o un subconjunto de un array
+//implode()/join() Convierte todos los elementos del array en una cadena
+//count()/sizeof() Cuanta todos los elementos de un array o algo de un objeto
+
+//Iterar
+//array_walk($arr, fn(...)) como forEach en JS
+//array_map(fn, $arr) Aplica la fn a los elementos y devuelve el array transformado
+//array_filter($arr, fn) Devuelve un subconjunto del array original
+//array_reduce($arr, fn(acumulador, valorInicial)) Reduce iterativamente un array
+
 ?>

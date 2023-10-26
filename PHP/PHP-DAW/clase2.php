@@ -8,7 +8,7 @@ function miF() {
   echo $a;
 }
 
-//Arrays asociativos>
+//Arrays asociativos
 $p = array("a"=>"apple", "b"=>"banana", "c"=>"cherry");
 $q = ["a"=>"apple", "b"=>"banana", "c"=>"cherry"];
 
@@ -105,6 +105,6 @@ sort($arr);
 //array_walk($arr, fn(...)) como forEach en JS
 //array_map(fn, $arr) Aplica la fn a los elementos y devuelve el array transformado
 //array_filter($arr, fn) Devuelve un subconjunto del array original
-//array_reduce($arr, fn(acumulador, valorInicial)) Reduce iterativamente un array
+//array_reduce($arr, fn(acumulador, valorInicial), darValorInicial) Reduce iterativamente un array
 
 ?>

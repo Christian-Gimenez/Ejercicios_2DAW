@@ -17,7 +17,7 @@ echo "Resultado: $a; $d <br/>";//Concatenar strings
 print "$a + $d";
 
 //Alcance/ambito variables en funciones
-function fn1($arg) { //Las var dentro de una funcion, son locales a la funcion
+function fn1($arg) { //Las var dentro de una funcion son locales a la funcion
   global $a; //recogemos la variable global para poderla usar
   echo "$a + $arg";//sin global daría ERROR. Las funciones SÓLO ven sus propias variables
 }

@@ -1,17 +1,35 @@
 <?php
 //print_r($_POST);
 //VOY POR EL VIDEO 6: https://www.youtube.com/watch?v=8TExOc5NOMI&ab_channel=Develoteca-OscarJ.UhP%C3%A9rez
-
+echo var_dump($_POST);
+//Guardo las variables que llegaron en el array $_POST solo si tienen valor
 $txtID = (isset($_POST["txtID"]))? $_POST["txtID"] : "";
 $txtNombre = (isset($_POST["txtNombre"]))? $_POST["txtNombre"] : "";
 $txtApellido1 = (isset($_POST["txtApellido1"]))? $_POST["txtApellido1"] : "";
 $txtApellido2 = (isset($_POST["txtApellido2"]))? $_POST["txtApellido2"] : "";
 $txtCorreo = (isset($_POST["txtCorreo"]))? $_POST["txtCorreo"] : "";
 $txtFoto = (isset($_POST["txtFoto"]))? $_POST["txtFoto"] : "";
+//Guardo la acción que indica el botón pulsado
 $accion = (isset($_POST["accion"]))? $_POST["accion"] : "";
 
+include_once ("../Conexion/conexion.php");
+
+//Según el boton que pulsemos
 switch($accion) {
+  //Agregamos articulo con un INSERT
   case "btnAgregar":
+    //Preparamos la sentencia SQL
+    $sentencia = $pdo->prepare("INSERT INTO empleados(Nombre, Apellido1, Apellido2, Correo, Foto)
+                                VALUES (:Nombre, :Apellido1, :Apellido2, :Correo, :Foto)"); //Ponemos : para pasar valores y evitar Injection
+    //Enlazamos los parametros del VALUES con las variables txt de los datos
+    $sentencia->bindParam(":Nombre", $txtNombre);
+    $sentencia->bindParam(":Apellido1", $txtApellido1);
+    $sentencia->bindParam(":Apellido2", $txtApellido2);
+    $sentencia->bindParam(":Correo", $txtCorreo);
+    $sentencia->bindParam(":Foto", $txtFoto);
+    //Ejecutamos la sentencia SQL
+    $sentencia->execute();
+
     echo $txtID;
     echo "Presionaste btnAgregar";
     break;
@@ -54,11 +72,11 @@ switch($accion) {
       <label for="">Nombre(s):</label>
       <input type="text" name="txtNombre" value="<?php echo $txtNombre;?>" placeholder="" id="txt2" require="">
       <br>
-      
+
       <label for="">1º Apellido:</label>
       <input type="text" name="txtApellido1" value="<?php echo $txtApellido1;?>" placeholder="" id="txt3" require="">
       <br>
-      
+
       <label for="">2º Apellido:</label>
       <input type="text" name="txtApellido2" value="<?php echo $txtApellido2;?>" placeholder="" id="txt4" require="">
       <br>

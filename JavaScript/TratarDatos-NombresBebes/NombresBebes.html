@@ -10,16 +10,29 @@
 
 <body>
   <script>
+    function limpiar(dato) {return dato.trim()};
+    function noVacios(dato) {return dato !== ""};
     //Lo que hicimos en clase explicado por Jose:
     const datos = nombres //Cogemos la cadena
       .split("\n") //La dividimos en un array
-      .map(dato => dato.trim()) //Devolvemos el mismo array sin espacios extras
-      .filter(reg => reg !== "") //Eliminamos las posiciones del array vacías. Podría haberse hecho tambien con .filter(reg => reg.lenght)
+      .map(limpiar) //Devolvemos el mismo array sin espacios extras
+      .filter(noVacios) //Eliminamos las posiciones del array vacías. Podría haberse hecho tambien con .filter(reg => reg.lenght)
       .map(dato => dato.split(";;")); //Dividimos en niños y niñas
 
     const niños = datos.map(dato => dato[0].split(";"));
-    const niñas = datos.map(dato => dato[1].split(";").filter(dato => dato !== ""));
-    //Solución JUAN -> const losNombres = (niños.map(dato => dato[0]) + niñas.map(dato => dato[0])).split(",");
+    const niñas = datos.map(dato => dato[1].split(";").filter(noVacios));
+
+    const cabecera = ["nombre", "cantidad", "sexo"];
+    const niños_obj = niños.map(elemento => aObjeto(elemento, "niño"));
+
+    function aObjeto(elemento, s) {
+      const obj = elemento.reduce((acc, v, pos) => {
+        return acc[cabecera[pos]] = v;
+        
+      }, {});
+      return obj[cabecera[2]]=s;
+    }
+     //Solución JUAN -> const losNombres = (niños.map(dato => dato[0]) + niñas.map(dato => dato[0])).split(",");
     //Solucion: CONCAT
 
     //EJERCICIO PARA CASA: Hay que coger ambos arrays y juntarlos, pero sólo los nombres
@@ -34,42 +47,54 @@
 
     //Hacer un metodo que me diga cuantos nombres tienen la letra pasada por argumento
     function cuantosNombresTienenLaLetra(array, letra) {
+      /*
       letra = letra.toLocaleUpperCase();
       let contador = 0;
       array.forEach(valor => {
         if (valor.includes(letra)) contador++;
       });
-      return contador;
+      return contador;*/
+      return array.filter(nombre => nombre
+                              .toUpperCase()
+                              .include(letra.toUpperCase())).length;
     }
     console.log("Hay " + cuantosNombresTienenLaLetra(losNombres, "A") + " niño/s con la letra 'A'");
 
     //ret: Array de nombres
     function nombresQueComienzanPor(arr, letra) {
+      return arr.filter(nombre => nombre
+                                        .toUpperCase()
+                                        .startsWith(letra.toUpperCase()));
+      /*
       letra = letra.toLocaleUpperCase();
-      return arr.filter(valor => {
-        return valor.charAt(0) == letra;
-      });
+      return arr.filter(valor =>  valor.charAt(0) == letra);
+      */
     }
 
     //ret: bool
     function estaMiNombre(arr, nombre) {
-      nombre = nombre.toLocaleUpperCase();
-      return arr.includes(nombre);
+      //return arr.includes(nombre.toUpperCase());
+      return arr.some(ele => ele.toUpperCase() == nombre.toUpperCase());
     }
 
     //ret: Número
     function cuantasVecesApareceLaLetra(arr, letra) {
+      /*      
       letra = letra.toLocaleUpperCase();
       let contador = 0;
-
       arr.forEach(nombre => {
         let arrValor = nombre.split("");
         arrValor.forEach(char => {
           if(char === letra) contador++;
         });
       }); 
-
       return contador;
+      */
+      return arr.join()
+                .toUpperCase()
+                .split("")
+                //.filter(ele => ele === letra.toUpperCase()).length;
+                .reduce((acc, ele) => (acc + Number(ele === letra.toUpperCase())));
     }
 
     /*

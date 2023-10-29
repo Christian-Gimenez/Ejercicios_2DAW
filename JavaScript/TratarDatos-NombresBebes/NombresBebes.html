@@ -10,8 +10,8 @@
 
 <body>
   <script>
-    function limpiar(dato) {return dato.trim()};
-    function noVacios(dato) {return dato !== ""};
+    function limpiar(dato) { return dato.trim() };
+    function noVacios(dato) { return dato !== "" };
     //Lo que hicimos en clase explicado por Jose:
     const datos = nombres //Cogemos la cadena
       .split("\n") //La dividimos en un array
@@ -22,18 +22,130 @@
     const niños = datos.map(dato => dato[0].split(";"));
     const niñas = datos.map(dato => dato[1].split(";").filter(noVacios));
 
+    //Creamos un array con la cabecera de la matriz de objetos
     const cabecera = ["nombre", "cantidad", "sexo"];
+    /*
+    [
+      { nombre: "Pepe",
+        cantidad: 2340,
+        sexo: "niño"
+      },
+      { nombre: "Carlos",
+        cantidad: 1890,
+        sexo: "niño"
+      }
+    ]
+  */
+    //Iteramos niños y vamos pasandole a aObjeto() cada elemento de la iteración y el sexo niño
     const niños_obj = niños.map(elemento => aObjeto(elemento, "niño"));
+    const niñas_obj = niñas.map(elemento => aObjeto(elemento, "niña"));
 
-    function aObjeto(elemento, s) {
+    function aObjeto(elemento, sexo) {
+      //Con reduce, hacemos que el acumulador sea un objeto para meterle en la posicion el valor del array
       const obj = elemento.reduce((acc, v, pos) => {
-        return acc[cabecera[pos]] = v;
-        
+        /*{ 
+          nombre: "Valor_NombreDelNiño",
+          cantidad: "Valor_nºVecesNombreNiño"
+          }*/
+        //acc.nombre = v;
+        acc[cabecera[pos]] = v;//En el objeto acc metemos el valor v en la propiedad
+        //La cual obtiene su nombre de la posicion de cabecera (1=nombre, 2=cantidad)
+        return acc;
       }, {});
-      return obj[cabecera[2]]=s;
+      //Y siempre en la posición 2 metemos el valor del parametro sexo.
+      obj[cabecera[2]] = sexo;
+      return obj;
     }
-     //Solución JUAN -> const losNombres = (niños.map(dato => dato[0]) + niñas.map(dato => dato[0])).split(",");
-    //Solucion: CONCAT
+
+    function aObjeto2(elemento) {
+      //Con reduce, hacemos que el acumulador sea un objeto para meterle en la posicion el valor del array
+      const obj = elemento.reduce((acc, v, pos) => {
+        /*{ 
+          nombre: "Valor_NombreDelNiño",
+          cantidad: "Valor_nºVecesNombreNiño"
+          }*/
+        //acc.nombre = v;
+        acc[cabecera[pos]] = v;//En el objeto acc metemos el valor v en la propiedad
+        //La cual obtiene su nombre de la posicion de cabecera (1=nombre, 2=cantidad)
+        return acc;
+      }, {});
+    
+      return obj;
+    }
+
+    //Hacer lo mismo que antes pero en un array de 4 posiciones
+    const cabecera2 = ["niño", "cantidad_niños", "niñas", "cantidad_niñas"];
+    /*
+      [
+        {
+        niño: "carlos",
+        cantidad: 2000,
+        niña: "pepa",
+        cantidad: 2100
+      },
+        {
+          niño: "pedro",
+          cantidad: 1840,
+          niña: "laura",
+          cantidad: 1300
+        },
+        ...
+      ]
+      */
+     //0,1 niños 2,3 niñas
+    function juntarNiñosYNiñas(arrNiños, arrNiñas) {
+      let contador = 0;
+      const arr = arrNiños.map((dato, indice) => {
+        let array = [];
+        array[cabecera2[contador]] = arrNiños[indice][contador];
+        array[cabecera2[contador+1]] = arrNiños[indice][contador+1];
+        array[cabecera2[contador+2]] = arrNiñas[indice][contador];
+        array[cabecera2[contador+3]] = arrNiñas[indice][contador+1];
+        return array;
+      });
+      return arr;
+    }
+/*
+    function objNiñosYNiñas(arrNiñosYNiñas) {
+      let contador = 0;
+      const arr = arrNiñosYNiñas.reduce((acc, dato, indice) => {
+        obj[cabecera2[contador]] = arrNiñosYNiñas["niño"];
+        obj[cabecera2[contador+1]] = arrNiñosYNiñas["cantidad_niño"];
+        obj[cabecera2[contador+2]] = arrNiñosYNiñas["niña"];
+        obj[cabecera2[contador+3]] = arrNiñosYNiñas["cantidad_niña"];
+        return obj;
+      }, {});
+      return arr;
+    }
+    */
+    let niños_y_niñas = [];
+    niños_y_niñas = juntarNiñosYNiñas(niños, niñas);
+
+    const niños_y_niñas_obj = niños_y_niñas.map(elemento => aObjeto2(elemento));
+
+    /*
+    function arrayAsociativo(elemento, genero) {
+      const obj = [];
+      const objResultado = elemento.map((v, pos) => {
+        obj[cabecera[pos]];
+        return obj[pos] = v;
+       
+      });
+      objResultado["sexo"] = genero;
+      return objResultado;
+    }*/
+    //const niños_obj2 = niños.map(elemento => arrayAsociativo(elemento, "niño"));
+
+    /*
+    [
+      [
+        {nombre:"pepe"
+        cantidad:}
+      ]
+    ]*/
+
+
+
 
     //EJERCICIO PARA CASA: Hay que coger ambos arrays y juntarlos, pero sólo los nombres
     //let losNombres = [];
@@ -55,16 +167,16 @@
       });
       return contador;*/
       return array.filter(nombre => nombre
-                              .toUpperCase()
-                              .include(letra.toUpperCase())).length;
+        .toUpperCase()
+        .includes(letra.toUpperCase())).length;
     }
     console.log("Hay " + cuantosNombresTienenLaLetra(losNombres, "A") + " niño/s con la letra 'A'");
 
     //ret: Array de nombres
     function nombresQueComienzanPor(arr, letra) {
       return arr.filter(nombre => nombre
-                                        .toUpperCase()
-                                        .startsWith(letra.toUpperCase()));
+        .toUpperCase()
+        .startsWith(letra.toUpperCase()));
       /*
       letra = letra.toLocaleUpperCase();
       return arr.filter(valor =>  valor.charAt(0) == letra);
@@ -91,10 +203,10 @@
       return contador;
       */
       return arr.join()
-                .toUpperCase()
-                .split("")
-                //.filter(ele => ele === letra.toUpperCase()).length;
-                .reduce((acc, ele) => (acc + Number(ele === letra.toUpperCase())));
+        .toUpperCase()
+        .split("")
+        //.filter(ele => ele === letra.toUpperCase()).length;
+        .reduce((acc, ele) => (acc + Number(ele === letra.toUpperCase())));
     }
 
     /*

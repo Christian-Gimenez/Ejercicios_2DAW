@@ -22,8 +22,6 @@
     const niños = datos.map(dato => dato[0].split(";"));
     const niñas = datos.map(dato => dato[1].split(";").filter(noVacios));
 
-    //Creamos un array con la cabecera de la matriz de objetos
-    const cabecera = ["nombre", "cantidad", "sexo"];
     /*
     [
       { nombre: "Pepe",
@@ -36,9 +34,73 @@
       }
     ]
   */
+    //Creamos un array con la cabecera de la matriz de objetos
+    const cabecera = ["nombre", "cantidad", "sexo"];
+
     //Iteramos niños y vamos pasandole a aObjeto() cada elemento de la iteración y el sexo niño
     const niños_obj = niños.map(elemento => aObjeto(elemento, "niño"));
     const niñas_obj = niñas.map(elemento => aObjeto(elemento, "niña"));
+
+    //Eliminamos de niños y niñas la propiedad sexo
+    const niños_sin_s = niños_obj.map(niño => {
+      /* 
+      let obj = eliminarSexo({ ...niño });
+      let obj2 = renombrarPropiedad({... obj}, "nombre", "nombre_niño");
+      return renombrarPropiedad({...obj2}, "cantidad", "cantidad_niño");*/
+      return renombrarPropiedad(renombrarPropiedad(eliminarSexo({ ...niño }), "nombre", "nombre_niño"), "cantidad", "cantidad_niño");
+    });
+    const niñas_sin_s = niñas_obj.map(niña => {
+      return renombrarPropiedad(renombrarPropiedad(eliminarSexo({ ...niña }), "nombre", "nombre_niña"), "cantidad", "cantidad_niña");
+    });
+
+    //Unir los objetos
+    const todes_les_niñes = unirArrayObjetos(niños_sin_s, niñas_sin_s);
+
+    function unirArrayObjetos(niños, niñas) {
+      if (niños.length > niñas.length) return unirObjetos(niñas, niños);
+      return niños.map((ele, i) => {
+        if (niñas[i] != undefined) return unirObjetos(ele, niñas[i]);
+        return ele;
+      });
+    }
+
+    //REST
+    function multiplica(arg1, arg2, ...argN) {
+      //argN = [3,4,5]; -> 3, 4, 5
+                                      //SPREAD
+      const argumentos = [arg1, arg2, ...argN]; //-> [1,2,3,4,5]
+      return argumentos.reduce((ant, valor) => valor * ant);
+    }
+
+    multiplica(20, 3);
+    multiplica(5,5,5,5,5,5,5,5,5);
+    multiplica(1,2,3,4,5);
+
+    function unirObjetos(niño, niña) {
+      //Usamos operador SPREAD para unir ambos objetos
+      //arr = [1,2,3]
+      //...arr -> 1, 2, 3
+      //{...arr} -> {1, 2, 3}
+      return { ...niño,
+              ...niña };
+    }
+
+    console.log(todes_les_niñes);
+
+    //Eliminamos la propiedad que sobra
+    function eliminarSexo(obj) {
+      delete obj.sexo;
+      return obj;
+    }
+
+    //Renombramos la propiedad para que al crear los nuevos objetos, si hay una propiedad duplicada, no se elimine del resultado
+    function renombrarPropiedad(obj, oldName, newName) {
+      if (obj.hasOwnProperty(oldName)) {
+        obj[newName] = obj[oldName];
+        delete obj[oldName];
+      }
+      return obj;
+    }
 
     function aObjeto(elemento, sexo) {
       //Con reduce, hacemos que el acumulador sea un objeto para meterle en la posicion el valor del array
@@ -69,7 +131,7 @@
         //La cual obtiene su nombre de la posicion de cabecera (1=nombre, 2=cantidad)
         return acc;
       }, {});
-    
+
       return obj;
     }
 
@@ -92,36 +154,33 @@
         ...
       ]
       */
-     //0,1 niños 2,3 niñas
-    function juntarNiñosYNiñas(arrNiños, arrNiñas) {
-      let contador = 0;
-      const arr = arrNiños.map((dato, indice) => {
-        let array = [];
-        array[cabecera2[contador]] = arrNiños[indice][contador];
-        array[cabecera2[contador+1]] = arrNiños[indice][contador+1];
-        array[cabecera2[contador+2]] = arrNiñas[indice][contador];
-        array[cabecera2[contador+3]] = arrNiñas[indice][contador+1];
-        return array;
-      });
-      return arr;
-    }
-/*
-    function objNiñosYNiñas(arrNiñosYNiñas) {
-      let contador = 0;
-      const arr = arrNiñosYNiñas.reduce((acc, dato, indice) => {
-        obj[cabecera2[contador]] = arrNiñosYNiñas["niño"];
-        obj[cabecera2[contador+1]] = arrNiñosYNiñas["cantidad_niño"];
-        obj[cabecera2[contador+2]] = arrNiñosYNiñas["niña"];
-        obj[cabecera2[contador+3]] = arrNiñosYNiñas["cantidad_niña"];
-        return obj;
-      }, {});
-      return arr;
-    }
-    */
-    let niños_y_niñas = [];
-    niños_y_niñas = juntarNiñosYNiñas(niños, niñas);
+    /*
+   function juntarNiñosYNiñas(arrNiños, arrNiñas) {
+     let contador = 0;
+     const arr = arrNiños.map((dato, indice) => {
+       let array = [];
+       array[cabecera2[contador]] = arrNiños[indice][contador];
+       array[cabecera2[contador+1]] = arrNiños[indice][contador+1];
+       array[cabecera2[contador+2]] = arrNiñas[indice][contador];
+       array[cabecera2[contador+3]] = arrNiñas[indice][contador+1];
+       return array;
+     });
+     return arr;
+   }*/
+    /*
+        function objNiñosYNiñas(arrNiñosYNiñas) {
+          let contador = 0;
+          const arr = arrNiñosYNiñas.reduce((acc, dato, indice) => {
+            obj[cabecera2[contador]] = arrNiñosYNiñas["niño"];
+            obj[cabecera2[contador+1]] = arrNiñosYNiñas["cantidad_niño"];
+            obj[cabecera2[contador+2]] = arrNiñosYNiñas["niña"];
+            obj[cabecera2[contador+3]] = arrNiñosYNiñas["cantidad_niña"];
+            return obj;
+          }, {});
+          return arr;
+        }
+        */
 
-    const niños_y_niñas_obj = niños_y_niñas.map(elemento => aObjeto2(elemento));
 
     /*
     function arrayAsociativo(elemento, genero) {

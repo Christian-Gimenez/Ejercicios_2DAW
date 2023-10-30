@@ -130,17 +130,96 @@ body {
 }
 
 /* clase servicios*/
-.caracteristicas p {
-  font-size: 13px;
-  max-width: 264px;
-  margin: 0 auto 25px;
-  line-height: 1.85;
-}
-
 .caracteristicas figure img {
   width: 100%;
   height: 246px;
   vertical-align: bottom;
   margin-top: 53px;
+}
+
+.caracteristicas h3 {
+  font-size: 22px;
+  line-height: 1.6;
+  margin-bottom: 17px;
+}
+
+.caracteristicas p {
+  font-size: 13px;
+  max-width: 264px;
+  margin: 0 auto 25px;
+  line-height: 1.85;
+  color: #333333;
+}
+
+
+
+/*Contacto*/
+.contacto {
+  background-color: #EEF4F8;
+  padding: 62px 20px;
+  color: #333333;
+}
+
+.contacto h2 {
+  font-size: 26px;
+  margin-bottom: 42px;
+}
+
+.contacto > p {
+  font-size: 13px;
+  line-height: 2;
+}
+
+.contacto form {
+  margin-top: 46px;
+}
+
+.contacto form input[type="text"],
+.contacto form input[type="email"],
+.contacto form textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 14px 20px 14px;
+  border: solid 1px #CDD6DD;
+  margin-bottom: 10px;
+
+  color: #333333;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.contacto form ::placeholder {
+  color: #CDD6DD;
+}
+
+.contacto form textarea {
+  height: 150px;
+}
+
+/*Botón enlaces*/
+.btn {
+  display: block;
+  text-decoration: none;
+  color: #2E5180;
+  width: 248px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 14px;
+  border-radius: 24px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  border: solid 2px currentColor;
+}
+
+.contacto form input[type="submit"] {
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
+  border: none;
+  box-sizing: border-box;
+  background-color: #2E5180;
+  color: white;
+  margin: 0;
+  cursor: pointer;
 }
 

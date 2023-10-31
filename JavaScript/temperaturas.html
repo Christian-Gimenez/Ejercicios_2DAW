@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const temperaturas = `
+    Fecha;Tmin;Tmax
+               
+    2023/10/20; 20; 33;
+    2023/10/21; 22; 30;
+    2023/10/22; 18; 28;
+    2023/10/23; 20; 30;
+
+    2023/10/24;; 35;
+    2023/10/25; 14; 20;
+    2023/10/26; 10; 15
+    2023/10/27; 10; 14;    
+    2023/10/28; 0; 14;   
+    `;
+
+
+
+    function csv2ArrayObjs(datosCSV, sepReg = "\n", sepCamp = ";") {
+
+      const arrays = csv2Arrays();
+      const cabecera = extraerCampos(arrays);
+      const arrObjetos = convertirAObjs(arrays, cabecera);
+      return arrObjetos;
+
+      function csv2Arrays() {
+        return datosCSV
+          .split(sepReg)
+          .map(linea => linea.trim())
+          .filter(linea => linea.length)
+          .map(linea => linea.split(sepCampo)
+            .filter(linea => linea.trim().length))
+          .filter(array => array.length === 3);
+      }
+
+
+      function extraerCampos(array) {
+        return arrays.shift();
+      }
+
+      function convertirAObjs(arrays, cabecera) {
+        function aObjeto(arr) {
+          return arr.reduce((acc, v, i) => {
+            return acc[cabecera[i]] = v;
+          }, {});
+        }
+        return arrays.map(registro => aObjeto(registro));
+      }
+
+      const nombresCampos = arrCadenas.shift();
+
+      console.dir(arrCadenas);
+
+    }
+
+
+
+    //Funciones: Tmin_media, Tmax_media, Tmin_min, Tmax_max, ordenar por fechas
+    const datos = csv2Array(temperaturas);
+  </script>
+</body>
+
+</html>

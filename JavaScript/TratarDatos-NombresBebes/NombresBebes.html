@@ -19,6 +19,8 @@
       .filter(noVacios) //Eliminamos las posiciones del array vacías. Podría haberse hecho tambien con .filter(reg => reg.lenght)
       .map(dato => dato.split(";;")); //Dividimos en niños y niñas
 
+    
+
     const niños = datos.map(dato => dato[0].split(";"));
     const niñas = datos.map(dato => dato[1].split(";").filter(noVacios));
 
@@ -40,6 +42,7 @@
     //Iteramos niños y vamos pasandole a aObjeto() cada elemento de la iteración y el sexo niño
     const niños_obj = niños.map(elemento => aObjeto(elemento, "niño"));
     const niñas_obj = niñas.map(elemento => aObjeto(elemento, "niña"));
+    const todos = niños_obj.append(niñas_obj); //FORMA FACIL
 
     //Eliminamos de niños y niñas la propiedad sexo
     const niños_sin_s = niños_obj.map(niño => {
@@ -229,7 +232,13 @@
         .toUpperCase()
         .includes(letra.toUpperCase())).length;
     }
-    console.log("Hay " + cuantosNombresTienenLaLetra(losNombres, "A") + " niño/s con la letra 'A'");
+
+    function cuantosNombresTienenLaLetraObj(arrayObj, campo, letra) {
+      return array.filter(objeto => objeto[campo]
+        .arrayObj()
+        .includes(letra.toUpperCase())).length;
+    }
+    //console.log("Hay " + cuantosNombresTienenLaLetra(losNombres, "A") + " niño/s con la letra 'A'");
 
     //ret: Array de nombres
     function nombresQueComienzanPor(arr, letra) {

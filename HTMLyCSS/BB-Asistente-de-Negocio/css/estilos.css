@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-h1, h2, h3, h4, div, p, header,
+h1, h2, h3, h4, div, p, header, ul,
 body, section, article, footer, figure {
   margin: 0; padding: 0;
 }
@@ -55,6 +55,38 @@ body {
 
 .cabecera button {
   float: right;
+}
+
+.btn-nav {
+  box-sizing: border-box;
+  padding: 0;
+  outline: none;
+  border: none;
+  background: none;
+
+  width: 20px;
+  height: 14px;
+  cursor: pointer;
+  color:#2E5180;
+}
+
+.btn-nav::before,
+.btn-nav::after {
+  content: "";
+  display: block;
+  height: 2px;
+  background-color: currentColor;
+
+  
+}
+
+.btn-nav::before {
+  box-shadow: 0 6px currentColor;
+  transform: translateY(-5px);
+}
+
+.btn-nav::after {
+  transform: translateY(5px);
 }
 
 /* Hero */
@@ -223,3 +255,39 @@ body {
   cursor: pointer;
 }
 
+/* 6. footer */
+.pie {
+  padding: 38px 0 56px;
+  background-color: #2E5180;
+}
+
+.pie img {
+  width: 27px;
+  margin-right: 14px;
+  float: left;
+}
+
+.pie p {
+  color: white;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 47px;
+}
+
+.pie address {
+  color:white;
+  font-size: 12px;
+  font-style: normal;
+  margin: 20px 0 36px 60px;
+  line-height: 1.6;
+}
+
+.pie ul {
+  list-style: none;
+  margin-left: 60px;
+}
+
+.pie ul li img {
+  width: 35px;
+  height: 35px;
+}

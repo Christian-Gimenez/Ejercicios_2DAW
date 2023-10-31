@@ -32,6 +32,8 @@ body {
   box-shadow: 1px 1px 0px 1px rgb(34, 34, 34);
   width: 48px;
   text-align: left;
+  font-family: "Windows Regular";
+  font-size: 16px;
 }
 
 .startNavBar button:active {
@@ -53,6 +55,7 @@ body {
   height: 250px;
   width: 125px;
   background-color: #c3c7cb;
+
 }
 
 .banMenu {

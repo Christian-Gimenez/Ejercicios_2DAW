@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="worldcities.js"></script>
+</head>
+<body>
+  <script>
+    resultado = csvAMatriz(datos);
+    function csvAMatriz(cadena, sepReg="\n", sepCamp=";") {
+      const array = cadena.split(sepReg)
+                    .map(linea => linea.trim())
+                    .filter(linea => linea.length)
+                    .map(linea => linea
+                        .split(sepCamp)
+                        .map(registro => registro.trim())
+                        .filter(registro => registro.length))
+                    .filter(linea => linea.length === 11);
+      return array;
+    }
+    console.dir(resultado);
+
+    function extraerCabecera(matriz) {
+      return matriz.shift();
+    }
+
+    const cabecera = extraerCabecera(resultado);
+    console.dir(resultado);
+
+    function indiceCampoCabecera(cabecera, campo) {
+      return cabecera.findIndex(valor => valor === campo);
+    }
+    console.log(indiceCampoCabecera(cabecera, "lng"));
+
+    function filtrarPorNumCampo(matriz, numCampo, valor) {
+      return matriz.filter((linea) => linea[numCampo] === valor);
+    }
+    //console.dir(filtrarPorNumCampo(resultado, 8, "admin"));
+
+    function realizarTabla(cabecera, matriz, caption) {
+
+    }
+
+    
+    function ordenarPorCampo(matriz, campo) {
+      return matriz.reduce((acc, linea, i) => {
+        
+      });
+    }
+
+    
+    console.dir(ordenarPorCampo(resultado, ""));
+
+  </script>
+</body>
+</html>

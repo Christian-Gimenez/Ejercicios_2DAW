@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contar...</title>
+</head>
+<body>
+  <script>
+    const frutas = ["platano", "fresa", "kiwi", "fresa", "melón",
+                    "manzana","manzana", "platano", "platano"]
+    //Hacer un objeto de este array, cuya key sea la fruta y el valor el nºvcs que aparece la fruta
+    const frutasO = frutas.reduce((acc, v) => {
+      acc[v] = (acc[v] || 0) + 1;
+      //acc[v] = (acc[v] ?? 0) + 1;
+      return acc;
+    }, {});
+
+    //Object.keys(frutas) -> Transforma en array de las keys
+    //Object.values(frutas) -> Transforma en array de los valores
+  </script>
+</body>
+</html>

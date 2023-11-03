@@ -26,8 +26,7 @@
 
 
 
-    function csv2ArrayObjs(datosCSV, sepReg = "\n", sepCamp = ";") {
-
+    function csv2ArrayObjs(datosCSV, sepReg = "\n", sepCampo = ";") {
       const arrays = csv2Arrays();
       const cabecera = extraerCampos(arrays);
       const arrObjetos = convertirAObjs(arrays, cabecera);
@@ -48,25 +47,46 @@
         return arrays.shift();
       }
 
-      function convertirAObjs(arrays, cabecera) {
+      function convertirAObjs() {
         function aObjeto(arr) {
           return arr.reduce((acc, v, i) => {
-            return acc[cabecera[i]] = v;
+            acc[cabecera[i]] = v;
+            return acc;
           }, {});
         }
         return arrays.map(registro => aObjeto(registro));
       }
-
-      const nombresCampos = arrCadenas.shift();
-
-      console.dir(arrCadenas);
-
+    }
+    console.dir(csv2ArrayObjs(temperaturas));
+    //Funciones: Tmin_media, Tmax_media, Tmin_min, Tmax_max, ordenar por fechas
+    function media(objs, prop) {
+      return objs.reduce(function(acc, obj) {
+        return Number(obj[prop]) + acc;
+      })/objs.length;
     }
 
+  
+    function ordenarObjetos(objetos, prop, modo="ascii") {
+      let fun = ordenarAscii;
+      
+      if(modo === "numero") fun = ordenarNumero;
+      if(modo !== "fecha") fun = ordenarFecha;
 
+      objetos.sort(fun);
 
-    //Funciones: Tmin_media, Tmax_media, Tmin_min, Tmax_max, ordenar por fechas
-    const datos = csv2Array(temperaturas);
+      function ordenarAscii(oA, oB) {
+        if (oA[prop] >= oB[prop]) return 1;
+        return -1;
+      }
+
+      function ordenarNumero(oA, oB) {
+        return oA[prop] - oB[prop];
+      }
+
+      function ordenarFecha(oA, oB) {
+        return new Date(oA[prop]) - new Date(oB[prop]);
+      }
+    }
   </script>
 </body>
 

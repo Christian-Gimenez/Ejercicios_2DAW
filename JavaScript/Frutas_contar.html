@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contar...</title>
+</head>
+<body>
+  <script>
+    const frutas = ["platano", "fresa", "kiwi", "fresa", "melón",
+                    "manzana","manzana", "platano", "platano"]
+    //Hacer un objeto de este array, cuya key sea la fruta y el valor el nºvcs que aparece la fruta
+    const frutasObj = frutas.reduce((acc, v) => {
+      acc[v] = (acc[v] || 0) + 1;
+      //acc[v] = (acc[v] ?? 0) + 1;
+      return acc;
+    }, {});
+
+    function ordenarObjeto(obj, ordenarPor = "clave", asc = true) {
+      //const claves = Object.keys(obj);
+      const arrayPropVal = objetos_a_array();
+      let ordenar = (ordenarPor.toLowerCase() === "clave")? ordenarPorClave : ordenarPorValor;
+      arrayPropVal.sort(ordenar);
+      if(!asc)arrayPropVal.reverse();
+
+      document.write("{<br>");
+      arrayPropVal.forEach(arr => {
+        document.write("&nbsp&nbsp&nbsp&nbsp" + arr[0] + ": " + arr[1] + ",<br>");
+      });
+      document.write("}");
+
+      function objetos_a_array() {
+        let array = [];
+        for(const prop in obj) {
+          let subArray = [];
+          subArray.push(prop);
+          subArray.push(obj[prop]);
+          array.push(subArray);
+        }
+        //console.dir(array);
+        return array;
+      }
+
+      //Ordnear objetos por clave
+      function ordenarPorClave(a, b) {
+        return (a[0] >= b[0])? 1 : -1;
+      }
+    
+      //Ordenar objetos por valor
+      function ordenarPorValor(a, b) {
+        return a[1] - b[1];
+      }
+
+      function subArr_aObjeto(arr) {
+        const obj = {};
+        return obj[arr[0]] = arr[1];
+      }
+    }
+    
+
+
+
+    //Object.keys(frutas) -> Transforma en array de las keys
+    //Object.values(frutas) -> Transforma en array de los valores
+  </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Referencias Cruzadas</title>
+</head>
+
+<body>
+  <script>
+    //Tenemos que indicar cada palabra y decir en cuales lineas que aparece
+    //Solo se cuenta 1 por linea
+    //Hay que ignorar Mayus/minus
+    //Palabras > 2 letras && palabras < 10 letras
+    //La salida debe estar odenada
+    //Fin del output = "----"
+    const input = `
+      4
+      Guerra tenia una parra y Parra tenia una perra
+      la perra de Parra rompio la parra de Guerra y Guerra aporreo con la porra a la perra
+      Si la perra de Parra no hubiera roto la parra de Guerra
+      este no hubiera aporreado con la porra a la perra de Parra
+      0
+    `;
+    /*Salida esperada
+        aporreado 4
+        aporreo 2
+        con 2 4
+        este 4
+        guerra 1 2 3
+        hubiera 3 4
+        parra 1 2 3 4
+        perra 1 2 3 4
+        porra 2 4
+        rompio 2
+        roto 3
+        tenia 1
+        una 1
+        ----
+    */
+    const arrays = inputToArray(input);
+    //arrays.forEach(e => e.forEach(sE => console.log(sE)));
+    const objResult = arraysToOneObject(arrays);
+    addlinesWhereIsTheValue(objResult, arrays);
+    document.write(stringOutput(objResult, "<br>"));
+
+
+
+    function inputToArray(texto) {
+      return texto.split("\n")
+        .map(linea => linea.trim())
+        .filter(linea => linea.length)
+        .map(linea => linea.split(" "));
+    }
+
+    function arraysToOneObject(arrays) {
+      let uniqueArr = [];
+      arrays.map(arr => {
+        arr.map(str => {
+          if (str.length > 2 && str.length < 10) uniqueArr.push(str);
+        });
+      });
+
+      function toObject() {
+        return uniqueArr.reduce((acc, v) => {
+          acc[v] = [];
+          return acc;
+        }, {});
+      }
+      return toObject(uniqueArr);
+    }
+
+    function addlinesWhereIsTheValue(obj, arrays) {
+      Object.keys(obj).forEach(prop => {
+        arrays.forEach((arr, i) => {
+          if (arrays[i].includes(prop)) {
+            obj[prop].push(i);
+          }
+        });
+      });
+    }
+
+    function stringOutput(obj, lineBreak) {
+      let properties = Object.keys(obj).sort((a, b) => {
+        return (a.toLowerCase() >= b.toLowerCase())? 1 : -1 
+      });
+      
+      let result = "";
+      properties.forEach(prop => {
+        result += prop + ": ";
+        obj[prop].forEach(value => result += value + " ");
+        result += lineBreak;
+      });
+      return result;
+    }
+
+    /*
+    function buildArrObj(array) {
+      const difWords = cleanRepeatedWords(arraysDifferentWords());
+
+      function arraysDifferentWords() {
+        return array.map(subArr => {
+          const result = subArr.filter(str => {
+            return str.length > 2 && str.length < 10;
+          });
+          return result;
+        }).filter(subArr => subArr.length);
+      }
+
+      function cleanRepeatedWords(arr) {
+        
+
+        function 
+      }
+      
+      return arrDifferentWords();
+    }*/
+
+  </script>
+</body>
+
+</html>

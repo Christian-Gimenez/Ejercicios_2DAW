@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="worldcities.js"></script>
+</head>
+
+<body>
+  <script>
+    const arrayObjetos = csvAMatrizObj(datos);
+    
+    function csvAMatrizObj(cadena, sepReg = "\n", sepCamp = ";") {
+      const matriz = cadena.split(sepReg)
+                          .map(linea => linea.trim())
+                          .filter(linea => linea.length)
+                          .map(linea => linea
+                            .split(sepCamp)
+                            .map(reg => reg.trim())
+                            .filter(reg => reg.length))
+                          .filter(arr => arr.length === 11);
+      const cabecera = matriz.shift();
+      return matriz.map(arr => arr.reduce((acc, v, i) => {
+        acc[cabecera[i]] = v;
+        return acc;
+      }, {}));
+    }
+
+    function extraerKeysPropiedades(arrObj) {
+      return Object.keys(arrObj[0]);
+    }
+
+    function filtrarPorPropiedad(arrObj, prop, valor) {
+      return arrObj.filter(obj => obj[prop] === valor);
+    }
+    console.dir(filtrarPorPropiedad(arrayObjetos, "iso2", "MG"));
+
+    function realizarTabla(arrObj, caption) {
+      let propiedades = extraerKeysPropiedades(arrObj);
+      document.write("<table border='1px solid black'>");
+      document.write("<caption><h1>" + caption + "</h1></caption>");
+
+      document.write("<tr>");
+      propiedades.forEach(prop => document.write("<th>" + prop + "</th>"));
+      document.write("</tr>");
+
+      arrObj.forEach(obj => {
+        document.write("<tr>");
+        for(const prop in obj) {
+          document.write("<td>" + obj[prop] + "</td>");
+        }
+        document.write("</tr>");
+      })
+
+      document.write("</table>");
+
+    }
+    realizarTabla(arrayObjetos, "TABLA DE PAÍSES");
+
+    function ordenarPorCampo(arrObj, campo) {
+      return arrObj.sort((oA, oB) => oA[campo] > oB[campo]? 1 : -1);
+    }
+
+    console.dir(ordenarPorCampo(arrayObjetos, "city"));
+
+
+  </script>
+</body>
+
+</html>

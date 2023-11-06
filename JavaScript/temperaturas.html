@@ -30,6 +30,7 @@
       const arrays = csv2Arrays();
       const cabecera = extraerCampos(arrays);
       const arrObjetos = convertirAObjs(arrays, cabecera);
+
       return arrObjetos;
 
       function csv2Arrays() {
@@ -50,29 +51,57 @@
       function convertirAObjs() {
         function aObjeto(arr) {
           return arr.reduce((acc, v, i) => {
-            acc[cabecera[i]] = v;
+            (i != 0)? acc[cabecera[i]] = Number(v.trim()) : acc[cabecera[i]] = v;
             return acc;
           }, {});
         }
         return arrays.map(registro => aObjeto(registro));
       }
+
     }
-    console.dir(csv2ArrayObjs(temperaturas));
+
+    const objsTemp = csv2ArrayObjs(temperaturas);
+    console.dir(objsTemp);
+
     //Funciones: Tmin_media, Tmax_media, Tmin_min, Tmax_max, ordenar por fechas
     function media(objs, prop) {
-      return objs.reduce(function(acc, obj) {
+      return objs.reduce(function (acc, obj) {
         return Number(obj[prop]) + acc;
-      })/objs.length;
+      }) / objs.length;
     }
 
-  
-    function ordenarObjetos(objetos, prop, modo="ascii") {
-      let fun = ordenarAscii;
-      
-      if(modo === "numero") fun = ordenarNumero;
-      if(modo !== "fecha") fun = ordenarFecha;
+    function temperaturaMax_o_Min(objs, tipoTemperatura) {
+      const cabecera = Object.keys(objs[0]);
+      if (tipoTemperatura.toUpperCase() === "MAX") return maxima();
+      if (tipoTemperatura.toUpperCase() === "MIN") return minima();
+      return "No has especificado si quieres la temperatura máxima (MAX) o la mínima (MIN)";
 
-      objetos.sort(fun);
+      function minima(prop = cabecera[1]) {
+        const min = objs.reduce((acc, obj) => {
+          if (acc[prop] < obj[prop]) return acc;
+          return obj;
+        });
+        return min[prop];
+      }
+
+      function maxima(prop = cabecera[2]) {
+        const max = objs.reduce((acc, obj) => {
+          if (acc[prop] > obj[prop]) return acc;
+          return obj;
+        });
+        return max[prop];
+      }
+    }
+    
+
+
+    function ordenarObjetos(objetos, prop, modo = "ascii", asc = false) {
+      let fun = ordenarAscii;
+
+      if (modo.toLowerCase() === "numero") fun = ordenarNumero;
+      if (modo.toLowerCase() === "fecha") fun = ordenarFecha;
+
+      (asc)? objetos.sort(fun) : objetos.sort(fun).reverse();
 
       function ordenarAscii(oA, oB) {
         if (oA[prop] >= oB[prop]) return 1;
@@ -87,6 +116,8 @@
         return new Date(oA[prop]) - new Date(oB[prop]);
       }
     }
+
+
   </script>
 </body>
 

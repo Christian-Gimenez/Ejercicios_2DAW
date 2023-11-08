@@ -39,10 +39,17 @@
         una 1
         ----
     */
-    const arrays = inputToArray(input);
-    //arrays.forEach(e => e.forEach(sE => console.log(sE)));
-    const objResult = arraysToOneObject(arrays);
-    addlinesWhereIsTheValue(objResult, arrays);
+   //Metemos el input inicial en un array 2D que no modificaremos, para poder contar las lineas
+    const array2D = inputToArray(input);
+    //Transformamos el array 2D en 1D
+    const array1D = [].concat(...array2D);
+    //Filtramos el array 1D con la condición que nos piden
+    const filteredArray = array1D.filter(str => str.length > 2 && str.length < 10);
+    //Pasamos el array filtrado a un sólo objeto con esta estructura: { palabra1: [], palabra2: [] ... }
+    const objResult = arraysToOneObject(filteredArray);
+    //Contamos dónde aparece en el array 2D las propiedades del objeto final y se las añadimos a su valor { palabra1: [1, 2, 3]...}
+    addLinesWhereIsTheValue(objResult, array2D);
+    //Imprimimos el resultado final, ordenado ignorando mayus/minus en orden alfabetico abc...
     document.write(stringOutput(objResult, "<br>"));
 
 
@@ -54,24 +61,30 @@
         .map(linea => linea.split(" "));
     }
 
-    function arraysToOneObject(arrays) {
-      let uniqueArr = [];
-      arrays.map(arr => {
-        arr.map(str => {
-          if (str.length > 2 && str.length < 10) uniqueArr.push(str);
-        });
-      });
+    function arraysToOneObject(array) {
+      //Transformamos en Set y de nuevo en [] para eliminar repetidos
+      let uniqueArr = [...new Set(array)];
+      return toObject(uniqueArr);
 
-      function toObject() {
+      function toObject(uniqueArr) {
         return uniqueArr.reduce((acc, v) => {
           acc[v] = [];
           return acc;
         }, {});
       }
-      return toObject(uniqueArr);
+      /*
+      function toUniqueArr() {
+        let uniqueArr = [];
+        arrays.map(arr => {
+          arr.map(str => {
+            if (str.length > 2 && str.length < 10) uniqueArr.push(str);
+          });
+        });
+        return uniqueArr;
+      }*/
     }
 
-    function addlinesWhereIsTheValue(obj, arrays) {
+    function addLinesWhereIsTheValue(obj, arrays) {
       Object.keys(obj).forEach(prop => {
         arrays.forEach((arr, i) => {
           if (arrays[i].includes(prop)) {
@@ -82,10 +95,11 @@
     }
 
     function stringOutput(obj, lineBreak) {
+      //Sacamos las propiedades y las ordenamos alfabeticamente en un array
       let properties = Object.keys(obj).sort((a, b) => {
-        return (a.toLowerCase() >= b.toLowerCase())? 1 : -1 
+        return (a.toLowerCase() >= b.toLowerCase()) ? 1 : -1
       });
-      
+
       let result = "";
       properties.forEach(prop => {
         result += prop + ": ";
@@ -94,28 +108,6 @@
       });
       return result;
     }
-
-    /*
-    function buildArrObj(array) {
-      const difWords = cleanRepeatedWords(arraysDifferentWords());
-
-      function arraysDifferentWords() {
-        return array.map(subArr => {
-          const result = subArr.filter(str => {
-            return str.length > 2 && str.length < 10;
-          });
-          return result;
-        }).filter(subArr => subArr.length);
-      }
-
-      function cleanRepeatedWords(arr) {
-        
-
-        function 
-      }
-      
-      return arrDifferentWords();
-    }*/
 
   </script>
 </body>

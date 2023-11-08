@@ -1,6 +1,5 @@
 from person import Person
 
-
 class Employee(Person):
     """
     Docu del método: Metodo de ejemplo Employee
@@ -27,7 +26,7 @@ class Employee(Person):
         Es como el toString de Java
         """
         # Viene a ser el toString de Java
-        return "" + super().__repr__() + "Salary: %d" % self._salary
+        return " " + super().__repr__() + " Salary: %d" % self._salary
 
     def displayEmployee(self):
         print("Name :", self.name, ", Salary: ", self._salary)

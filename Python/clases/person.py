@@ -7,6 +7,6 @@ class Person:
     def __repr__(self) -> str:
         return (
             "Name: %s" % self.name
-            + "Age: %s" % self.age
-            + "Birthdate %s" % self.birthdate
+            + " Age: %s" % self.age
+            + " Birthdate %s" % self.birthdate
         )

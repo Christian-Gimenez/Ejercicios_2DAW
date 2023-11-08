@@ -107,9 +107,29 @@ let m = new Map();
 //new Map({clave => valor}, {clave => valor})
 //new Map([clave, valor], [clave, valor])
 
+//Añadir un elemento al Map
+m.set(1, "Uno");
+m.delete(1); //Elimina la propiedad anterior
+
+
 let rep = [1,1,1,2,3,4,5,6,6,5,7,8,8,9,10]
 //Como los Set en Java, no acepta repetidos
 let s = new Set(rep); //{1,2,3,4,5,6,7,8,9,10}
+
+//Para tener un closure, o lo que es lo mismo, un scope
+//protegido al cual sólo tengamos acceso cuando deseemos pero
+//que ninguna variable externa me lo modifique
+function contador() {
+  let n = 0;
+  return {
+    contar: function() {return n++},
+    reset: n=0
+  }
+}
+
+//Crea un nuevo closure cada vez, 'ce' no puede modificar 'de'
+let ce = contador(); 
+let de = contador();
 
 
 

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejemplo Boton Vanilla JS</title>
+</head>
+<body>
+  <button data-id="123">Me gusta</button>
+  <!--Al duplicarlo, en Vanilla sólo nos funcionaría el primero
+      salvo que lo fixeemos recuperando todos los botones-->
+  <button data-id="123">Me gusta</button>
+  <button data-id="123">Me gusta</button>
+
+  <!--PROBLEMAS:
+      1. Al ser declarativo: NO ES ESCALABLE
+      2. Para ser reutilizable: HAY QUE HACER MÁS y MÁS FUNCIONEs
+      3. Al cambiar el entorno donde usarlo y los id: HABRÍA QUE RE-ESCRIBIRLO TODO     
+  -->
+  <style>
+    button {
+      background-color: #09f;
+      color: #fff;
+      border: 0;
+      padding: 4px 8px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    body {
+      background-color: #222;
+    }
+  </style>
+  <script src="boton-ej-vanillaJs.js"></script>
+
+</body>
+</html>

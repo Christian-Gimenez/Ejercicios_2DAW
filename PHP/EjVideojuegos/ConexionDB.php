@@ -22,7 +22,7 @@ class ConexionDB {
   public $conexionDB;
 
   function __construct() {
-    $this->conexionDB = mysqli_connect('localhost', 'christian', 'Sauron_1995', 'videojuegos');
+    $this->conexionDB = mysqli_connect('localhost', 'christian', '1234', 'videojuegos');
   }
 
   public function probarConexion(): bool {

@@ -1,0 +1,34 @@
+/*var()*/
+:root {
+  --primer-color: orange;
+  --segundo-color: blue;
+}
+
+body {
+  background-color: linear-gradient(var(--primer-color), var(--segundo-color));
+}
+
+
+:root {
+  --primer-color: orange;
+  --segundo-color: blue;
+  --degradado: linear-gradient(var(--primer-color), var(--segundo-color));
+}
+
+body {
+  background-color: var(--degradado);
+}
+
+
+/*max(), min() y clamp()*/
+div {
+  /*con max() nos aseguramos un valor mínimo. Minimo 60ch cuando 98% sea < 60ch*/
+  width: max(60ch, 98%);
+
+  /*con min() nos aseguramos un valor máximo. Máximo 600px cuando 80% sea > 600px*/
+  width: min(600px, 80%);
+
+  /*con  clamp() el mínimo, el valor ideal y el máximo*/
+  width: clamp(350px, 50%, 500px);
+        /*max(350px, min(50%, 500px))*/
+}

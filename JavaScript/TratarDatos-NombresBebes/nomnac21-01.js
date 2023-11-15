@@ -1,4 +1,21 @@
-﻿const nombres = `
+﻿/*Tienes que importar este JS que es un CSV transformado a una string a otro JS o a un HTML con <script>
+Había que hacer muchas cosas, limpiar la cadena de strings vacias, dividirla en un array de arrays, etc...
+Estas son las estructuras que puedes hacer:
+
+const niños -> Array con los niños y su numero
+const niñas -> Array con las niñas y su numero
+const cabecera -> Array cabecera del CSV (inventada por ti)
+const niños_obj -> Array de objetos, cada pos es un objeto {nombre-niño : numero}
+const niñas_obj -> Array de objetos, cada pos es un objeto {nombre-niña : numero}
+const todos -> Array de objetos con niñas y niños (unir los anteriores)
+const niños_sin_s -> Array de objetos eliminando la prop: sexo
+const niñas_sin_s -> Array de objetos eliminando la prop: sexo
+const todes_les_niñes -> Array de objetos de niñas y niños sin sexo
+
+Para ver mi solución y la de Jose que documenté abajo del código.
+Link GitHub: https://github.com/Christian-Gimenez/Ejercicios_2DAW/blob/main/JavaScript/TratarDatos-NombresBebes/NombresBebes.html
+*/
+const nombres = `
 MARTIN;3.459;;LUCIA;3.643;
 HUGO;3.339;;MARTINA;3.042;
 MATEO;3.270;;SOFIA;2.998;

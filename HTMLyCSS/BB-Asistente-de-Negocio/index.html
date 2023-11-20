@@ -21,7 +21,17 @@
         <span>Soporte empresarial profesional</span>
       </p>
     </div>
-    <button class="btn-nav"><span></span></button>
+    <button type="button" class="btn-nav nav-button" onClick="navFunc()">
+      <span class="sr-only">MENU</span>
+    </button>
+
+    <nav class="nav">
+      <ul>
+        <li><a href="#">Información</a></li>
+        <li><a href="#">Servicios</a></li>
+        <li><a href="#" class="btn">CONTACTAR</a></li>
+      </ul>
+    </nav>
   </header>
 
   <section class="hero">
@@ -137,6 +147,13 @@
       </ul>
     </div>
   </footer>
+
+  <script>
+    function navFunc() {
+      document.querySelector("html")
+        .classList.toggle("abierto");
+    }
+  </script>
 </body>
 
 </html>

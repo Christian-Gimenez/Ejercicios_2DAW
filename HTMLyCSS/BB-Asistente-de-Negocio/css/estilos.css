@@ -5,8 +5,32 @@ body, section, article, footer, figure {
   margin: 0; padding: 0;
 }
 
+html, body {
+  overflow: hidden;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+.sr-only {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }
 
 .clearfix::after {
@@ -88,6 +112,83 @@ body {
 .btn-nav::after {
   transform: translateY(5px);
 }
+
+
+.cabecera button::before {
+  transform: translateY(-5px);
+  box-shadow: 0 6px currentColor;
+}
+
+/*Botón de navegación cerrar*/
+.abierto .cabecera button {
+  position: relative; /*Necesario para el z-index*/
+  z-index: 20;
+  color: #ffffff;
+}
+
+.abierto .cabecera button::before {
+  transform: translateY(1px) rotate(45deg);
+  box-shadow: none;
+}
+
+.abierto .cabecera button::after {
+  transform: rotate(-45deg);
+}
+
+/*Menú extendido móvil*/
+@media (max-width: 899px) {
+  html.abierto,
+  .abierto body {
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .abierto .form {
+    display: none;
+  }
+  
+  .abierto nav {
+    left: 0;
+  }
+  
+  .cabecera {
+    position: relative;
+  }
+  
+  .nav {
+    position: absolute;
+    top: 0;
+    left: 108%;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,0.8);
+    color: #ffffff;
+    z-index: 10;
+   
+  }
+  
+  .nav ul {
+    list-style: none;
+    font-weight: bold;
+    text-align: center;
+    position: absolute;
+    left: 0; top: 0;
+    right: 0; bottom: 0;
+    margin: auto;
+    width: 70%; /*Jose puso 50%*/
+    height: 30%;
+
+  }
+  
+  .nav li:not(:last-child) {
+    margin-bottom: 40px;
+  }
+  
+  .nav .btn {
+    color:inherit;
+  }
+}
+
 
 /* Hero */
 .hero {

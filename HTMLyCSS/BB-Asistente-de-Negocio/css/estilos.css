@@ -1,5 +1,14 @@
 @charset "UTF-8";
 
+:root {
+  --color-ppal: #2E5180;
+  /*Tonos de gris*/
+  --color-sec: #CDD6DD;
+  --color-sec-oscuro: #333333;
+  --color-sec-medio: #797F89;
+  --color-sec-claro: #EEF4F8;
+}
+
 h1, h2, h3, h4, div, p, header, ul,
 body, section, article, footer, figure {
   margin: 0; padding: 0;
@@ -91,7 +100,7 @@ a:hover {
   width: 20px;
   height: 14px;
   cursor: pointer;
-  color:#2E5180;
+  color:var(--color-ppal);
 }
 
 .btn-nav::before,
@@ -189,6 +198,43 @@ a:hover {
   }
 }
 
+/*Menu de navegación en el escritorio min-width: 900*/
+@media (min-width: 900px) {
+  .cabecera button {
+    display: none;
+  }
+
+  .cabecera div div {
+    width: 40%;
+  }
+
+  .cabecera nav {
+    float: right;
+  }
+
+  .cabecera nav ul {
+    list-style: none;
+    color: var(--color-sec-oscuro);
+    overflow: hidden;
+  }
+
+  .cabecera nav ul li {
+    float: left;
+  }
+
+  .cabecera nav ul li:not(:last-of-type) {
+    margin-right: 23px;
+    padding: 13px 13px 14px;
+  }
+
+
+  .cabecera nav li .btn {
+    width: 148px;
+    border-color: var(--color-sec);
+  }
+
+
+}
 
 /* Hero */
 .hero {
@@ -211,7 +257,7 @@ a:hover {
 
 .hero div p {
   font-size: 15px;
-  color: #2E5180;
+  color: var(--color-ppal);
   margin: 10px 0 -10px 0;
 }
 
@@ -221,8 +267,25 @@ a:hover {
 
 }
 
+@media (min-width: 900px) {
+  .hero {
+    height: 700px;
+  }
+
+  .hero > div {
+    padding: 47px 0 44px;
+  }
+
+  .hero div p {
+    font-size: 18px;
+    margin-bottom: 22px;
+  }
+
+
+}
+
 .mensaje {
-  background-color: #2E5180;
+  background-color: var(--color-ppal);
   color: white;
   padding: 67px 0;
 }
@@ -241,6 +304,18 @@ a:hover {
   padding: 0 15px;
 }
 
+@media (min-width: 900px) {
+  .mensaje {
+    padding: 80px 0;
+  }
+
+  .mensaje h2 {
+    font-size: 36px;
+  }
+
+
+}
+
 /* Servicios */
 .servicios {
   text-align: center;
@@ -249,7 +324,7 @@ a:hover {
 
 .servicios h2 {
   font-size: 26px;
-  color: #2E5180;
+  color: var(--color-ppal);
 
   /*Subrayado*/
   border-bottom: 2px dotted currentColor;
@@ -258,8 +333,18 @@ a:hover {
 }
 
 .servicios p {
-  color: #2E5180;
+  color: var(--color-ppal);
   font-size: 16px;
+}
+
+@media (min-width: 900px) {
+  .servicios {
+    padding: 95px 0 87px;
+  }
+
+  .servicios h2 {
+    font-size: 32px;
+  }
 }
 
 /* clase servicios*/
@@ -284,7 +369,38 @@ a:hover {
   color: #333333;
 }
 
+@media (min-width: 900px) {
+  .caracteristicas {
+    margin-top: 75px;
+  }
 
+  .caracteristicas article {
+    float: left;
+    width: 31%;
+  }
+
+  .caracteristicas article:not(:last-of-type) {
+    margin-right: 3%;
+  }
+
+  .caracteristicas article h3 {
+    margin-bottom: 26px;
+    font-size: 30px;
+    line-height: 1.4;
+  }
+
+  .caracteristicas article p {
+    width: 78%;
+    min-width: none;
+  }
+
+  .caracteristicas article figure img {
+    height: 360px;
+    margin-bottom: 33px;
+  }
+
+  
+}
 
 /*Contacto*/
 .contacto {
@@ -301,6 +417,45 @@ a:hover {
 .contacto > p {
   font-size: 13px;
   line-height: 2;
+}
+
+@media (min-width: 900px) {
+  .contacto {
+    padding: 0;
+    background: none;
+  }
+
+  .contacto .contenedor {
+    padding: 96px 9% 62%;
+    box-sizing: border-box;
+    background-color: var(--color-sec-claro);
+    overflow: hidden;
+  }
+
+  .contacto .texto {
+    float: left;
+    width: 50%;
+  }
+
+  .contacto form {
+    float: right;
+    width: 48%;
+    margin-top: 0;
+  }
+
+  .contacto h2 {
+    font-style: 36px;
+  }
+
+  .contacto .texto p {
+    font-style: 15px;
+    line-height: 1.73;
+  }
+
+  .contacto {
+    z-index: 2;
+    position: relative;
+  }
 }
 
 .contacto form {
@@ -333,7 +488,7 @@ a:hover {
 .btn {
   display: block;
   text-decoration: none;
-  color: #2E5180;
+  color: var(--color-ppal);
   width: 248px;
   margin: 0 auto;
   box-sizing: border-box;
@@ -350,7 +505,7 @@ a:hover {
   font-family: 'Roboto', sans-serif;
   border: none;
   box-sizing: border-box;
-  background-color: #2E5180;
+  background-color: var(--color-ppal);
   color: white;
   margin: 0;
   cursor: pointer;
@@ -359,7 +514,7 @@ a:hover {
 /* 6. footer */
 .pie {
   padding: 38px 0 56px;
-  background-color: #2E5180;
+  background-color: var(--color-ppal);
 }
 
 .pie img {
@@ -391,4 +546,11 @@ a:hover {
 .pie ul li img {
   width: 35px;
   height: 35px;
+}
+
+@media (min-width: 900px) {
+  pie {
+    margin-top: -48px;
+    padding: 105px 0 88px;
+  }
 }

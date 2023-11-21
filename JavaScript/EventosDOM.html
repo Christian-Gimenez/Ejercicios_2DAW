@@ -24,7 +24,7 @@
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias facere, ad, dignissimos nobis voluptas
       necessitatibus, laboriosam totam corporis velit expedita eos quisquam. Repellendus optio rerum, nemo quod quos
       sapiente alias!
-      <span id="leerMas" class="boton"> Leer más...</span><span id="textoOculto" class="texto ocultar">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa maiores dolor
+      <span id="leerMas" class="boton"> [Leer más...]</span><span id="textoOculto" class="texto ocultar">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa maiores dolor
         laborum
         obcaecati repudiandae dolore asperiores esse, amet corporis provident perspiciatis mollitia dolorem illum in
         fugit
@@ -36,26 +36,28 @@
     "use strict";
     //Seleccionamos el elemento
     const ele = document.querySelector("#leerMas");
+    //const ele = document.querySelector('p > span:first-of-type')
     //Y a su hermano (el texto oculto)
     const hermano = document.querySelector("#textoOculto");
+    //const hermano = ele.nextElementSibling;
     //Añadimos el evento de hacer click
     ele.addEventListener("click", pulsado);
     
 
     function pulsado(evento) {
-      //Si se hace clic, se añade/quita la clase css ".ocultar" al hermano
-      hermano.classList.toggle("ocultar");
-
       // Si el hermano ya tenía la clase "ocultar"
       if(hermano.classList.contains("ocultar")) {
         // Mueve "Leer más..." al principio, ya que el texto se habría ocultado
         ele.parentElement.appendChild(ele);
-        ele.innerHTML = " Leer más...";
+        ele.innerHTML = " [Leer menos...]";
       } else {
         // Si no tenía la clase "ocultar", mueve el "Leer menos..." al final
         ele.parentNode.insertBefore(hermano, ele);
-        ele.innerHTML = " Leer menos...";
+        ele.innerHTML = " [Leer más...]";
       }
+      //Si se hace clic, se añade/quita la clase css ".ocultar" al hermano
+      hermano.classList.toggle("ocultar");
+      console.log(evento);
       
     }
 

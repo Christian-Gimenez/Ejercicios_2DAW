@@ -4,22 +4,53 @@
   Si pulsas 2 veces, se ordena al reves
   Ordenar los datos, no la vista (html)
 */
+
 const resultado = csvAMatriz(datos);
 const cabecera = extraerCabecera(resultado);
+//ordenarPorCampo(resultado, "country", cabecera);
 const tabla = realizarTabla(cabecera, resultado, "TABLA DE PAISES");
 document.body.appendChild(tabla);
 document.body.replaceChildren(tabla);
+
 eventoOrdenarPorCampo(cabecera, resultado);
 
+
 function eventoOrdenarPorCampo(cabecera, matriz) {
-  const cabeceras = document.querySelector("thead tr");
-  cabeceras.addEventListener("click", evento => {
-    let campoSelect = evento.target;
-    console.dir(campoSelect);
-    let txtCampo = campoSelect.firstChild.nodeValue;
-    console.dir(txtCampo);
-    matriz.map(linea => ordenarPorCampo(linea, txtCampo))
-    realizarTabla(cabecera, matriz, `TABLA ORDENADA POR: ${txtCampo}`);
+  //Seleccionamos las cabeceras th
+  const cabeceras = document.querySelectorAll("th");
+  //Añadimos el evento a todos los th
+  cabeceras.forEach(th => {
+    th.style.cursor = "pointer";
+    th.addEventListener("click", evento => {
+      //Seleccionamos el elemento que nos hicieron clic
+      let campoSelect = evento.target;
+      // console.dir(campoSelect);
+      let txtCampo = campoSelect.firstChild.nodeValue;
+      // console.dir(txtCampo);
+      ordenarPorCampo(matriz, txtCampo, cabecera);
+      let newTabla = realizarTabla(cabecera, matriz, `TABLA ORDENADA POR: ${txtCampo}`);
+      // console.dir(newTabla);
+      let oldTabla = document.querySelector("table");
+      oldTabla.parentNode.removeChild(oldTabla);
+      // oldTabla.parentNode.replaceChild(newTabla, oldTabla);
+      document.body.appendChild(newTabla);
+      eventoOrdenarPorCampo(cabecera, matriz);
+    });
+    th.addEventListener("dblclick", evento => {
+      //Seleccionamos el elemento que nos hicieron clic
+      let campoSelect = evento.target;
+      // console.dir(campoSelect);
+      let txtCampo = campoSelect.firstChild.nodeValue;
+      // console.dir(txtCampo);
+      ordenarPorCampo(matriz, txtCampo, cabecera, false);
+      let newTabla = realizarTabla(cabecera, matriz, `TABLA ORDENADA POR: ${txtCampo}`);
+      // console.dir(newTabla);
+      let oldTabla = document.querySelector("table");
+      oldTabla.parentNode.removeChild(oldTabla);
+      // oldTabla.parentNode.replaceChild(newTabla, oldTabla);
+      document.body.appendChild(newTabla);
+      eventoOrdenarPorCampo(cabecera, matriz);
+    })
   });
 }
 
@@ -120,6 +151,7 @@ function realizarTabla(cabecera, array, captionText = "Tabla de paises") {
   </table> */
 
   const table = document.createElement("table");
+  table.setAttribute("border", "1px solid black");
   const caption = document.createElement("caption");
   const txtCap = document.createTextNode(captionText);
 
@@ -179,8 +211,16 @@ function crearNodoConTexto(tipoNodo, textoNodo) {
    88     | 9      | 5    
 */
 
-function ordenarPorCampo(matriz, campo) {
-  matriz.sort((a, b) => a[campo] > b[campo] ? 1 : -1);
+function ordenarPorCampo(matriz, campo, cabecera, asc = true) {
+  let numCampo = cabecera.findIndex(ele => ele === campo);
+  if (asc) {
+    matriz.sort((a, b) => a[numCampo] > b[numCampo] ? 1 : -1);
+  } else {
+    matriz.sort((a, b) => a[numCampo] > b[numCampo] ? -1 : 1);
+  }
+  
+  
+  
 }
 
 function arrDeObj(arrays, cabecera) {

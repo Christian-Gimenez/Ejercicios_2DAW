@@ -16,8 +16,8 @@
             let objetos = datos2objs(sitios, "||", "|"); //Indicamos el separador de registros y el de campos
             const div = objetos2HTMLElements(objetos);
             const body = document.querySelector("body");
-            document.body.appendChild(div);
-
+            body.appendChild(div);
+           
             //Función que transforma una cadena en un array de objetos
             function datos2objs(datos, sepReg = '\n', sepCmp = ';') {
                 //Establecemos las propiedades del objeto
@@ -77,7 +77,7 @@
 
                     //Agregamos cada elemento hijo al padre correspondiente
                     a.appendChild(atext);
-                    span.appendChild(a);
+                    div.appendChild(a);
                     div.appendChild(span);
 
                 });

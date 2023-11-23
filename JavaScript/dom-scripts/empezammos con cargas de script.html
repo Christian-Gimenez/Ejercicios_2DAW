@@ -1,0 +1,36 @@
+<!--
+  empezammos con cargas de script 
+  y orden de ejecucion ya que puso u ejemplo donde hay un div que tiene el id uno y no tiene estilo pero luego al ejecutar explota
+  porque cargo un poco de html y luego no encontro el nodo del div asique se puso a explicar el orden de ejecucion de html y javascript
+  hay varios tipos:
+  1-defer
+  2-asyn
+  3-type=·module
+  4-type="module" async
+  sigues la grabacion de voz.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  
+  <!--CARGAS ANTIGUAS DE SCRIPT-->
+  <!--defer indica al navegador que el script se ejecutará después que el HTML, pero antes que se complete el evento DomContentLoaded-->
+  <script defer src="mi-script.js"></script>
+  <!--async indica al navegador que el script se ejecutará de forma asíncrona en segundo plano, no esperando a que se analice entero el HTML-->
+  <script async src="mi-script.js"></script>
+
+  <!--CARGAS MODERNAS DE SCRIPT-->
+  <!--type="module" indica que es un modulo ES6, se carga de manera asíncrona y no bloquea la carga de la página-->
+  <script type="module" src="mi-script.js"></script>
+  <!--type="module" async carga el modulo ES6 y también se comporta como async-->
+  <script type="module" async src="mi-script.js"></script>
+
+
+</head>
+<body>
+  
+</body>
+</html>

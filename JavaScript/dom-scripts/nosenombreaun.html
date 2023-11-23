@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", main);
+
+        function main() {
+            //Nos llega esta información con un formato raro
+            const sitios = `Google|https://www.google.es||DuckDuckGo|https://duckduckgo.com||YouTube|https://www.youtube.es||Wikipedia|https://www.wikipedia.org || | || | |`
+
+            //Llamamos a la función que nos transformará la cadena en un array de objetos
+            let objetos = datos2objs(sitios, "||", "|"); //Indicamos el separador de registros y el de campos
+            const div = objetos2HTMLElements(objetos);
+            const body = document.querySelector("body");
+            document.body.appendChild(div);
+
+            //Función que transforma una cadena en un array de objetos
+            function datos2objs(datos, sepReg = '\n', sepCmp = ';') {
+                //Establecemos las propiedades del objeto
+                const propsObjs = ['Sitio', 'Direccion'];
+
+                //Devolvemos tras transformar en array los datos y ese array en array de objetos
+                const matriz = datos2Array();
+                return arrays2Objs(matriz, propsObjs);
+                //1- Datos --> array de arrays
+                //2- array --> array de objetos
+
+                //Función que limpia la cadena y la guarda en un array
+                function datos2Array() {
+                    return datos
+                        .split(sepReg) //Separamos la cadena en un array según el sepReg
+                        .filter(reg => reg.trim()) //Filtramos cada registro limpiandolo
+                        .map(reg => reg.split(sepCmp) //Mapeamos cada registro dividiendolo en un sub-array según sepCmp
+                            .filter(camp => camp.trim())) //Filtramos cada campo limpiandolo
+                        .filter(reg => reg.length == 2) //Por último, filtramos que sólo admmita registros de length == 2
+                }
+
+                //De un array de arrays y un array de propiedades, devolvemos un array de objetos
+                function arrays2Objs(array, propsObjs) {
+                    //De cada subArray del array, lo transformamos en objeto pasandole el subArray y las propiedades
+                    return array.map((arr) => {
+                        return aObj(arr, propsObjs)
+                    });
+                }
+
+                //Transforma un array 1D en un objeto con las propiedades indicadas
+                function aObj(arr, prop) {
+                    //Creamos un objeto vacío
+                    const obj = {};
+                    //Iteramos el array, metiendo en el obj vacío el nombre de la propiedad[i] y el valor array[i]
+                    arr.forEach((v, i) => obj[prop[i]] = v);
+                    //Retornamos el array resultante
+                    return obj;
+                }
+            }
+
+            //Transformamos objetos JS en Nodos del DOM
+            function objetos2HTMLElements(objetos) {
+                //Creamos un nodo div
+                const div = document.createElement('div');
+                //Obtenemos las propiedades de algún objeto
+                const keys = Object.keys(objetos[0]);
+                //Iteramos cada objeto con un forEach
+                objetos.forEach(obj => {
+                    //Creamos un nodo a
+                    const a = document.createElement('a');
+                    //Creamos un nodo b
+                    const span = document.createElement('span');
+                    //Establecemos el atributo: <a href="#">
+                    a.setAttribute('href', obj[keys[1]]); // "href",keys[1]
+                    //Creamos el nodo tipo texto sacando los datos del objeto
+                    const atext = document.createTextNode(obj[keys[0]]);
+
+                    //Agregamos cada elemento hijo al padre correspondiente
+                    a.appendChild(atext);
+                    span.appendChild(a);
+                    div.appendChild(span);
+
+                });
+                return div;
+            }
+        }
+
+
+    </script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <!-- Estructura:
+        div
+            a href=#
+            span  
+    -->
+</body>
+
+</html>

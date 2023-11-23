@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        //Cuando todos los elementos DOM HTML estén listos, ejecuta mainn
+        document.addEventListener('DOMContentLoaded', main);
+
+        //Función principal
+        function main() {
+            //Seleccionamos por id el elemento con id #uno
+            // const div = document.getElementById('uno');
+            const div = document.querySelector('#uno');
+            //Le damos un width de 500px
+            div.style.width = "400px";
+            //Le ponemos color de fondo amarillo
+            div.style.backgroundColor = "yellow";
+        }
+
+    </script>
+    <style>
+       div {
+        width: 200px;
+        height: 200px;
+       }
+    </style>
+</head>
+<body>
+    <div id="uno">
+
+    </div>
+</body>
+</html>

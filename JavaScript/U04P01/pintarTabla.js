@@ -5,9 +5,23 @@
   Ordenar los datos, no la vista (html)
 */
 const resultado = csvAMatriz(datos);
+const cabecera = extraerCabecera(resultado);
 const tabla = realizarTabla(cabecera, resultado, "TABLA DE PAISES");
 document.body.appendChild(tabla);
 document.body.replaceChildren(tabla);
+eventoOrdenarPorCampo(cabecera, resultado);
+
+function eventoOrdenarPorCampo(cabecera, matriz) {
+  const cabeceras = document.querySelector("thead tr");
+  cabeceras.addEventListener("click", evento => {
+    let campoSelect = evento.target;
+    console.dir(campoSelect);
+    let txtCampo = campoSelect.firstChild.nodeValue;
+    console.dir(txtCampo);
+    matriz.map(linea => ordenarPorCampo(linea, txtCampo))
+    realizarTabla(cabecera, matriz, `TABLA ORDENADA POR: ${txtCampo}`);
+  });
+}
 
 function csvAMatriz(cadena, sepReg = "\n", sepCamp = ";") {
   const array = cadena.split(sepReg) //Separa en un array por cada \n
@@ -20,14 +34,10 @@ function csvAMatriz(cadena, sepReg = "\n", sepCamp = ";") {
     .filter(linea => linea.length === 11);//Sólo nos valen las que sean length === 11
   return array;
 }
-//console.dir(resultado);
 
 function extraerCabecera(matriz) {
   return matriz.shift();
 }
-
-const cabecera = extraerCabecera(resultado);
-//console.dir(resultado);
 
 function indiceCampoCabecera(cabecera, campo) {
   return cabecera.findIndex(valor => valor === campo);
@@ -170,7 +180,7 @@ function crearNodoConTexto(tipoNodo, textoNodo) {
 */
 
 function ordenarPorCampo(matriz, campo) {
-  return matriz.sort((a, b) => a[campo] > b[campo] ? 1 : -1);
+  matriz.sort((a, b) => a[campo] > b[campo] ? 1 : -1);
 }
 
 function arrDeObj(arrays, cabecera) {

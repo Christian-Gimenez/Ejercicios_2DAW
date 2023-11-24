@@ -5,19 +5,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            & div {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+
+                & a {
+                    font-size: 2rem;
+                }
+
+                & span {
+                    font-size: 1.2rem
+                }
+            }
+        }
+    </style>
     <script>
-        document.addEventListener("DOMContentLoaded", main);
+        "use strict";
+        // document.addEventListener("DOMContentLoaded", main);
 
-        function main() {
-            //Nos llega esta información con un formato raro
-            const sitios = `Google|https://www.google.es||DuckDuckGo|https://duckduckgo.com||YouTube|https://www.youtube.es||Wikipedia|https://www.wikipedia.org || | || | |`
+        // function main() {
+        //Nos llega esta información con un formato raro
+        const sitios = `Google|https://www.google.es||DuckDuckGo|https://duckduckgo.com||YouTube|https://www.youtube.es||Wikipedia|https://www.wikipedia.org || | || | |`
+        const obj = {};
+          
+        const fret = (function () {
+            // document.addEventListener("DOMContentLoaded", () => {
 
+
+            
             //Llamamos a la función que nos transformará la cadena en un array de objetos
-            let objetos = datos2objs(sitios, "||", "|"); //Indicamos el separador de registros y el de campos
-            const div = objetos2HTMLElements(objetos);
-            const body = document.querySelector("body");
-            body.appendChild(div);
-           
+            const objetos = datos2objs(sitios, "||", "|"); //Indicamos el separador de registros y el de campos
+            const contHTML = objetos2HTMLElements(objetos);
+            // window.añadirHTML = añadirHTML;
+            obj.añadirHTML = añadirHTML;
+
+            function añadirHTML() {
+                document.body.appendChild(contHTML);
+            }
+
+            // const body = document.querySelector("body");
+            // body.appendChild(div);
+
             //Función que transforma una cadena en un array de objetos
             function datos2objs(datos, sepReg = '\n', sepCmp = ';') {
                 //Establecemos las propiedades del objeto
@@ -35,16 +66,30 @@
                         .split(sepReg) //Separamos la cadena en un array según el sepReg
                         .filter(reg => reg.trim()) //Filtramos cada registro limpiandolo
                         .map(reg => reg.split(sepCmp) //Mapeamos cada registro dividiendolo en un sub-array según sepCmp
-                            .filter(camp => camp.trim())) //Filtramos cada campo limpiandolo
+                            .filter(camp => camp.trim()))//Filtramos cada campo limpiandolo
+                            //.reduce(acc, )) 
                         .filter(reg => reg.length == 2) //Por último, filtramos que sólo admmita registros de length == 2
                 }
 
                 //De un array de arrays y un array de propiedades, devolvemos un array de objetos
-                function arrays2Objs(array, propsObjs) {
-                    //De cada subArray del array, lo transformamos en objeto pasandole el subArray y las propiedades
-                    return array.map((arr) => {
-                        return aObj(arr, propsObjs)
-                    });
+                // function arrays2Objs(array, propsObjs) {
+                //     //De cada subArray del array, lo transformamos en objeto pasandole el subArray y las propiedades
+                //     return array.map((arr) => {
+                //         return aObj(arr, propsObjs)
+                //     });
+                // }
+                function _arrays2Objs(array, prop) {
+                    return array.reduce((acc, ele) => {
+                        acc.push(aObj(ele, prop));
+                        return acc
+                    }, []);
+                }
+
+                function arrays2Objs(array, prop) {
+                    return array.reduce((acc, ele) => {
+                        acc.push({[prop[i]]: ele[0], [prop[i]]: ele[1]});
+                        return acc
+                    }, []);
                 }
 
                 //Transforma un array 1D en un objeto con las propiedades indicadas
@@ -71,25 +116,38 @@
                     //Creamos un nodo b
                     const span = document.createElement('span');
                     //Establecemos el atributo: <a href="#">
-                    a.setAttribute('href', obj[keys[1]]); // "href",keys[1]
+                    a.setAttribute('href', obj[keys[1]]);
+                    // a.setAttribute('href', "#");
                     //Creamos el nodo tipo texto sacando los datos del objeto
-                    const atext = document.createTextNode(obj[keys[0]]);
+                    const txtA = document.createTextNode(obj[keys[0]]);
+                    const txtS = document.createTextNode("Visitado 0 veces");
+
+                    a.addEventListener("click", gestionarClick);
 
                     //Agregamos cada elemento hijo al padre correspondiente
-                    a.appendChild(atext);
+                    a.appendChild(txtA);
+                    span.appendChild(txtS);
                     div.appendChild(a);
                     div.appendChild(span);
 
                 });
                 return div;
             }
-        }
+
+            function gestionarClick(evt) {
+                evt.preventDefault();
+                const contSpan = evt.target.nextElementSibling.innerText;
+                const array = contSpan.split(" ");
+                array[1] = Number(array[1]) + 1;
+                array[2] = array[1] == 1 ? "vez." : "veces.";
+                //array[2] = array[1] == 1 && "veces." : "vez";
+                evt.target.nextElementSibling.innerText = array.join(" ");
+            }
+        })(obj);
 
 
     </script>
-    <style>
-
-    </style>
+  
 </head>
 
 <body>
@@ -98,6 +156,10 @@
             a href=#
             span  
     -->
+    <script>
+      //fret();
+      obj.añadirHTML();
+    </script>
 </body>
 
 </html>

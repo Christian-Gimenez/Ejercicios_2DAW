@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $apellido2 = $_POST["apellido2"] ?? "";
     // echo "Apellidos: $apellido1 $apellido2<br>";
     $fechaNacimiento = $_POST["fechaNacimiento"] ?? "";
-    // echo "Fecha: $fechaNacimiento<br/>";
+    // echo "Fecha: 89252732J$fechaNacimiento<br/>";
     if (
       strlen($nombre) > 0 && strlen($apellido1) > 0
       && strlen(($apellido2) > 0) && strlen($fechaNacimiento) > 0
@@ -40,6 +40,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
     } else {
       echo "<h1>ERROR: ¡No introdujiste ningún número de DNI!</h1>";
+    }
+  } elseif(isset($_POST["xDNIs"])) {
+    if(isset($_POST["cantidad"])) {
+      $cantidad = $_POST["cantidad"];
+      echo "<ol>";
+      for($i = 0; $i < $cantidad; $i++) {
+        $dni = genDNI();
+        echo "<li>$dni</li>";
+      }
+      echo "</ol>";
     }
   }
 }

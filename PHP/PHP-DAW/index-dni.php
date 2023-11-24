@@ -10,6 +10,7 @@
     h1 {
       text-align: center;
     }
+
     .mainApp {
       border: 2px solid black;
       width: 30%;
@@ -44,7 +45,7 @@
 
 <body>
   <div class="mainApp">
-    <br/>
+    <br />
     <legend>Generar DNI</legend>
     <form action="" method="POST">
       <label for="nombre">Introduce tu nombre:</label><br />
@@ -60,6 +61,16 @@
       <input type="date" name="fechaNacimiento"><br />
       <br />
       <input type="submit" value="Generar DNI" name="generaDNI" /><br />
+      <br />
+    </form>
+
+    <hr />
+    <legend>Genera X DNIs aleatorios</legend>
+    <form action="" method="POST">
+      <label for="cantidad">¿Cuántos DNI aleatorios quieres?:</label><br />
+      <input type="number" name="cantidad" /><br />
+      <br />
+      <input type="submit" value="X DNIs Aleatorios" name="xDNIs" /><br />
       <br />
     </form>
 

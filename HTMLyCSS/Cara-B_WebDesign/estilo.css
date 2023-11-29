@@ -1,0 +1,117 @@
+/*Cargar las fuentes de la página*/
+@font-face {
+  font-family: "Cabin";
+  src: url("./fonts/Cabin-VariableFont_wdth\,wght.ttf");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Cabin";
+  src: url("./fonts/Cabin-Italic-VariableFont_wdth\,wght.ttf");
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Courgette";
+  src: url("./fonts/Courgette-Regular.ttf");
+}
+
+/*Variables con los colores*/
+:root {
+  --color-texto: #ffffff;
+  --color-rojo-claro: #ff0000;
+  --color-rojo-principal: #7f0202;
+  --color-secundario: #d9d9d9;
+  --color-negro: #000000;
+  --degradado-rojo-negro: linear-gradient(var(--color-rojo-principal), var(--color-negro));
+  --degradado-negro-rojo: linear-gradient(var(--color-negro), var(--color-rojo-principal));
+}
+
+
+/*Reiniciar estilos por defecto*/
+nav,
+button,
+img,
+ul,
+li,
+a,
+label,
+input,
+header,
+caption,
+h1,
+h2,
+h3,
+h4,
+h5,
+section,
+div,
+span,
+footer,
+p,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*Ocultar todo lo que no se vea en Mobile*/
+.login,
+.botonCarritoNormal,
+.menuDesplegable {
+  display: none;
+}
+
+/*Quitar estilos por defecto a los button*/
+button {
+  border: none;
+  outline: none;
+  background: none;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+/*Nav superior Mobile*/
+.menuSuperior {
+  background: var(--degradado-rojo-negro);
+  position: fixed;
+  height: 100px;
+  width: 100%;
+}
+
+/*Boton menú*/
+.botonMenu {
+  float: left;
+  color: var(--color-texto);
+  color: transparent;
+  margin-left: 20px;
+  margin-top: 15px;
+  width: 60px;
+}
+
+.botonMenu::after,
+.botonMenu::before {
+  content:"";
+  display: block;
+  height: 5px;
+  background-color: var(--color-texto);
+}
+
+.botonMenu::before {
+  transform: translateY(10px);
+}
+
+.botonMenu::after {
+  box-shadow: 0 16px var(--color-texto);
+  transform: translateY(5px);
+}
+
+.carritoCompra {
+  position: absolute;
+  bottom: 20px;
+}
+
+.menuSuperior img:last-of-type {
+  width: 54px;
+  display: block;
+}

@@ -46,7 +46,7 @@ function pintarArbol(int $alto): void {
   echo "$linea<br/>";
 }
 
-pintarArbol(7);
+pintarArbol(12);
 
 
 

@@ -51,7 +51,7 @@
       function convertirAObjs() {
         function aObjeto(arr) {
           return arr.reduce((acc, v, i) => {
-            (i != 0)? acc[cabecera[i]] = Number(v.trim()) : acc[cabecera[i]] = v;
+            (i != 0) ? acc[cabecera[i]] = Number(v.trim()) : acc[cabecera[i]] = v;
             return acc;
           }, {});
         }
@@ -92,7 +92,7 @@
         return max[prop];
       }
     }
-    
+
 
 
     function ordenarObjetos(objetos, prop, modo = "ascii", asc = false) {
@@ -101,7 +101,7 @@
       if (modo.toLowerCase() === "numero") fun = ordenarNumero;
       if (modo.toLowerCase() === "fecha") fun = ordenarFecha;
 
-      (asc)? objetos.sort(fun) : objetos.sort(fun).reverse();
+      (asc) ? objetos.sort(fun) : objetos.sort(fun).reverse();
 
       function ordenarAscii(oA, oB) {
         if (oA[prop] >= oB[prop]) return 1;
@@ -115,6 +115,76 @@
       function ordenarFecha(oA, oB) {
         return new Date(oA[prop]) - new Date(oB[prop]);
       }
+    }
+
+    /*
+      table
+        thead
+          tr ... th
+        tbody
+          tr ... td
+        tfooter
+          tr ... td
+    */
+    function crearTable(datos) {
+
+      const table = crearNodo("table");
+      table.appendChild(crearHeader(extraerCabecera()));
+      table.appendChild(crearBody());
+      table.appendChild(crearFooter(calcularMedias())); //FALTA POR IMPLEMENTAR
+      return table;
+
+      function extraerCabecera() {
+        return Object.keys(datos[0]);
+      }
+
+      function calcularMedias() {
+        return [];
+      }
+
+      function crearHeader(cabecera) {
+        const thead = crearNodo("thead");
+
+        const tr = crearNodo("tr");
+
+        cabecera.forEach(c => tr.appendChild(crearNodo("th", c)));
+
+        thead.appendChild(tr);
+        
+        return thead;
+      }
+
+      function crearBody() {
+        const tbody = crearNodo("tbody");
+
+        datos.forEach(fila => {
+          const tr = crearNodo("tr");
+          for(k in fila) {
+            tr.appendChild(crearNodo("td", fila[k]));
+          };
+          tbody.appendChild(tr);
+        });
+
+        return tbody;
+      }
+
+      function crearFooter(datos) {
+        const tfooter = crearNodo("tfooter");
+        const tr = crearNodo("tr");
+        cabecera.forEach(c => tr.appendChild(crearNodo("td", c)));
+        tfooter.appendChild(tr);
+        return footer;
+      }
+    }
+
+    function crearNodo(etiqueta, contenido) {
+      const nodo = document.createElement(etiqueta);
+      if (contenido) {
+        const txt = document.createTextNode(contenido);
+        nodo.appendChild(txt);
+      }
+
+      return nodo;
     }
 
 

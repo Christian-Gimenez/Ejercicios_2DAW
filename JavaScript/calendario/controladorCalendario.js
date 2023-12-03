@@ -3,30 +3,17 @@ import { vistaCalendario } from "./vistaCalendario";
 import { modeloCalendario } from "./modeloCalendario";
 
 export function controladorCalendario() {
+
   function iniciar() {
-    
+    const fecha = new Date();
+    const cabecera = [...modeloCalendario().CABECERA_SEMANA];
+    const fechaObj = modeloCalendario().fechaAObjeto(fecha);
+    vistaCalendario().crearTabla(fechaObj, cabecera);
   }
 
   function mesActual() {
     const fecha = new Date();
-    const objMes = {
-      anio: hoy.getFullYear(),
-      mes: MESES[hoy.getMonth()],
-      dias: arrayDiasDelMes(fecha)
-    };
-    hoy.getMonth
-  }
-
-  function arrayDiasDelMes(fecha) {
-    const resultado = [];
-    const dia = new Date(fecha);
-    dia.setDate(1);
-    do {
-      resultado.push(dia.getDate());
-      dia.setDate(dia.getDate() + 1);
-      if(dia.getMonth() != fecha.getMonth()) break;
-    } while(true);
-    return resultado;
+    return fecha;
   }
 
   function incrementarMes(fecha) {
@@ -41,11 +28,15 @@ export function controladorCalendario() {
     return unMesMenos;
   }
 
-  function incrementarAnio() {
-
+  function incrementarAnio(fecha) {
+    const unAnioMas = new Date(fecha);
+    unAnioMas.setFullYear(unAnioMas.getFullYear() + 1);
+    return unAnioMas;
   }
 
-  function decrementarAnio() {
-
+  function decrementarAnio(fecha) {
+    const unAnioMenos = new Date(fecha);
+    unAnioMas.setFullYear(unAnioMenos.getFullYear() -1);
+    return unAnioMenos;
   }
 }

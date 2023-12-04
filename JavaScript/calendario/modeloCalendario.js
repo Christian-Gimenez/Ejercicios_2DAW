@@ -49,8 +49,10 @@ export function matrizDiasDelMes(fecha) {
   return matrizDiasResultado;
 
   function meterDatosMatriz(clonArrDias) {
-    //Cuando coincidan el primer dia del mes
-    let indiceInicial = empezarLaMatrizEn(); //5
+    let indiceInicial = empezarLaMatrizEn();
+    if(indiceInicial != 7) matrizDiasPorDefecto.pop();
+    let fechaSemana = new Date(fecha);
+    fechaSemana.setDate(1 - indiceInicial);
     let indiceArrDias = 0;
     return matrizDiasPorDefecto.map((arrSemana) => {
       return arrSemana.map((objDia, i) => {
@@ -59,8 +61,13 @@ export function matrizDiasDelMes(fecha) {
             let objDato = clonArrDias.shift();
             objDia[Object.keys(objDia)[0]] = objDato[Object.keys(objDato)[0]];
           } else {
-            objDia[Object.keys(objDia)[0]] = getNumSemana();
+            fechaSemana.setDate(fechaSemana.getDate() + 7);
+            objDia[Object.keys(objDia)[0]] = getNumSemana(fechaSemana);
           }
+        }
+        if(indiceArrDias == 0) {
+          fechaSemana.setDate(fechaSemana.getDate() + 7);
+          objDia[Object.keys(objDia)[0]] = getNumSemana(fechaSemana);
         }
         indiceArrDias++;
         return objDia;
@@ -69,10 +76,7 @@ export function matrizDiasDelMes(fecha) {
   }
 
   function empezarLaMatrizEn() {
-    // console.dir(matrizDiasPorDefecto[0])
     return matrizDiasPorDefecto[0].findIndex((fila) => {
-      // console.log("PrimerDiaDelMes: " + primerDiaDelMes);
-      // console.log(`Dia encontrado indice ${i}:` + Object.keys(fila)[0]);
       return primerDiaDelMes == Object.keys(fila)[0];
     });
   }
@@ -80,7 +84,7 @@ export function matrizDiasDelMes(fecha) {
   function inicializarMatriz() {
     const matriz = [];
     //Va de 1 a 5 porque son las semanas
-    for (let i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 6; i++) {
       matriz.push([]);
       //Va de 0 a 7 para que funcione getDiaSemana() 7 y 0 son Domingo
       for (let j = 0; j < 8; j++) {
@@ -138,8 +142,13 @@ export function getDiaSemana(dia) {
   return diaSemana;
 }
 
-export function getNumSemana() {
-  return -1;
+export function getNumSemana(fecha) {
+  const fechaClonada = new Date(fecha);
+  fechaClonada.setDate(fechaClonada.getDate() + 4 - (fechaClonada.getDay() || 7));
+  const principioDeAnio = new Date(fechaClonada.getFullYear(), 0, 1);
+  const numSemana = Math.ceil(((fechaClonada - principioDeAnio) / 86400000 + 1) / 7);
+
+  return numSemana;
 }
 
 

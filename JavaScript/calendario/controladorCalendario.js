@@ -4,25 +4,82 @@ import * as Modelo from "./modeloCalendario.js";
 
 /*MAIN */
 // document.addEventListener("DOMContentLoaded", () => {
+
 let fechaMostrada = mesActual();
-iniciar(fechaMostrada);
-const btn1AnioMenos = document.querySelector("div div :first-child");
+const cabecera = [...Modelo.CABECERA_SEMANA];
+iniciar();
+let calendarioActual = document.getElementsByTagName("table")[0].parentElement;
+
+
+//Evento Boton -1 Año
+const btn1AnioMenos = document.querySelector("div div button:first-child");
 btn1AnioMenos.addEventListener("click", function(){
   fechaMostrada = decrementarAnio();
-  console.dir(fechaMostrada);
+  cambiarCalendario(fechaMostrada);
 });
 
+//Evento Boton -1 Mes
 const btn1MesMenos = document.querySelector("div div button:nth-of-type(2)");
-btn1MesMenos.addEventListener("Click", function() {
+btn1MesMenos.addEventListener("click", function() {
   fechaMostrada = decrementarMes();
-  console.dir(fechaMostrada);
+  cambiarCalendario(fechaMostrada);
 });
 
+//Evento Boton Mes Actual
+const btnFechaActual = document.querySelector("div div button:nth-of-type(3)");
+btnFechaActual.addEventListener("click", function() {
+  const nuevaFecha = mesActual();
+  if(!fechasIguales(fechaMostrada, nuevaFecha)) {
+    fechaMostrada = nuevaFecha;
+    cambiarCalendario(fechaMostrada);
+  }
+});
+
+//Evento Boton +1 Mes
+const btn1MesMas = document.querySelector("div div button:nth-last-child(2)");
+btn1MesMas.addEventListener("click", function() {
+  fechaMostrada = incrementarMes();
+  cambiarCalendario(fechaMostrada);
+})
+
+//Evento Boton +1 Año
+const btn1AnioMas = document.querySelector("div div button:last-child");
+btn1AnioMas.addEventListener("click", function() {
+  fechaMostrada = incrementarAnio();
+  cambiarCalendario(fechaMostrada);
+});
+
+
+/*Funciones control de calendario */
+function fechasIguales(fecha1, fecha2) {
+  return (
+    fecha1.getFullYear() === fecha2.getFullYear() &&
+    fecha1.getMonth() === fecha2.getMonth() &&
+    fecha1.getDate() === fecha2.getDate()
+  );
+}
+
+function cambiarCalendario(fecha) {
+  const nuevaFechaObj = Modelo.fechaAObjeto(fecha);
+  let nuevaTabla;
+  if(fechasIguales(fecha, new Date())) {
+    nuevaTabla = Vista.crearTabla(nuevaFechaObj, cabecera, new Date());
+  } else {
+    nuevaTabla = Vista.crearTabla(nuevaFechaObj, cabecera);
+  }
+  const antiguaTabla = calendarioActual.firstChild;
+  calendarioActual.insertBefore(nuevaTabla, antiguaTabla);
+  calendarioActual.removeChild(antiguaTabla);
+}
 
 export function iniciar() {
-  const cabecera = [...Modelo.CABECERA_SEMANA];
   const fechaObj = Modelo.fechaAObjeto(fechaMostrada);
-  Vista.mostrarCalendario(fechaObj, cabecera);
+  if(fechasIguales(fechaMostrada, new Date())) {
+    Vista.mostrarCalendario(fechaObj, cabecera, fechaMostrada);
+  } else {
+    Vista.mostrarCalendario(fechaObj, cabecera);
+  }
+  
 }
 
 export function mesActual() {

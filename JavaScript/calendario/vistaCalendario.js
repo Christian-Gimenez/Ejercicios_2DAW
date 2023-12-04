@@ -1,18 +1,17 @@
 "use strict";
-export function mostrarCalendario(fechaObj, cabecera) {
+export function mostrarCalendario(fechaObj, cabecera, hoy) {
   const divPrincipal = document.createElement("div");
 
   const divBotones = crearBotones();
 
   const divCalendario = document.createElement("div");
-  divCalendario.appendChild(crearTabla(fechaObj, cabecera));
+  divCalendario.appendChild(crearTabla(fechaObj, cabecera, hoy));
 
   divPrincipal.appendChild(divBotones);
   divPrincipal.appendChild(divCalendario);
 
   document.body.appendChild(divPrincipal);
 }
-
 
 
 export function crearBotones() {
@@ -40,7 +39,8 @@ export function crearBotones() {
   return div;
 }
 
-export function crearTabla(fechaObj, cabecera) {
+export function crearTabla(fechaObj, cabecera, hoy) {
+  const pintarHoy = hoy ? true : false;
   const tabla = document.createElement("table");
   tabla.setAttribute("border", "1px solid black");
 
@@ -83,6 +83,8 @@ export function crearTabla(fechaObj, cabecera) {
         let td = document.createElement("td");
         let dato = dia[cabecera[i]];
         td.appendChild(document.createTextNode(dato));
+        if(pintarHoy && dato === hoy.getDate()) td.setAttribute("id", "dia_actual");
+        (i === 0)? td.setAttribute("class", "numero_semana") : td.setAttribute("class", "no_del_mes");
         tr.appendChild(td);
       });
       tbody.appendChild(tr);

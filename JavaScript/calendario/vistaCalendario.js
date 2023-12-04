@@ -42,7 +42,7 @@ export function crearBotones() {
 export function crearTabla(fechaObj, cabecera, hoy) {
   const pintarHoy = hoy ? true : false;
   const tabla = document.createElement("table");
-  tabla.setAttribute("border", "1px solid black");
+  // tabla.setAttribute("border", "1px solid black");
 
   const tituloTabla = document.createElement("caption");
   tituloTabla.appendChild(document.createTextNode(fechaObj["mes"]));

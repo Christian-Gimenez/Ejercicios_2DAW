@@ -8,7 +8,11 @@
 </head>
 
 <body>
+  <div id="tabla">
+    <table></table>
+  </div>
   <script>
+
     const temperaturas = `
     Fecha;Tmin;Tmax
                
@@ -24,7 +28,57 @@
     2023/10/28; 0; 14;   
     `;
 
+    const arrayObjs = csv2ArrayObjs(temperaturas);
+    const tabla = crearTable(arrayObjs);
+    //Eventos antes de agregar la tabla
+    tabla.tHead.children[0].children[0].addEventListener("click", pulsadoFechas);
+    tabla.tHead.children[0].children[1].addEventListener("click", pulsadoTMin);
+    tabla.tHead.children[0].children[2].addEventListener("click", pulsadoTMax);
 
+    const th2 = tabla.getElementsByTagName("th");
+
+    document.body.appendChild(tabla);
+
+    //Eventos después de agregar la tabla
+    const ths = document.querySelectorAll("th");
+
+    const estadoOrden = {
+      fechas: "asc",
+      tmin: "none",
+      tmax: "none"
+    }
+
+    //FALTAN CORREGIR E IMPLEMENTAR COSAS
+    function pulsadoFechas(evt) {
+      if(estadoOrden.fechas == "asc") {
+        estadoOrden.fechas == "des"
+      } else {
+        estadoOrden.fechas == "asc"
+      }
+      ordenarPorFechas(arrayObjs, campo, estadoOrden.fechas);
+      mostrarTabla(arrayObjs);
+    }
+    function pulsadoTMin(evt) {
+      ordenarPorTMin(arrayObjs);
+      mostrarTabla(arrayObjs);
+     }
+    function pulsadoTMax(evt) { 
+      ordenarPorTMax(arrayObjs);
+      mostrarTabla(arrayObjs);
+    }
+
+    function mostrarTabla(arrayObjs) {
+      const tabla = crearTable(arrayObjs);
+      tabla.tHead.children[0].children[0].addEventListener("click", pulsadoFechas);
+      tabla.tHead.children[0].children[1].addEventListener("click", pulsadoTMin);
+      tabla.tHead.children[0].children[2].addEventListener("click", pulsadoTMax);
+      const padre = document.querySelector("#tabla");
+      padre.removeChild(padre.firstElementChild);
+      padre.appendChild(tabla);
+      // tablaDOM.parentElement.appendChild(tabla);
+      // tablaDOM.parentElement.removeChild(tablaDOM);
+
+    }
 
     function csv2ArrayObjs(datosCSV, sepReg = "\n", sepCampo = ";") {
       const arrays = csv2Arrays();
@@ -150,7 +204,7 @@
         cabecera.forEach(c => tr.appendChild(crearNodo("th", c)));
 
         thead.appendChild(tr);
-        
+
         return thead;
       }
 
@@ -159,7 +213,7 @@
 
         datos.forEach(fila => {
           const tr = crearNodo("tr");
-          for(k in fila) {
+          for (k in fila) {
             tr.appendChild(crearNodo("td", fila[k]));
           };
           tbody.appendChild(tr);
@@ -168,12 +222,12 @@
         return tbody;
       }
 
-      function crearFooter(datos) {
+      function crearFooter(cabecera) {
         const tfooter = crearNodo("tfooter");
         const tr = crearNodo("tr");
         cabecera.forEach(c => tr.appendChild(crearNodo("td", c)));
         tfooter.appendChild(tr);
-        return footer;
+        return tfooter;
       }
     }
 

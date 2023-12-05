@@ -198,5 +198,33 @@ import { datos } from "./datos.js";
     return array2D.shift();
   }
 
+  /*Logica media y más repetido */
+  function cuotaMedia(arrayObj) {
+    let suma = 0;
+    arrayObj.reduce((ant, sig)=> {
+       suma += Number(ant["QuotaAmount"]) + Number(sig["QuotaAmount"]);
+       return sig;
+    });
+    return (suma / arrayObj.length).toFixed(2);
+  }
+  // console.log(cuotaMedia(arrayObj));
+  // console.log(arrayObj.length)
+
+  function fechaMedia(arrayObj) {
+    let suma = 0;
+    arrayObj.reduce((ant, sig) => {
+      suma += new Date(ant["StartDate"]) + new Date(sig["StartDate"]);
+      return sig;
+    });
+    
+  }
+
+  function nombreMasRep(arrayObj) {
+
+  }
+
+  function mailMasRep(arrayObj) {
+
+  }
 
 })();

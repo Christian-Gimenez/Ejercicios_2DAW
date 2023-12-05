@@ -16,7 +16,7 @@ $watchedChannel = "";
 
 function canalRandom(array $canales): string
 {
-  $random = rand(0, count($canales));
+  $random = rand(0, count($canales)-1);
   return $canales[$random];
 }
 

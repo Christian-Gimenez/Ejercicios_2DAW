@@ -1,0 +1,20 @@
+:root {
+  --cols: 12; 
+}
+
+.container {
+  /*block-size: auto; Como un height en escritura occidental*/
+  /*inline-size: 100%; Como un width en escritura occidental
+  min-block-size: 200px;
+  min-inline-size: 400px;*/
+
+  width: 100%; /* auto */
+  margin: 0 auto;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.row {
+  margin-right: -15px;
+  margin-left: -15px;
+}

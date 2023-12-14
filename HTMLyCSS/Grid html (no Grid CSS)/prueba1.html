@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      outline: solid 1px red;
+    }
+
+    header {
+      background-color: tomato;
+    }
+
+    main {
+      background-color: turquoise;
+    }
+
+    nav {
+      background-color: fuchsia;
+    }
+
+    aside {
+      background-color: crimson;
+    }
+
+    footer {
+      background-color: darkkhaki;
+    }
+  </style>
+  <link rel="stylesheet" href="./grid1.css" />
+</head>
+
+<body>
+  <div class="container">
+    <header class="row">
+      <h1 class="col-12 text-uppercase">Mi sitio</h1>
+    </header>
+    <main class="row">
+      <nav class="col-12 col-sm-12 col-md-2">Enlaces</nav>
+      <section class="col-12 col-sm-9 col-md-7">
+        <div class="row">
+          <article class="col-12 col-md-4 text-center">Artículo 1</article>
+          <article class="col-12 col-md-4 text-center">Artículo 2</article>
+          <article class="col-12 col-md-4 text-center">Artículo 3</article>
+        </div>
+      </section>
+      <aside class="col-12 col-sm-3 col-md-3">Cosas ...</aside>
+    </main>
+    <footer class="row">
+      <p class="col-12">Contacto</p>
+    </footer>
+  </div>
+</body>
+
+</html>

@@ -10,6 +10,7 @@ $uri = parse_url($_SERVER["REQUEST_URI"])["path"];
 $rutas = [
   "/" => "controllers/inicio.php",
   "/notas" => "controllers/notas.php",
+  "/nota" => "controllers/nota.php",
   "/info" => "controllers/info.php",
   "/contacto" => "controllers/contacto.php"
 ];

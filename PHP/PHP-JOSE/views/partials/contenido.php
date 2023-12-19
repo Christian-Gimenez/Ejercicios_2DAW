@@ -1,1 +1,1 @@
-<main><p class="lead">Texto</p></main>
+<main><p class="lead">Estás en la sección <strong><?= $seccion ?></strong></p></main>

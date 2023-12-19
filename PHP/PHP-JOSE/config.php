@@ -1,7 +1,13 @@
 <?php
 
-require "utils.php";
-require "router.php";
+return [
+  "host" => "localhost",
+  "dbname" => "user",
+  "username" => "user",
+  "password" => "1234",
+  "port" => 3306
+];
+
 
 //Consultas con MYSQLI
 // function consulta(string $query, array $config) {

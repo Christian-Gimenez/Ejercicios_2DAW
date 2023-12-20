@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    //Constructor
+    function Persona(nombre, año) {
+      this.nombre = nombre;
+      this.año = año;
+    }
+
+    //Metodo estático
+    Persona.comprobarAño = function (a) {
+      if (año > new Date().getFullYear()) {
+        consosle.log("Error: año posterior al anterior.");
+      }
+    }
+
+    //Método dinámico (del prototipo)
+    Persona.prototype.edad = function () {
+      return new Date().getFullYear() - this.año;
+    }
+
+    //Constructor Estudiante hereda de Persona
+    function Estudiante(n, a, g) {
+      Persona.call(this, n, a);
+      this.grado = g;
+    }
+
+    Estudiante.prototype = Object.create(Persona.prototype);
+    Estudiante.prototype.constructor = Estudiante;
+
+    Estudiante.prototype.edad = function () {
+      return `${this.nombre} de ${Persona.prototype.edad.call(this)}
+      años, matriculado en ${this.grado}`;
+    }
+
+    //Ahora con clases ES6
+    class Persona {
+      constructor(nombre, año) {
+        this.nombre = nombre;
+        this.año = año;
+      }
+
+      static comprobarAño(a) {
+        if (año > new Date().getFullYear()) {
+          consosle.log("Error: año posterior al anterior.");
+        }
+      }
+
+      edad() {
+        return new Date().getFullYear() - this.año;
+      }
+    }
+
+    class Estudiante extends Persona {
+      constructor(nombre, año, grado) {
+        super(nombre, año);
+        this.grado = grado;
+      }
+
+      edad() {
+        return `${this.nombre} de ${super.edad()}
+                años, matriculado en ${this.grado}`;
+      }
+    }
+  </script>
+</body>
+
+</html>

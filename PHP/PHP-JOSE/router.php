@@ -11,6 +11,7 @@ $rutas = [
   "/" => "controllers/inicio.php",
   "/notas" => "controllers/notas.php",
   "/nota" => "controllers/nota.php",
+  "/notas/crear" => "controllers/notas-crear.php",
   "/info" => "controllers/info.php",
   "/contacto" => "controllers/contacto.php"
 ];

@@ -1,6 +1,6 @@
 <?php
-require "partials/cabecera.php";
-require "partials/nav.php";
+// require "partials/cabecera.php";
+// require "partials/nav.php";
 ?>
 
 <div class="bg-body-tertiary p-5 rounded">

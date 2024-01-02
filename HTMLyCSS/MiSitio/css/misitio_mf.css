@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700|Spectral+SC:400,700');
+
+:root {
+  --color0: #333;
+  --color1: #ccc;
+  --color3: #335099;
+  --color4: white;
+  --color5: #CCF;
+  --color6: #E0E0E0;
+  --color7: blue;
+  --color8: darkslategray;
+  --color9: lightblue;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+li,
+div,
+header,
+main,
+footer,
+section,
+nav,
+article,
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+img,
+iframe {
+  width: 100%;
+  height: auto;
+}
+footer > p {
+  height: 40px;
+}
+
+footer > p span {
+  background-image: url("../img/social.png");
+  background-repeat: none;
+}
+
+footer > p span {
+  padding-top: 17px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+footer > p > span:nth-of-type(1) {
+  background-position: 0 0;
+}
+
+footer > p > span:nth-of-type(2) {
+  background-position: -40px 0px;
+}
+
+footer > p > span:nth-of-type(3) {
+  background-position: 0 -40px;
+}
+
+footer > p > span:nth-of-type(4) {
+  background-position: -40px -40px;
+}
+
+footer > p > span:nth-of-type(5) {
+  background-position: -80px 0;
+}
+
+footer > p > span:nth-of-type(6) {
+  background-position: -80px -40px;
+}

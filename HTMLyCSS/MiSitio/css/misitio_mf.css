@@ -44,6 +44,86 @@ iframe {
   width: 100%;
   height: auto;
 }
+/*Estilos cabecera navbar*/
+header > h1 {
+  background-color: var(--color1);
+  border-top: 3px solid var(--color0);
+  border-bottom: 3px solid var(--color0);
+  margin-bottom: 10px;
+  padding: 18px 0px;
+  font-size: 22px;
+  font-weight: 500;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+header > nav > ul li {
+  list-style: none;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 15px;
+  background-color: var(--color3);font-size: 16px;
+  margin-bottom: 3px;
+  padding-left: 15px;
+  padding-bottom: 5px;
+  padding-top: 2px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+header > nav > ul li a {
+  text-decoration: none;
+  color: var(--color4);
+  margin-left: -10px;
+}
+
+@media(min-width: 992px) {
+ header h1 {
+  clear: both !important; 
+ }
+}
+
+/*Estilos foto-hero e info de la misma*/
+main > figure:first-child > figcaption {
+  background-color: var(--color3);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding-top: 8px;
+  padding-bottom: 12px;
+  padding-left: 10px;
+  color: var(--color4);
+  font-size: 16px;
+}
+
+main section:first-of-type,
+main section:last-of-type {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-style: italic;
+  font-size: 12px;
+  color: var(--color8);
+  padding: 8px 0;
+  background-color: var(--color6);
+  margin: 10px 0;
+}
+
+/*Estilos artículos de aniemales*/
+main > section:nth-of-type(2) > article {
+  min-height: 246px;
+}
+main > section:nth-of-type(2) > article > figure > figcaption {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--color3);
+  font-size: 16px;
+}
+
+main > section:nth-of-type(2) > article > p {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10px;
+}
+
+/*Estilos footer*/
+footer {
+  background-color: var(--color9);
+}
+
+/*Estilos iconos footer*/
 footer > p {
   height: 40px;
 }

@@ -75,10 +75,11 @@ header > nav > ul li a {
   margin-left: -10px;
 }
 
-@media(min-width: 992px) {
- header h1 {
-  clear: both !important; 
- }
+@media(max-width: 992px) {
+  header > nav > ul li {
+    text-align: center;
+    padding: 5px 0;
+  }
 }
 
 /*Estilos foto-hero e info de la misma*/
@@ -98,15 +99,34 @@ main section:last-of-type {
   font-style: italic;
   font-size: 12px;
   color: var(--color8);
-  padding: 8px 0;
+  padding: 8px 0px;
   background-color: var(--color6);
   margin: 10px 0;
 }
 
 /*Estilos artículos de aniemales*/
 main > section:nth-of-type(2) > article {
-  min-height: 246px;
+  min-height: 258px;
 }
+
+@media(max-width: 1200px) {
+  main > section:nth-of-type(2) > article {
+    min-height: 275px;
+  }
+}
+
+@media(max-width: 992px) {
+  main > section:nth-of-type(2) > article {
+    min-height: 340px;
+  }
+}
+
+@media(max-width: 768px) {
+  main > section:nth-of-type(2) > article {
+    min-height: 0px;
+  }
+}
+
 main > section:nth-of-type(2) > article > figure > figcaption {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: var(--color3);
@@ -119,13 +139,20 @@ main > section:nth-of-type(2) > article > p {
 }
 
 /*Estilos footer*/
-footer {
-  background-color: var(--color9);
+footer { /*NO FUNCIONA*/
+  background: blue;
 }
 
 /*Estilos iconos footer*/
 footer > p {
   height: 40px;
+  text-align: right;
+}
+
+@media(max-width: 768px) {
+  footer > p, footer > div {
+    text-align: center;
+  }
 }
 
 footer > p span {

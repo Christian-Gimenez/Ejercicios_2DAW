@@ -44,24 +44,34 @@ iframe {
   width: 100%;
   height: auto;
 }
+
 /*Estilos cabecera navbar*/
-header > h1 {
+header>h1 {
   background-color: var(--color1);
   border-top: 3px solid var(--color0);
   border-bottom: 3px solid var(--color0);
   margin-bottom: 10px;
   padding: 18px 0px;
   font-size: 22px;
-  font-weight: 500;
+  font-weight: bold;
+  letter-spacing: 1px;
   font-family: 'Times New Roman', Times, serif;
 }
 
-header > nav > ul li {
+@media(max-width: 1199px) {
+  header > h1 {
+    font-size: 30px;
+    padding: 37px 0;
+  }
+}
+
+header>nav>ul li {
   list-style: none;
   font-style: italic;
   font-weight: bold;
   font-size: 15px;
-  background-color: var(--color3);font-size: 16px;
+  background-color: var(--color3);
+  font-size: 16px;
   margin-bottom: 3px;
   padding-left: 15px;
   padding-bottom: 5px;
@@ -69,21 +79,36 @@ header > nav > ul li {
   font-family: 'Times New Roman', Times, serif;
 }
 
-header > nav > ul li a {
+header>nav>ul li a {
   text-decoration: none;
   color: var(--color4);
   margin-left: -10px;
 }
 
-@media(max-width: 992px) {
-  header > nav > ul li {
+@media(max-width: 991px) {
+  header {
+    margin-left: var(--gutter);
+    width: 111% !important;
+  }
+
+  header>nav>ul li {
     text-align: center;
-    padding: 5px 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 20% !important;
+    font-size: 12px;
+    margin: 45px 1px;
+  }
+}
+
+@media(max-width: 766px) {
+  header {
+    width: 108% !important;
   }
 }
 
 /*Estilos foto-hero e info de la misma*/
-main > figure:first-child > figcaption {
+main>figure:first-child>figcaption {
   background-color: var(--color3);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   padding-top: 8px;
@@ -101,91 +126,103 @@ main section:last-of-type {
   color: var(--color8);
   padding: 8px 0px;
   background-color: var(--color6);
-  margin: 10px 0;
+  margin: 10px 0 10px 15px;
+  width: 96.5%;
+}
+
+@media (max-width: 991px) {
+  main section:first-of-type,
+  main section:last-of-type {
+    width: 95.5%;
+  }
+
 }
 
 /*Estilos artículos de aniemales*/
-main > section:nth-of-type(2) > article {
+main>section:nth-of-type(2)>article {
   min-height: 258px;
 }
 
 @media(max-width: 1200px) {
-  main > section:nth-of-type(2) > article {
+  main>section:nth-of-type(2)>article {
     min-height: 275px;
   }
 }
 
 @media(max-width: 992px) {
-  main > section:nth-of-type(2) > article {
+  main>section:nth-of-type(2)>article {
     min-height: 340px;
   }
 }
 
 @media(max-width: 768px) {
-  main > section:nth-of-type(2) > article {
+  main>section:nth-of-type(2)>article {
     min-height: 0px;
   }
 }
 
-main > section:nth-of-type(2) > article > figure > figcaption {
+main>section:nth-of-type(2)>article>figure>figcaption {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: var(--color3);
   font-size: 16px;
 }
 
-main > section:nth-of-type(2) > article > p {
+main>section:nth-of-type(2)>article>p {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 10px;
 }
 
 /*Estilos footer*/
-footer { /*NO FUNCIONA*/
-  background: blue;
+footer {
+  /*NO FUNCIONA*/
+  background-color: blue;
 }
 
 /*Estilos iconos footer*/
-footer > p {
+footer>p {
   height: 40px;
   text-align: right;
 }
 
 @media(max-width: 768px) {
-  footer > p, footer > div {
+
+  footer>p,
+  footer>div {
     text-align: center;
   }
 }
 
-footer > p span {
+footer>p span {
   background-image: url("../img/social.png");
   background-repeat: none;
 }
 
-footer > p span {
+footer>p span {
   padding-top: 17px;
   padding-left: 16px;
   padding-right: 16px;
 }
 
-footer > p > span:nth-of-type(1) {
+footer>p>span:nth-of-type(1) {
   background-position: 0 0;
 }
 
-footer > p > span:nth-of-type(2) {
+footer>p>span:nth-of-type(2) {
   background-position: -40px 0px;
 }
 
-footer > p > span:nth-of-type(3) {
+footer>p>span:nth-of-type(3) {
   background-position: 0 -40px;
 }
 
-footer > p > span:nth-of-type(4) {
+footer>p>span:nth-of-type(4) {
   background-position: -40px -40px;
 }
 
-footer > p > span:nth-of-type(5) {
+footer>p>span:nth-of-type(5) {
   background-position: -80px 0;
 }
 
-footer > p > span:nth-of-type(6) {
+footer>p>span:nth-of-type(6) {
   background-position: -80px -40px;
 }

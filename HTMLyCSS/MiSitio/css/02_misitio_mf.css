@@ -46,6 +46,11 @@ iframe {
 }
 
 /*Clases cabecera navbar*/
+.no-padding-x {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
 .titulo-lg {
   background-color: var(--color1);
   border-top: 3px solid var(--color0);
@@ -95,9 +100,15 @@ iframe {
     text-align: center;
     padding-top: 5px;
     padding-bottom: 5px;
-    width: 20% !important;
+    width: 24.5% !important;
     font-size: 12px;
     margin: 45px 1px;
+  }
+}
+
+@media(max-width: 589px) {
+  .li-navbar-xs {
+    width: 24% !important;
   }
 }
 
@@ -109,6 +120,7 @@ iframe {
 
 /*Clases foto-hero e info de la misma*/
 .fotohero-desc {
+  margin-top: 8px;
   background-color: var(--color3);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   padding-top: 8px;
@@ -119,6 +131,7 @@ iframe {
 }
 
 .dump-info {
+  clear: both;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-style: italic;
   font-size: 12px;
@@ -166,55 +179,51 @@ iframe {
 .bg-color-footer {
   clear: both;
   background-color: var(--color9);
+  padding-top: 35px;
   position: relative;
   bottom: 0;
 }
 
 /*Estilos iconos footer*/
-footer>p {
+.iconos {
   height: 40px;
   text-align: right;
 }
 
 @media(max-width: 768px) {
-
-  footer>p,
-  footer>div {
+  .centrado-xs {
     text-align: center;
   }
 }
 
-footer>p span {
+.bg-iconos {
   background-image: url("../img/social.png");
   background-repeat: none;
-}
-
-footer>p span {
   padding-top: 17px;
   padding-left: 16px;
   padding-right: 16px;
 }
 
-footer>p>span:nth-of-type(1) {
+.icono-github {
   background-position: 0 0;
 }
 
-footer>p>span:nth-of-type(2) {
+.icono-gmail {
   background-position: -40px 0px;
 }
 
-footer>p>span:nth-of-type(3) {
+.icono-linkedin{
   background-position: 0 -40px;
 }
 
-footer>p>span:nth-of-type(4) {
+.icono-stackoverflow {
   background-position: -40px -40px;
 }
 
-footer>p>span:nth-of-type(5) {
+.icono-tumblr {
   background-position: -80px 0;
 }
 
-footer>p>span:nth-of-type(6) {
+.icono-twitter {
   background-position: -80px -40px;
 }

@@ -139,24 +139,24 @@ main section:last-of-type {
 }
 
 /*Estilos artículos de aniemales*/
-main>section:nth-of-type(2)>article {
+main>section:nth-of-type(2)>article:nth-child(-n+4) {
   min-height: 258px;
 }
 
 @media(max-width: 1200px) {
-  main>section:nth-of-type(2)>article {
+  main>section:nth-of-type(2)>article:nth-child(-n+4) {
     min-height: 275px;
   }
 }
 
 @media(max-width: 992px) {
-  main>section:nth-of-type(2)>article {
+  main>section:nth-of-type(2)>article:nth-child(-n+4) {
     min-height: 340px;
   }
 }
 
 @media(max-width: 768px) {
-  main>section:nth-of-type(2)>article {
+  main>section:nth-of-type(2)>article:nth-child(-n+4) {
     min-height: 0px;
   }
 }
@@ -174,17 +174,22 @@ main>section:nth-of-type(2)>article>p {
 
 /*Estilos footer*/
 footer {
-  /*NO FUNCIONA*/
-  background-color: blue;
+  position: relative;
+  clear: both;
+  padding-top: 35px;
+  height: 112px;
+  background-color: var(--color9);
 }
 
 /*Estilos iconos footer*/
 footer>p {
-  height: 40px;
   text-align: right;
 }
 
 @media(max-width: 768px) {
+  footer {
+    padding-top: 12px;
+  }
 
   footer>p,
   footer>div {

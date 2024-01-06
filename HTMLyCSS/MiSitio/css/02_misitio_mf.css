@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700|Spectral+SC:400,700');
+
+:root {
+  --color0: #333;
+  --color1: #ccc;
+  --color3: #335099;
+  --color4: white;
+  --color5: #CCF;
+  --color6: #E0E0E0;
+  --color7: blue;
+  --color8: darkslategray;
+  --color9: lightblue;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+li,
+div,
+header,
+main,
+footer,
+section,
+nav,
+article,
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+img,
+iframe {
+  width: 100%;
+  height: auto;
+}
+
+/*Clases cabecera navbar*/
+.titulo-lg {
+  background-color: var(--color1);
+  border-top: 3px solid var(--color0);
+  border-bottom: 3px solid var(--color0);
+  margin-bottom: 10px;
+  padding: 18px 0px;
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+@media(max-width: 1199px) {
+  .titulo-md {
+    font-size: 30px;
+    padding: 37px 0;
+  }
+}
+
+.li-navbar-lg {
+  list-style: none;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 15px;
+  background-color: var(--color3);
+  font-size: 16px;
+  margin-bottom: 3px;
+  padding-left: 15px;
+  padding-bottom: 5px;
+  padding-top: 2px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.a-navbar {
+  text-decoration: none;
+  color: var(--color4);
+  margin-left: -10px;
+}
+
+@media(max-width: 991px) {
+  /* header {
+    margin-left: var(--gutter);
+    width: 111% !important;
+  } */
+
+  .li-navbar-sm {
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 20% !important;
+    font-size: 12px;
+    margin: 45px 1px;
+  }
+}
+
+/* @media(max-width: 766px) {
+  header {
+    width: 108% !important;
+  }
+} */
+
+/*Clases foto-hero e info de la misma*/
+.fotohero-desc {
+  background-color: var(--color3);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding-top: 8px;
+  padding-bottom: 12px;
+  padding-left: 10px;
+  color: var(--color4);
+  font-size: 16px;
+}
+
+.dump-info {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-style: italic;
+  font-size: 12px;
+  color: var(--color8);
+  padding: 8px 0px;
+  background-color: var(--color6);
+  margin: 10px 0;
+}
+
+/*Clases tamaño artículos de animales*/
+.ajustar-txt-lg {
+  min-height: 265px;  /* 258px; */
+}
+
+@media(max-width: 1200px) {
+  .ajustar-txt-md {
+    min-height: 275px;
+  }
+}
+
+@media(max-width: 992px) {
+  .ajustar-txt-sm {
+    min-height: 340px;
+  }
+}
+
+@media(max-width: 768px) {
+  .ajustar-txt-xs {
+    min-height: 0px;
+  }
+}
+
+.titulo-articulo {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: var(--color3);
+  font-size: 16px;
+}
+
+.p-articulo {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10px;
+}
+
+/*Estilos footer*/
+.bg-color-footer {
+  clear: both;
+  background-color: var(--color9);
+  position: relative;
+  bottom: 0;
+}
+
+/*Estilos iconos footer*/
+footer>p {
+  height: 40px;
+  text-align: right;
+}
+
+@media(max-width: 768px) {
+
+  footer>p,
+  footer>div {
+    text-align: center;
+  }
+}
+
+footer>p span {
+  background-image: url("../img/social.png");
+  background-repeat: none;
+}
+
+footer>p span {
+  padding-top: 17px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+footer>p>span:nth-of-type(1) {
+  background-position: 0 0;
+}
+
+footer>p>span:nth-of-type(2) {
+  background-position: -40px 0px;
+}
+
+footer>p>span:nth-of-type(3) {
+  background-position: 0 -40px;
+}
+
+footer>p>span:nth-of-type(4) {
+  background-position: -40px -40px;
+}
+
+footer>p>span:nth-of-type(5) {
+  background-position: -80px 0;
+}
+
+footer>p>span:nth-of-type(6) {
+  background-position: -80px -40px;
+}

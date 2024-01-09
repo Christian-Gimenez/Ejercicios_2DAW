@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>
+    <button>Crear</button>
+    <button>moveTo</button>
+    <button>moveBy</button>
+    <button>resizeTo</button>
+    <button>resizeBy</button>
+    <button>Cerrar</button>
+  </div>
+
+  <script>
+    const botones = document.querySelectorAll("button");
+    const funciones = [
+      crearWindow,
+      moverA,
+      moverD,
+      tamañoA,
+      tamañoD,
+      cerrar
+    ];
+
+    botones.forEach((b, pos) => b.addEventListener('click', funciones[pos]));
+
+
+    let mv;
+    function crearWindow() {
+      mv = window.open("", "Mi ventana", "left=100, top=100, width=100, height=200");
+      mv.document.write("<h1>Mi ventana</h1>");
+    }
+
+    function moverA() {
+      mv.moveTo(500, 500);
+      mv.focus();
+    }
+
+    function moverD() {
+      mv.moveBy(-100, -100);
+      mv.focus();
+    }
+
+    function tamañoA() {
+      mv.resizeTo(500, 500);
+      mv.focus();
+    }
+
+    function tamañoD() {
+      mv.resizeBy(-100, -100);
+      mv.focus();
+    }
+
+    function cerrar() {
+      mv.close();
+    }
+
+
+  </script>
+</body>
+
+</html>

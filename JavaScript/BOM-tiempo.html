@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button>Parar</button>
+  <script>
+    const SEG = 1000;
+    const id = setTimeout(imprimir, 2 * SEG, "Han pasado 2 segundos.");
+    const id2 = setInterval(imprimir, 2 * SEG, " De nuevo, han pasado 2 segundos...");
+    
+    console.log("Final");
+
+    for(i=0; i < 1_000_000_000; i++)
+      ;
+    let z = 0;
+    function imprimir(msg) {
+      console.log(msg);
+      if(!z) {
+        setTimeout(imprimir, 1000, "Ha otro segundo");
+        z = 1;
+      }
+    }
+
+    const parar = document.querySelector("button");
+    parar.addEventListener("click", () => {
+      clearTimeout(id2);
+      clearTimeout(id);
+    });
+
+    //Limpia el timeout
+    //clearTimeout(id);
+  </script>
+</body>
+</html>

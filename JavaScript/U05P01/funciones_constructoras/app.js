@@ -1,6 +1,6 @@
 "use strict";
 
-/**SE PIDE:
+/**1ª PARTE
  * Array de Objetos Tren (props: id, salida, sinDevolucion, conDevolucion, normal)
  * id -> string: día (13) + hora sin puntos (0941)
  * salida -> string: (09:41)
@@ -27,51 +27,93 @@
  * genNumAleatorio(num1, num2):
  *    return int random entre ambos valores incluidos
  * 
- * genFechaFutura():
+ * unMesFuturo():
  *    return un mes en el futuro a partir del mañana
  */
 
 
 function Tren(id, salida, sinDevolucion, conDevolucion, normal) {
   /**Métodos privados de instancia */
-  const HORARIO = ['09:40', '10:40', '12:20', '13:10', '15:10', '16:40', '17:40', '18:40', '19:30', '21:40'];
-  const TOTAL_ASIENTOS = 90;
   this.id = id;
   this.salida = salida;
   this.sinDevolucion = sinDevolucion;
   this.conDevolucion = conDevolucion;
   this.normal = normal;
-
-  this.rellenarTren = function(dia, horario) {
-    this.id = dia.getDate() + horarioSinPuntos(horario);
-    this.salida = horario;
-    let asientosRestantes = (TOTAL_ASIENTOS * 0.5);
-    do {
-      this.sinDevolucion = numeroAleatorio(1, asientosRestantes);
-    } while(this.sinDevolucion <= asientosRestantes);
-    asientosRestantes = asientosRestantes - sinDevolucion;
-    this.conDevolucion = asientosRestantes;
-    this.normal = (TOTAL_ASIENTOS * 0.5) + (TOTAL_ASIENTOS - asientosRestantes);
-    return this;
-  }
-
-  this.horarioSinPuntos = function(horario) {
-    return resultString = horario.replace(":", "");
-  }
-
-  this.numeroAleatorio = function(min, max) {
-    return Math.random() * (max - min) + min;
-  }
-
-  /**Método que calcula un mes en el futuro a partir de 'mañana' */
-  this.unMesFuturo = function() {
-    const fecha = new Date();
-    fecha.setMonth(fecha.getMonth() + 1);
-    fecha.setDate(fecha.getDate() + 1);
-    return fecha;
-  }
 }
 
-Tren.prototype.rellenarDias(fechaInicio, fechaFinal) {
-  return [].map();
+//Constantes de objeto
+Tren.HORARIO_NORMAL = ['09:40', '10:40', '12:20', '13:10', '15:10', '16:40', '17:40', '18:40', '19:30', '21:40'];
+Tren.HORARIO_SABADO = ['08:40', '09:40', '10:40', '12:20', '13:10', '15:10', '16:40', '17:40', '18:40', '19:30', '21:40'];
+Tren.HORARIO_DOMINGO = ['09:40', '10:40', '12:20', '13:10', '15:10', '16:40', '17:40', '18:40', '19:30', '20:10', '21:40'];
+Tren.TOTAL_ASIENTOS = 90;
+/**Método que calcula un mes en el futuro a partir de 'mañana' */
+
+Tren.unMesFuturo = function () {
+  const fecha = new Date();
+  fecha.setMonth(fecha.getMonth() + 1);
+  fecha.setDate(fecha.getDate() + 1);
+  return fecha;
+}
+
+Tren.prototype.rellenarTren = function (dia, horario) {
+  this.id = dia.getDate() + this.horarioSinPuntos(horario);
+  this.salida = horario;
+  let asientosRestantes = (Tren.TOTAL_ASIENTOS * 0.5);
+  do {
+    this.sinDevolucion = this.numeroAleatorio(1, asientosRestantes);
+  } while (this.sinDevolucion > asientosRestantes);
+  asientosRestantes = asientosRestantes - this.sinDevolucion;
+  do {
+    this.conDevolucion = this.numeroAleatorio(1, asientosRestantes);
+  } while(this.conDevolucion > asientosRestantes);
+  asientosRestantes = asientosRestantes - this.conDevolucion;
+  this.normal = (Tren.TOTAL_ASIENTOS * 0.5) + (asientosRestantes);
+  return this;
+}
+
+Tren.prototype.horarioSinPuntos = function (horario) {
+  return horario.replace(":", "");
+}
+
+Tren.prototype.numeroAleatorio = function (min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+
+Tren.rellenarDias = function (fechaInicio, fechaFinal) {
+  if(fechaInicio > fechaFinal) return Tren.rellenarDias(fechaFinal, fechaInicio);
+  let fecha = new Date(fechaInicio);
+  let trenes = [];
+  while (fecha <= fechaFinal) {
+    switch (fecha.getDay()) {
+      case 6://Sabados
+        trenes.push(Tren.HORARIO_SABADO.map(hora => {
+          let tren = new Tren();
+          tren.rellenarTren(fecha, hora);
+          return tren;
+        }))
+        break;
+      case 0://Domingos
+        trenes.push(Tren.HORARIO_DOMINGO.map(hora => {
+          let tren = new Tren();
+          tren.rellenarTren(fecha, hora);
+          return tren;
+        }))
+        break;
+      default://Resto de días
+        trenes.push(Tren.HORARIO_NORMAL.map(hora => {
+          let tren = new Tren();
+          tren.rellenarTren(fecha, hora);
+          return tren;
+        }));
+        break;
+    }
+    fecha.setDate(fecha.getDate() + 1);
+  }
+  return trenes;
+}
+
+/**2ª PARTE */
+function TablaHorarios() {
+  
 }

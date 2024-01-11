@@ -17,23 +17,77 @@
 
     nav {
       background-color: yellowgreen;
+      outline: 1px dotted orangered;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    /*Layout*/
+
+    nav {
       display: flex;
+      align-items: center;
       /* justify-content: center; */
     }
 
     nav>h1 {
-      margin: 20px;
       margin-right: auto;
-      outline: 1px dotted orangered;
+      margin-left: 20px;
     }
 
     nav>div {
       display: flex;
+      flex-wrap: wrap;
+      justify-content: end;
     }
 
     nav>div>div {
-      margin: 20px;
+      display: flex;
+      flex-direction: column;
+      margin: 0 20px;
     }
+
+    select {
+      width: 200px;
+      /*
+      flex-grow: 0;
+      flex-shriek: 1;
+      flex-basis: auto; <- Coge el width (width)
+      
+      flex: 0 1 auto;*/
+    }
+
+    /*Productos*/
+    main > section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /*Tarjeta*/
+    section > article {
+      /*Como hijo*/
+      margin: 2%;
+      flex: 1 1 16%;
+
+      /*Como padre*/
+      display: flex;
+      flex-direction: column;
+    }
+
+    section > article:first-of-type,
+    section > article:nth-of-type(2) {
+      margin: 4%;
+      flex: 42%;
+    }
+
+    /*Todos los que tengan un hermano encima de su cabeza*/
+    section > article > * + * {
+      margin-top: 20px;
+    }
+
   </style>
   <title>Document</title>
 </head>
@@ -66,7 +120,105 @@
 
   </nav>
   <main>
+    <section>
+      <article>
+        <figure>
+          <img src="https://dummyimage.com/1024x1024" alt="">
+          <figcaption>Cosa número 1</figcaption>
+        </figure>
+        <div>
+          <h4>89,99€</h4>
+          <p>Marcus Aurelius lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium deleniti debitis fugiat doloribus
+            nostrum amet, fuga corporis quos odio perspiciatis dolorum quo est sequi possimus exercitationem sint
+            doloremque dolore maxime.</p>
+        </div>
+        <div>
+          <button>Denunciar</button>
+        </div>
+      </article>
 
+      <article>
+        <figure>
+          <img src="https://dummyimage.com/1024x1024" alt="">
+          <figcaption>Cosa número 1</figcaption>
+        </figure>
+        <div>
+          <h4>89,99€</h4>
+          <p>Marcus Aurelius lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium deleniti debitis fugiat doloribus
+            nostrum amet, fuga corporis quos odio perspiciatis dolorum quo est sequi possimus exercitationem sint
+            doloremque dolore maxime.</p>
+        </div>
+        <div>
+          <button>Denunciar</button>
+        </div>
+      </article>
+
+      <article>
+        <figure>
+          <img src="https://dummyimage.com/1024x1024" alt="">
+          <figcaption>Cosa número 1</figcaption>
+        </figure>
+        <div>
+          <h4>89,99€</h4>
+          <p>Marcus Aurelius lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium deleniti debitis fugiat doloribus
+            nostrum amet, fuga corporis quos odio perspiciatis dolorum quo est sequi possimus exercitationem sint
+            doloremque dolore maxime.</p>
+        </div>
+        <div>
+          <button>Denunciar</button>
+        </div>
+      </article>
+
+      <article>
+        <figure>
+          <img src="https://dummyimage.com/1024x1024" alt="">
+          <figcaption>Cosa número 1</figcaption>
+        </figure>
+        <div>
+          <h4>89,99€</h4>
+          <p>Marcus Aurelius lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium deleniti debitis fugiat doloribus
+            nostrum amet, fuga corporis quos odio perspiciatis dolorum quo est sequi possimus exercitationem sint
+            doloremque dolore maxime.</p>
+        </div>
+        <div>
+          <button>Denunciar</button>
+        </div>
+      </article>
+
+      <article>
+        <figure>
+          <img src="https://dummyimage.com/1024x1024" alt="">
+          <figcaption>Cosa número 1</figcaption>
+        </figure>
+        <div>
+          <h4>89,99€</h4>
+          <p>Marcus Aurelius lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium deleniti debitis fugiat doloribus
+            nostrum amet, fuga corporis quos odio perspiciatis dolorum quo est sequi possimus exercitationem sint
+            doloremque dolore maxime.</p>
+        </div>
+        <div>
+          <button>Denunciar</button>
+        </div>
+      </article>
+
+      <article>
+        <figure>
+          <img src="https://dummyimage.com/1024x1024" alt="">
+          <figcaption>Cosa número 1</figcaption>
+        </figure>
+        <div>
+          <h4>89,99€</h4>
+          <p>Marcus Aurelius lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium deleniti debitis fugiat doloribus
+            nostrum amet, fuga corporis quos odio perspiciatis dolorum quo est sequi possimus exercitationem sint
+            doloremque dolore maxime.</p>
+        </div>
+        <div>
+          <button>Denunciar</button>
+        </div>
+      </article>
+      <!-- <article></article>
+      <article></article> -->
+    </section>
   </main>
   <footer>
 

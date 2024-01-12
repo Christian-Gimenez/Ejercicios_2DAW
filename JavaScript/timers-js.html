@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text">
+
+  <script>
+    //document.querySelector("input").addEventListener("input", buscar);
+
+    quitarPoner();
+
+    let estaPuesto = false;
+    function quitarPoner() {
+      setInterval(() => {
+        if(estaPuesto) {
+          document.querySelector("input").removeEventListener("input", buscar);
+        } else {
+          document.querySelector("input").addEventListener("input", buscar);
+        }
+        estaPuesto ^= true;
+      }, 1000);
+    }
+
+    //Posible solución?? Debouncing
+    function delay(debouncing, intervalo) {
+      setInterval(() => {
+        debouncing();
+      }, intervalo);
+    }
+
+    //Terminada clase JS 12-1-24
+    function debounce(fn, delay) {
+      let timerId;
+
+      return function(...args) {
+        if(timerId){
+          clearTimeout();
+        } else {
+          timerId = setTimeout(() => {
+            fn(...args);
+            
+          });
+        }
+      }
+    }
+
+    function buscar(evt) {
+      API(evt.target.value);
+    }
+
+    function API(texto) {
+      console.log("conectando...");
+      console.log("buscando " + texto);
+    }
+
+
+
+  </script>
+</body>
+</html>

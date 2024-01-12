@@ -158,14 +158,103 @@ function TablaHorarios(arrTrenes) {
 }
 
 TablaHorarios.prototype.numeroDeTrenes = function() {
- return 10;
+ return this.arrTrenes.length;
 }
 
 TablaHorarios.prototype.generarTabla = function() {
   const table = document.createElement("table");
   const caption = document.createElement("caption");
-  const txtCap = document.createTextNode("Trenes del día " + TablaHorarios.numeroDeTrenes());
+  const txtCap = document.createTextNode("Trenes del día " + this.numeroDeTrenes());
+  caption.appendChild(txtCap);
+  table.appendChild(caption);
 
+  table.appendChild(cabeceraTabla(this));
+  table.appendChild(cuerpoTabla(this));
+  table.appendChild(pieTabla(this));
+  return table;
+
+  function cabeceraTabla(obj) {
+    const thead = document.createElement("thead");
+    const tr = document.createElement("tr");
+
+    obj.encabezadoColumnas().forEach(txt => {
+      const th = document.createElement("th");
+      const txtTh = document.createTextNode(txt);
+      th.appendChild(txtTh);
+      tr.appendChild(th);
+    });
+
+    thead.appendChild(tr);
+    return thead;
+  }
+
+  function cuerpoTabla(obj) {
+    const tbody = document.createElement("tbody");
+
+    obj.arrTrenes.forEach(tren => {
+      const tr = document.createElement("tr");
+      for(let prop in tren) {
+        if(typeof tren[prop] != "function" && !(tren[prop] instanceof Date)) {
+          const td = document.createElement("td");
+          const txtTd = document.createTextNode(tren[prop]);
+          td.appendChild(txtTd);
+          tr.appendChild(td);
+        }  
+      }
+      tbody.appendChild(tr);
+    });
+    return tbody;
+  }
+
+  function pieTabla(obj) {
+    const tfooter = document.createElement("tfooter");
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    const txt = document.createTextNode("Número de trenes: " + obj.numeroDeTrenes());
+
+    td.appendChild(txt);
+    tr.appendChild(td);
+    tfooter.appendChild(tr);
+    return tfooter;
+  }
 
 }
+
+TablaHorarios.prototype.encabezadoColumnas = function() {
+  const encabezados = Object.keys(this.arrTrenes[0]);
+  return ["id", "salida", "sinDevolucion", "conDevolucion", "normal"];
+}
+
+/**Ejecución prueba */
+document.addEventListener("DOMContentLoaded", function() {
+
+    let hoy = new Date();
+    let futuro = Tren.unMesFuturo();
+    const trenes = Tren.rellenarDias(hoy, futuro);
+    const horarios = new TablaHorarios(trenes[0]);
+    const tabla = horarios.generarTabla();
+    document.body.appendChild(tabla);
+
+})
+
+/**OBJETOS TRENES y OBJETOS HORARIOS
+ * Tren:
+ * id
+ * asientos
+
+ * Horario:
+ *  id que una el tren que va a ese horario
+ *  horaSalida
+ *  Dia (Date)
+ * 
+ * Semana:
+ * array Dia
+ * 
+ * Dia: 
+ * n array Tren
+ * n arrray Horario
+ * 
+ *  
+ * Semana: array de obj Date
+ */
 

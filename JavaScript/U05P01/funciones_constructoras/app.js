@@ -32,13 +32,14 @@
  */
 
 
-function Tren(id, salida, sinDevolucion, conDevolucion, normal) {
+function Tren(id, salida, sinDevolucion, conDevolucion, normal, fecha) {
   /**Métodos privados de instancia */
   this.id = id;
   this.salida = salida;
   this.sinDevolucion = sinDevolucion;
   this.conDevolucion = conDevolucion;
   this.normal = normal;
+  this.fecha = fecha;
 }
 
 //Constantes de objeto
@@ -68,6 +69,7 @@ Tren.prototype.rellenarTren = function (dia, horario) {
   } while(this.conDevolucion > asientosRestantes);
   asientosRestantes = asientosRestantes - this.conDevolucion;
   this.normal = (Tren.TOTAL_ASIENTOS * 0.5) + (asientosRestantes);
+  this.fecha = dia;
   return this;
 }
 
@@ -114,6 +116,56 @@ Tren.rellenarDias = function (fechaInicio, fechaFinal) {
 }
 
 /**2ª PARTE */
-function TablaHorarios() {
-  
+/**
+ * <div>
+ *  <div>
+ *    <h2>DÍAS</h2>
+ *    <button><button> * 10 -> Al pulsar, generar/sustituir tabla de la fecha
+ *  </div>
+ * </div>
+ * 
+ * Tabla generada:
+ * <table>
+ *  <caption>Trenes del dia $</caption>
+ *  <thead>
+  *   <tr>
+  *     <th>id</th>
+*   *   <th>salida</th>
+*   *   <th>sinDevolucion</th>
+*   *   <th>conDevolucion</th>
+*   *   <th>normal</th>
+  *   </tr>
+ *  </thead>
+ *  <tbody>
+ *    <tr> * numTrenes del dia
+ *      <td>130940</td>
+ *      <td>09:40</td>
+ *      <td>9</td>
+ *      <td>23</td>
+ *      <td>35</td>
+ *    </tr>
+ *     ...
+ *  </tbody>
+ *  <tfooter>
+ *    <tr>
+ *      <td>Número de trenes: $</td>
+ *    </tr>
+ *  </tfooter>
+ * </table>
+ */
+function TablaHorarios(arrTrenes) {
+  this.arrTrenes = arrTrenes;
 }
+
+TablaHorarios.prototype.numeroDeTrenes = function() {
+ return 10;
+}
+
+TablaHorarios.prototype.generarTabla = function() {
+  const table = document.createElement("table");
+  const caption = document.createElement("caption");
+  const txtCap = document.createTextNode("Trenes del día " + TablaHorarios.numeroDeTrenes());
+
+
+}
+

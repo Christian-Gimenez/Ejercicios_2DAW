@@ -42,14 +42,17 @@
         } else {
           timerId = setTimeout(() => {
             fn(...args);
-            
-          });
+            timerId = null;
+          }, delay);
         }
       }
     }
 
+    nuevaApi = debounce(API, 300);
+
     function buscar(evt) {
       API(evt.target.value);
+      nuevaApi(evt.target.value);
     }
 
     function API(texto) {

@@ -1,0 +1,513 @@
+:root {
+  --color-ppal: #2E5180;
+  /* Tonos de gris */
+  --color-sec: #CDD6DD;
+  --color-sec-oscuro: #333333;
+  --color-sec-medio: #707F89;
+  --color-sec-claro: #2E5180;
+}
+
+/* Reset */
+body, h1, h2, h3, h4, h5, h6, p, ul, figure, div {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+.sr-only {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* Lo + básico */
+body  { font-family: 'Roboto', sans-serif; }
+
+.contenedor {
+  width: 86%;
+  margin: 0 auto;
+}
+
+
+/* botón general */
+.btn {
+  display: block;
+  width: 208px;
+  margin: 0 auto;
+  padding: 13px 13px 14px;
+  box-sizing: border-box;
+  border: solid 2px currentColor;
+  border-radius: 24px;
+  color: #2E5180;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+/* 1.- header 
+---------------------------------------------------------*/
+.header > .contenedor {
+  display: flex;
+  align-items: center;
+}
+
+.header img {
+  width: 42px;
+  margin-right: 10px;
+}
+
+.header .contenedor div {
+  margin-right: auto;
+}
+
+/* p dentro de .header .contenedor > div*/
+.header p:first-of-type {
+  color: #333333;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.header p:last-of-type {
+  color: #707F89;
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+
+/* Botón de navegación (hamburger)
+---------------------------------------*/
+.header button {
+  box-sizing: content-box;
+  padding: 0;
+  outline: none;
+  border: none;
+  background: none;
+
+  width: 20px;
+  height: 14px;
+  cursor: pointer;
+  color: #2E5180;
+
+  padding-top: 10px;
+  float: right;
+}
+
+
+.header button::before,
+.header button::after {
+  content: '';
+  display: block;
+  height: 2px;
+  background-color: currentColor;
+  transform: translateY(5px);
+}
+
+.header button::before {
+  transform: translateY(-5px); 
+  box-shadow: 0 6px currentColor;
+}
+
+/* Botón de  navegación cerrar X
+------------------------------------------*/
+.abierto .header button {
+  z-index: 20;
+  color: white;
+  position: relative;
+}
+
+.abierto .header button::before {
+  transform: translateY(1px) rotate(45deg);
+  box-shadow: none;
+}
+
+.abierto .header button::after {
+  transform: translateY(-1px) rotate(-45deg);
+}
+
+/* Menú extendido móvil (desactivar pasados los 900px)
+------------------------------------------------------------*/
+@media (max-width: 899px) {
+  html.abierto, 
+  .abierto body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .abierto form {
+    display: none;
+  }
+
+  .abierto nav { left: 0; }
+  .header { position: relative;}
+
+  .nav {
+    position: absolute;
+    top: 0;
+    left: 108%;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,0.8);
+    color: #ffffff;
+    z-index: 10;
+  }
+
+
+  .nav ul {
+    list-style: none;
+    font-weight: bold;
+    text-align: center;
+
+    /* Centrado */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: inherit;
+  }
+
+  .nav li:not(:last-child) {
+    margin-bottom: 40px;
+  }
+
+  .nav .btn {
+    color: inherit;
+  }
+}
+
+
+/* Menú de navegación en el escritorio min-width: 900
+-----------------------------------------------------------*/
+@media (min-width: 900px) {
+
+  .header button {
+    display: none;
+  }
+
+  /* 1. Hacer desaparecer el botón */
+  /* 2. (BB) Asistente...  botones
+     2a. flotar todo
+     2b. Flotar li
+     2c. Centar li
+     3. Cambiar aspecto btn
+  */
+
+  .header nav ul {
+    list-style: none;
+    color: var(--color-sec-oscuro);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  .header nav ul li:not(:last-of-type) {
+    margin-right: 23px;
+  }
+
+  .header nav ul li:not(:last-of-type) a {
+    padding: 14px 0;
+  }
+
+  .header nav li .btn {
+    width: 148px;
+    border-color: var(--color-sec);
+  }
+}
+
+/* 2.- Hero  */
+
+
+.hero {
+  height: 400px;
+  background-image: url(../img/hero.jpg);
+  background-position: center;
+  background-size: cover;
+}
+
+.hero > div {
+  height: inherit;
+  
+}
+
+.hero .contenedor {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.hero img {
+  max-width: 100%;
+  height: auto;
+}
+
+.hero > div {
+  padding: 16px 0;
+  background-color: rgba(255,255,255,0.76);
+}
+
+.hero div p {
+  font-size: 15px;
+  color: #2E5180;
+  margin:10px 0 -10px 0;
+  text-align: center;
+}
+
+@media (min-width: 900px) {
+  /* 1. Cambiar altura .hero 
+     2. padding div
+     3. fs/mb p
+  */
+}
+
+/* 3.- Mensaje  */
+
+.mensaje {
+  padding: 67px 0;
+  background-color: #2E5180;
+  color: white;
+}
+
+.mensaje h2 {
+  margin-bottom: 38px;
+  font-size: 26px;
+  line-height: 1.62;
+  text-align: center;
+}
+
+.mensaje p {
+  font-size: 15px;
+  line-height: 1.73;
+  text-align: justify;
+}
+
+
+@media (min-width: 900px) {
+  /* 1. pad .msg
+     2. fs/lh h2
+  */
+}
+
+
+@media (max-width: 374px) {
+  .mensaje h2 {
+    font-size: 20px;
+  }
+}
+
+
+/* 4.- Servicios  */
+
+.servicios {
+  padding: 67px 0;
+  text-align: center;
+}
+
+.servicios h2 {
+  display: inline-block;
+  margin-bottom: 16px;
+  padding-bottom: 9px;
+  border-bottom: dotted 2px currentColor;
+  font-size: 26px;
+  color: #2E5180;
+}
+
+.servicios h2 + p {
+  color: #2E5180;
+  font-size: 16px;
+}
+
+@media (min-width: 900px) {
+  /* 1. pad .srv
+     2. fs/lh h2
+  */
+}
+
+.caracteristicas {
+  margin-top: 53px;
+  color: #333333;
+}
+
+.caracteristicas article:not(:last-child) {
+  margin-bottom: 67px;
+}
+
+.caracteristicas h3 {
+  margin-bottom: 17px;
+  font-size: 22px;
+  line-height: 1.6;
+}
+
+.caracteristicas p {
+  max-width: 264px;
+  margin: 0 auto 25px;
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+.caracteristicas figure img {
+  width: 100%;
+  height: 246px;
+  object-fit: cover;
+  margin-bottom: 22px;
+  vertical-align: bottom;
+}
+
+
+@media (min-width: 900px) {
+  /* 1. mt .car
+     2. art f
+     3. art childs
+     4. art h3
+     5. art p
+     6. art fig/img
+     7. art btn
+  */
+}
+
+
+/* 5.- Contactar  */
+
+.contacto {
+  padding: 62px 0;
+  padding: 96px 9% 62px;
+
+  background-color: #EEF4F8;
+  color: #333333;
+}
+
+.contacto h2 {
+  margin-bottom: 42px;
+  font-size: 26px;
+}
+
+.contacto h2 + p {
+  font-size: 13px;
+  line-height: 2;
+}
+
+
+@media (min-width: 900px) {
+  /* 1. .cto
+     2. .cto .con
+     3. .cto .txt
+     4. .cto form
+     5. .cto h2
+     6. .cto p
+     7. .cto z 
+  */
+}
+
+
+form {
+  margin-top: 46px;
+}
+
+form input[type="text"], 
+form input[type="email"],
+form textarea {
+  width: 100%;
+  margin-bottom: 17px;
+  padding: 14px 20px 15px;
+  border: solid 1px #CDD6DD;
+  box-sizing: border-box;
+  border-radius: 0;
+  --webkit-appearance: none;
+
+  color: #333333;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+}
+
+form ::placeholder {
+  color: #CDD6DD;
+}
+
+form textarea {
+  height: 150px;
+}
+
+form .btn {
+  width: 100%;
+  margin: 0;
+  border: none;
+  background-color: #2E5180;
+  color: #ffffff;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  -webkit-appearance: none;  
+}
+
+
+/* 6.- footer  */
+
+footer {
+  padding: 38px 0 56px;
+  background-color: #2E5180;  
+}
+
+footer div {
+  overflow: hidden;
+}
+
+footer img {
+  width: 47px;
+  margin-right: 14px;
+  vertical-align: middle;
+  float: left;
+}
+
+footer p {
+  color: white;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.2;
+  margin-top: 12px;
+}
+
+footer address {
+  margin: 20px 0 36px 61px;
+  color: #ffffff;
+  font-size: 12px;
+  line-height: 2;  
+  font-style: normal;
+}
+
+footer ul {
+  display: flex;
+  margin-left: 61px;
+  list-style: none;
+}
+footer ul li:not(:first-child) {
+  margin-left: 25px;
+}
+footer ul img {
+  width: 35px;
+}
+
+@media (min-width: 900px) {
+  /* 1. footer mt- & p
+  */
+}

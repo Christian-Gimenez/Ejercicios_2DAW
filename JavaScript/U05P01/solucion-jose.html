@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const salidas = ['09:40', '10:40', '12:20', '13:10', '15:10', '16:40', '17:40', '18:40', '19:30', '21:40'];
+  
+    function generarAleatorio(inicio, final) {
+      //Hay que comprobar si inicio < final
+      return inicio + Math.floor((final - inicio + 1) * Math.random());
+    }
+
+    //Función constructora Tren
+    function Tren(id, sinDev, conDev, normal) {
+      if(sinDev + conDev > Tren.NUM_ASIENTOS * Tren.CONDICION_DEV) return;
+      if(id && sinDev &&  conDev && normal) {
+        this.id = id;
+        this.asientos = Tren.NUM_ASIENTOS;
+        this.ocupados = {
+          normal, conDev, sinDev
+        }
+      }
+    }
+
+    //Constantes estáticas
+    Tren.NUM_ASIENTOS = 90;
+    Tren.CONDICION_DEV = 0.5;
+
+    //Método getter publico
+    Tren.prototype.getId = function() {
+      return this.id;
+    }
+
+    function Semana(fechaInicio) {
+      this.fechaInicio = new Date(fechaInicio);
+      this.fechaFin = new Date(fechaInicio.getTime() + Semana.DIAS * SEMANA.UN_DIA);
+      this.horarios = [];
+    }
+
+    Semana.DIAS = 7;
+    Semana.UN_DIA = 24 * 60 * 60 * 1000; //En milisegundos
+    Semana.SABADO = 6;
+    Semana.DOMINGO = 0;
+
+    Semana.prototype.generarHorarios = function() {
+      const dias = [];
+      for(let i = 0; i < Semana.DIAS; i++) {
+        dias[i] = new Date(this.fechaInicio.getTime() + Semana.UN_DIA * i);
+      }
+
+      this.horarios = dias.map(dia => {
+        let horarioDia = [];
+        const diaSem = dia.getDay();
+
+        horarioDia = salidas.map(salida => {
+          const tren = generarTren(dia, salida);
+          const horario = new Horario(tren, salida);
+          returnhorario;
+        });
+
+        if(diaSem == Semana.SABADO) {
+          const tren = generarTren(dia, '08:40');
+          const horario = new Horario(tren, '08:40');
+          horarioDia.unshift(horario);
+        }
+
+        if(diaSem == Semana.DOMINGO) {
+          const tren = generarTren(dia, '20:10');
+          const horario = new Horario(tren, '20:10');
+          horarioDia.splice(9, 0, horario);
+        }
+        return horarioDia;
+      });
+    }
+
+    function generarTren(dia, hora) {
+      const LIMITE_OFERTA = Tren.NUM_ASIENTOS * Tren.CONDICION_DEV;
+      const sinDev = generarAleatorio(0, LIMITE_OFERTA);
+      dia = dia.getDate().toString.padStart(2,0);
+      return new Tren(dia + hora.substr(0,2) + hora.substr(3), 
+        sinDev,
+        generarAleatorio(0, LIMITE_OFERTA - sinDev),
+        generarAleatorio(0, LIMITE_OFERTA));
+    }
+
+    function Horario(tren, hora) {
+      this.tren = tren;
+      this.hora = hora;
+    }
+
+    /* Codigo para probar
+    let s = new Semana(new Date);
+    s.generarHorarios();
+    s.horarios;
+
+    let d = new Date();
+    d.toDateString()
+
+    Por implementar: Funcion pintar (en una clase) generica
+    Es Semana la que sabe como tiene que pintarse
+    */
+
+
+
+  </script>
+  
+</body>
+</html>

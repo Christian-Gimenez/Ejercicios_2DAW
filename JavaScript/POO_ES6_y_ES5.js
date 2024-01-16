@@ -38,9 +38,7 @@ function Empleado(nombre, fechaNac, puesto, salario) {
   //Getter numeroEmpleado (otra forma de hacerlo)
   this.getNumeroEmpleado = function() {
     return _numeroEmpleado;
-  }
-
-  
+  } 
 }
 
 //Hacemos que Empleado herede de Persona

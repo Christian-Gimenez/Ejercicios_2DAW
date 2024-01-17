@@ -114,7 +114,6 @@ class Horario {
     this.horaSalida = horaSalida; //string
   }
 
-
   //Método público de instancia
   //Genera un obj tipo Horario partiendo de un dia:Date y salida:string
   generarHorario(dia, horaSalida) {

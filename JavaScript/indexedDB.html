@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modos ....</title>
+  <style>
+    .oscuro {
+      background-color: black;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <button>Activar Modo Oscuro</button>
+  <h1>Demo Local/Session Storage</h1>
+  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima unde similique eveniet porro nulla eaque maxime
+    nemo facere aliquid, voluptates at recusandae quasi sed consequatur suscipit quos necessitatibus laborum corrupti?
+  </p>
+
+  <script>
+    const CLAVE_TEMA_UI = "oscuro";
+    
+    document.querySelector("button").addEventListener("click", conmutarTema);
+
+    function conmutarTema() {
+      document.body.classList.toggle("CLAVE_TEMA_UI");
+      toggleLS("CLAVE_TEMA_UI");
+    }
+
+    function toggleLS(clave) {
+      if (localStorage.getItem(clave)) {
+        localStoraage.removeItem(clave);
+      } else {
+        localStorage.setItem(clave, clave)
+      }
+    }
+
+    document.body.classList.add(localStorage.getItem("CLAVE_TEMA_UI"))
+  </script>
+</body>
+
+</html>

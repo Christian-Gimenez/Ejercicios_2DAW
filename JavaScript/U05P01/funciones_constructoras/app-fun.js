@@ -27,7 +27,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     horariosDeUnDia.reduce((_, horario) => {
       //depuración
-      // if (horario.tren.asientosOcupados === undefined) {}
+      if (horario.tren === undefined) {
+        console.dir("TREN UNDEFINED");
+      }
       let obj = {};
       try {
         obj.id = horario.tren.id;
@@ -36,10 +38,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
         obj.conDevolucion = horario.tren.asientosOcupados.conDev;
         obj.normal = horario.tren.asientosOcupados.normal;
         arrayResultado.push(obj);
-        console.log("Tren correcto. Datos: ");
-        console.dir(horario);
+        // console.log("Tren correcto. Datos: ");
+        // console.dir(horario);
         return obj;
-      } catch(error) {
+      } catch (error) {
         console.log("ERROR: Hubo un tren UNDEFINED. Datos: ");
         console.dir(horario);
         obj.id = horario.tren.id;
@@ -49,7 +51,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       }
     },);
 
-    console.dir(arrayResultado);
+    // console.dir(arrayResultado);
     return arrayResultado;
     /**
      * horarios [
@@ -60,12 +62,34 @@ document.addEventListener("DOMContentLoaded", (event) => {
      */
   }
 
+  Utilidades.dentroDeDiezDias = function (date) {
+    const fecha = new Date(date);
+    fecha.setDate(fecha.getDate() + 10);
+    return fecha;
+  }
+
+  Utilidades.diezDiasPosteriores = function (semana) {
+    let fechaHoy = new Date(semana.fechaInicio.getTime());
+    let fecha10 = Utilidades.dentroDeDiezDias(fechaHoy);
+    let arrNumerosDias = [];
+    for (let i = new Date(fechaHoy); i < fecha10; i.setDate(i.getDate() + 1)) {
+      arrNumerosDias.push(i.getDate());
+    }
+    return arrNumerosDias;
+    //devuelva [10 dias:number]
+  }
+
   //id:string, sinDev:number, conDev:number, normal:number
   function Tren(id, sinDev, conDev, normal) {
-    /*Si sinDeb + conDev es + 50%, devolvemos (para que sea undefined el obj Tren) */
-    if (sinDev + conDev > (Tren.NUM_ASIENTOS * Tren.MAX_PORCENTAJE_DEVOLUCION)) return;
+    /*Si sinDev + conDev es + 50%, devolvemos (para que sea undefined el obj Tren) */
+    if (sinDev + conDev > (Tren.NUM_ASIENTOS * Tren.MAX_PORCENTAJE_DEVOLUCION)) {
+      return;
+    }
     /*Si todos los args tienen valor, ahora si construimos el Tren */
-    if (id && sinDev && conDev && normal) {
+    if (typeof id !== "undefined" &&
+      typeof sinDev !== "undefined" &&
+      typeof conDev !== "undefined" &&
+      typeof normal !== "undefined") {
       this.id = id; //string
       this.asientosTotales = Tren.NUM_ASIENTOS; //number
       this.asientosOcupados = { //obj
@@ -74,6 +98,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
         conDev, //number
         normal //number
       }
+    } else {
+      console.log("El tren saldrá undefined porque: ");
+      console.log("id:", id, "sinDev:" + sinDev, "conDev:" + conDev, "normal:" + normal);
     }
   }
 
@@ -97,20 +124,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const conDev = Utilidades.numeroAleatorio(0, (LIMITE_OFERTA - sinDev)); //number
     const normal = Utilidades.numeroAleatorio(0, LIMITE_OFERTA); //number
     const tren = new Tren(id, sinDev, conDev, normal);
+    // //debugg
+    // if (!(id && sinDev && conDev && normal)) {
+    //   console.dir(tren);
+    //   console.log("id:" + id, "sinDev:" + sinDev, "conDev:" + conDev, "normal:" + normal)
+    // }
     return tren;
   }
-  /*Solución Jose generarTren
-  function generarTren(dia, hora) {
-        const LIMITE_OFERTA = Tren.NUM_ASIENTOS * Tren.CONDICION_DEV;
-        const sinDev = generarAleatorio(0, LIMITE_OFERTA);
-        dia = dia.getDate().toString.padStart(2,0);
-        return new Tren(dia + hora.substr(0,2) + hora.substr(3), 
-          sinDev,
-          generarAleatorio(0, LIMITE_OFERTA - sinDev),
-          generarAleatorio(0, LIMITE_OFERTA));
-      }
-  */
-
 
   //fechaInicio:Date, fechaFin:Date, horarios:Horario[]
   function Semana(fechaInicio) {
@@ -254,6 +274,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       arr2D.forEach(obj => {
         const tr = GenerarHTML.crearNodo("tr");
         for (let key in obj) {
+          if (obj[key] === 0) obj[key] = "0";
           const td = GenerarHTML.crearNodo("td", obj[key]);
           tr.appendChild(td);
         }
@@ -278,27 +299,76 @@ document.addEventListener("DOMContentLoaded", (event) => {
       return tfoot;
     }
   }
+
+  GenerarHTML.cambiarTabla = function(sem1, sem2, evt = false) {
+    //Si no se pasó evento a la fun, establece el diaSeleccionado al primero de sem1
+    let diaSeleccionado = (!evt)? sem1.fechaInicio.getDate()
+                                : Number(evt.target.innerText);
+
+    if(diaSeleccionado > sem1.fechaFinal.getDate()) {
+      //es sem2 si el dia seleccionado es mayor a sem1.fechaFinal
+      return cambiar(sem2, diaSeleccionado);
+    } 
+  
+    //si no, es sem1
+    return cambiar(sem1, diaSeleccionado);
+
+    function cambiar(semana, dia) {
+      let horariosDelDia = Utilidades.arrayHorariosDia(semana, dia);
+      const cabecera = Object.keys(horariosDelDia[0]);
+      const tabla = GenerarHTML.crearTabla("Trenes del día " + dia,
+        cabecera, horariosDelDia, "Número de trenes: " + (horariosDelDia.length + 1));
+      tabla.setAttribute("id", dia);
+      return tabla;
+    }
+  }
+
   /**Ejecución App */
   // const semana = new Semana(new Date);
   // semana.rellenarHorarios();
   // console.dir(semana);
   // let semana = new Semana(Utilidades.fechaUnMesEnElFuturo());
-  let semana = new Semana(new Date());
-  semana.rellenarHorarios();
+  let semana1 = new Semana(new Date());
+  let add7dias = new Date();
+  add7dias.setDate(add7dias.getDate() + 8);
+  let semana2 = new Semana(add7dias);
+
+  semana1.rellenarHorarios();
+  semana2.rellenarHorarios();
+
   const div = GenerarHTML.crearNodo("div");
   div.classList.add("contenedor-col");
-  const dias = GenerarHTML.crearBotones("DÍAS", [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  const dias = GenerarHTML.crearBotones("DÍAS",
+    Utilidades.diezDiasPosteriores(semana1));
+
   div.appendChild(dias);
 
-  console.dir(semana);
+  const tabla = GenerarHTML.cambiarTabla(semana1, semana2);
 
-  let horariosHoy = Utilidades.arrayHorariosDia(semana, 20);
-  const cabecera = Object.keys(horariosHoy[0]);
-  const tabla = GenerarHTML.crearTabla("Trenes del día " + semana.fechaInicio.getDate(),
-    cabecera, horariosHoy, "Número de trenes: " + horariosHoy.length);
   div.appendChild(tabla);
+
   document.body.appendChild(div);
-  // dias.addEventListener("click", )
+
+  let botones = document.querySelectorAll("button");
+
+  botones.forEach(function(button) {
+    button.addEventListener("click", function(evento) {
+      // console.log(evento);
+      let diaTablaSeleccionada = evento.target.getAttribute("id");
+      let diaTablaActual = document.querySelector("table");
+      if(diaTablaActual.getAttribute("id") != diaTablaSeleccionada) {
+        let div = document.querySelector("body > div");
+        let tablaVieja = document.querySelector("body > div > table");
+        let tablaNueva = GenerarHTML.cambiarTabla(semana1, semana2, evento);
+        div.removeChild(tablaVieja);
+        div.appendChild(tablaNueva);
+      } else {
+        console.log("No se cambia de tabla porque la seleccionada es la misma que la mostrada.");
+      }
+    })
+  });
+
+  
 });
 
 

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Justify/Align Items</title>
+  <style>
+    body {
+
+    }
+
+    .contenedor {
+      display: grid;
+    }
+
+    .grid {
+      display: grid;
+      border: 2px dashed orangered;
+      gap: 10px;
+    }
+
+    span {
+      background-color: #1eb87a;
+    }
+
+    .ejeX {
+      grid-template-columns: repeat(8, 8rem);
+      grid-template-rows: 6rem;
+      align-items: center;
+    }
+
+    .box1 {grid-column: 1;}
+    .box2 {grid-column: 2;}
+    .box3 {grid-column: 3;}
+    .box4 {grid-column: 4;}
+    .box5 {grid-column: 5;}
+    .box6 {grid-column: 6;}
+    .box7 {grid-column: 7;}
+    .box8 {grid-column: 8;}
+
+    .ejeX .box1 {justify-self: start;}
+    .ejeX .box2 {justify-self: end;}
+    .ejeX .box3 {justify-self: center;}
+    .ejeX .box4 {justify-self: left;}
+    .ejeX .box5 {justify-self: right;}
+    .ejeX .box6 {justify-self: self-start; direction: rtl;}
+    .ejeX .box7 {justify-self: self-end; direction: rtl;}
+    .ejeX .box8 {justify-self: stretch;}
+
+
+
+
+    
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <h3>Valores justify-self (en el eje <em>horizontal</em>)</h3>
+    <div class="grid ejeX">
+      <span class="box1">start</span>
+      <span class="box2">end</span>
+      <span class="box3">center</span>
+      <span class="box4">left</span>
+      <span class="box5">right</span>
+      <span class="box6">self-start<br>RTL</span>
+      <span class="box7">self-end<br>RTL</span>
+      <span class="box8">stretch</span>
+    </div>
+  </div>
+</body>
+</html>

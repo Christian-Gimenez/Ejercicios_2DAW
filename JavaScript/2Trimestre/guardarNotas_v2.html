@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .contenedor {
+      display: flex;
+      flex-flow: column nowrap;
+      width: 50%;
+      margin: 2rem auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="contenedor">
+    <textarea name="nota" id="contenidoNota" cols="30" rows="10"></textarea>
+    <button id="btnGuardar">Almacenar nota</button>
+    <h3>Notas</h3>
+    <hr>
+    <ol id="listadoDeNotas"></ol>
+  </div>
+
+  <script>
+    /* Por hacer:
+    -No agregar un valor nuevo si no detectar si ha cambiado, volver a limpiar todo
+    -Array de Obj (en vez de cadenas), la nota va asociada a la fecha de creación
+    -Hacer dos iconos (uno de basura) para eliminar y para editar (lapicero).
+    -Si hago un click, que aparezca arriba y la puedas editar
+    cuando se edite, lo pasas al textarea y luego la guardas, pero tienes que tener en cuenta
+    que tienes que guardar y volver a pintar...
+    Se puede resolver con evento, con el evento de he guardado todo en la base de datos
+    si lo estoy leyendo
+    */
+    class Nota {
+      constructor(valor) {
+        this.valor = valor;
+        this.fecha = new Date(); //poner stringlocale
+      }
+
+      // get() {
+      //   return {
+      //     valor: this.valor,
+      //     fecha: this.fecha
+      //   };
+      // }
+    }
+    class AppNotas {
+      static DB = "MisNotas2";
+
+      constructor(selectorNota, selectorGuardar, selectorMostrar) {
+        this.nota = document.querySelector(selectorNota);
+        this.guardar = document.querySelector(selectorGuardar);
+        this.listar = document.querySelector(selectorMostrar);
+
+        this.guardar.addEventListener("click", () => this.guardarNota());
+        this.notas = JSON.parse(localStorage.getItem(AppNotas.DB)) ?? [];
+        this.listarNotas();
+      }
+
+      listarNotas() {
+        this.notas.forEach(nota => this.crearElementoNota(nota));
+      }
+
+      crearElementoNota(nota) {
+        const elemento = document.createElement("li");
+        const contenido = document.createTextNode(`${nota.fecha}: ${nota.valor}`);
+        elemento.appendChild(contenido);
+        this.listar.appendChild(elemento);
+      }
+
+      guardarNota(e) {
+        const valor = this.nota.value.trim();
+
+        if (valor) {
+          const _nota = new Nota(valor);
+          this.notas.push(_nota);
+          this.nota.value = "";
+          this.actualizarDB();
+          this.crearElementoNota(_nota);
+        }
+      }
+
+      actualizarDB() {
+        localStorage.setItem(AppNotas.DB, JSON.stringify(this.notas));
+      }
+    }
+
+    new AppNotas("#contenidoNota", "#btnGuardar", "#listadoDeNotas");
+  </script>
+</body>
+
+</html>

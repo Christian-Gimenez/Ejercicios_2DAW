@@ -124,11 +124,10 @@
       }
 
       borrarNota(evento) {
-        const then = this;
         const seleccionado = evento.target;
         const id = seleccionado.parentElement.getAttribute("id");
          //Borramos desde el id sólo 1 elemento, es decir, sólo le borramos a él
-        console.dir("SE ELIMINARA DESDE " + (id-1) + " 1 elemento", then.notas.splice((id-1), 1));
+        console.dir("SE ELIMINARA DESDE " + (id-1) + " 1 elemento", this.notas.splice((id-1), 1));
         // console.dir("Se seleccionó para borrar la nota " + id, this.notas);
         this.actualizarDB();
         this.reinicializarDOM();

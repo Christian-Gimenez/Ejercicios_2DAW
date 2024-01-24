@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .contenedor {
+      display: flex;
+      flex-flow: column nowrap;
+      width: 50%;
+      margin: 2rem auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="contenedor">
+    <textarea name="nota" id="contenidoNota" cols="30" rows="10"></textarea>
+    <button id="btnGuardar">Almacenar nota</button>
+    <h3>Notas</h3>
+    <hr>
+    <ol id="listadoDeNotas"></ol>
+  </div>
+
+  <script>
+    /* Por hacer:
+    -No agregar un valor nuevo si no detectar si ha cambiado, volver a limpiar todo
+    -Array de Obj (en vez de cadenas), la nota va asociada a la fecha de creación
+    -Hacer dos iconos (uno de basura) para eliminar y para editar (lapicero).
+    -Si hago un click, que aparezca arriba y la puedas editar
+    cuando se edite, lo pasas al textarea y luego la guardas, pero tienes que tener en cuenta
+    que tienes que guardar y volver a pintar...
+    Se puede resolver con evento, con el evento de he guardado todo en la base de datos
+    si lo estoy leyendo
+
+    Intl.DateTimeFormat ↓↓↓↓
+    let fecha = new Date();
+    let opciones = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+    };
+    let fechaFormateada = new Intl.DateTimeFormat('es-ES', opciones).format(fecha);
+    console.log(fechaFormateada); // Debería imprimir "30/01/2024 14:00"
+
+
+    */
+    class Nota {
+      constructor(valor) {
+        this.valor = valor;
+        this.fecha = new Date(); //poner stringlocale
+      }
+
+      // get() {
+      //   return {
+      //     valor: this.valor,
+      //     fecha: this.fecha
+      //   };
+      // }
+    }
+
+    class GestorEvenetos {
+
+    }
+
+    class AppNotas {
+      static DB = "MisNotas2";
+
+      //Se le pasan las string que van dentro del querySelector() de:
+      //<textarea id="contenidoNota">
+      //<button id="btnGuardar">
+      //<ol id="listadoDeNotas">
+      constructor(selectorNota, selectorGuardar, selectorMostrar) {
+        this.nota = document.querySelector(selectorNota);
+        this.guardar = document.querySelector(selectorGuardar);
+        this.listar = document.querySelector(selectorMostrar);
+
+        this.guardar.addEventListener("click", () => this.guardarNota());
+        this.notas = JSON.parse(localStorage.getItem(AppNotas.DB)) ?? [];
+        this.listarNotas();
+        this.eventosNotas();
+      }
+
+      listarNotas() {
+        this.notas.forEach((nota, i) => this.crearElementoNota(nota, i + 1));
+      }
+
+      eventosNotas() {
+        let self = this;
+
+        function editar(evento) {
+          evento.stopPropagation();
+          self.editarNota(evento);
+        }
+
+        function borrar(evento) {
+          evento.stopPropagation();
+          self.borrarNota(evento);
+        }
+
+        [...self.listar.children].forEach(nota => {
+          //click en el texto de la nota
+          nota.removeEventListener("click", self.editarNota);
+          nota.addEventListener("click", self.editarNota);
+          //btnEditar
+          nota.children[0].removeEventListener("click", editar);
+          nota.children[0].addEventListener("click", editar);
+          //btnBorrar
+          nota.children[1].removeEventListener("click", borrar);
+          nota.children[1].addEventListener("click", borrar);
+        });
+      }
+
+      editarNota(evento) {
+        const seleccionado = evento.target;
+        const id = seleccionado.parentElement.getAttribute("id");
+        //Falta mucha implementación
+        console.log("Se seleccionó para editar la nota " + id);
+      }
+
+      borrarNota(evento) {
+        const seleccionado = evento.target;
+        const id = seleccionado.parentElement.getAttribute("id");
+         //Borramos desde el id sólo 1 elemento, es decir, sólo le borramos a él
+        console.dir("SE ELIMINARA DESDE " + (id-1) + " 1 elemento", this.notas.splice((id-1), 1));
+        // console.dir("Se seleccionó para borrar la nota " + id, this.notas);
+        this.actualizarDB();
+        this.reinicializarDOM();
+        //Falta actualizar
+      }
+
+      reinicializarDOM() {
+        this.nota.innerHTML = "";
+        // this.guardar = document.querySelector(selectorGuardar);
+        this.listar.innerHTML = "";
+        // this.guardar.addEventListener("click", () => this.guardarNota());
+        this.notas = JSON.parse(localStorage.getItem(AppNotas.DB)) ?? [];
+        this.listarNotas();
+        this.eventosNotas();
+      }
+
+      crearElementoNota(nota, id) {
+        const elemento = document.createElement("li");
+        const contenido = document.createTextNode(`${nota.fecha}: ${nota.valor}`);
+        const btnEditar = this.crearBoton("📝", "editar");
+        const btnEliminar = this.crearBoton("🗑", "borrar");
+        elemento.setAttribute("id", id);
+        elemento.appendChild(contenido);
+        elemento.appendChild(btnEditar);
+        elemento.appendChild(btnEliminar);
+        this.listar.appendChild(elemento);
+        this.eventosNotas();
+      }
+
+      //Editar: 📝
+      //Papelera: 🗑
+      crearBoton(unicode, accion) {
+        const boton = document.createElement("button");
+        const contenido = document.createTextNode(unicode);
+        boton.appendChild(contenido);
+        boton.setAttribute("accion", accion);
+        return boton;
+      }
+
+      guardarNota(e) {
+        const valor = this.nota.value.trim();
+
+        if (valor) {
+          const _nota = new Nota(valor);
+          this.notas.push(_nota);
+          this.nota.value = "";
+          this.actualizarDB();
+          this.crearElementoNota(_nota, this.notas.length);
+        }
+      }
+
+      actualizarDB() {
+        localStorage.setItem(AppNotas.DB, JSON.stringify(this.notas));
+      }
+    }
+
+    new AppNotas("#contenidoNota", "#btnGuardar", "#listadoDeNotas");
+  </script>
+</body>
+
+</html>

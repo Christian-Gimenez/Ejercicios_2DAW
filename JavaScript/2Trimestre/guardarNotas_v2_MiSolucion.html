@@ -83,38 +83,38 @@
         this.guardar.addEventListener("click", () => this.guardarNota());
         this.notas = JSON.parse(localStorage.getItem(AppNotas.DB)) ?? [];
         this.listarNotas();
-        this.eventosNotas();
+        // this.eventosNotas();
       }
 
       listarNotas() {
         this.notas.forEach((nota, i) => this.crearElementoNota(nota, i + 1));
       }
 
-      eventosNotas() {
-        let self = this;
+      // eventosNotas() {
+      //   let self = this;
 
-        function editar(evento) {
-          evento.stopPropagation();
-          self.editarNota(evento);
-        }
+      //   function editar(evento) {
+      //     evento.stopPropagation();
+      //     self.editarNota(evento);
+      //   }
 
-        function borrar(evento) {
-          evento.stopPropagation();
-          self.borrarNota(evento);
-        }
+      //   function borrar(evento) {
+      //     evento.stopPropagation();
+      //     self.borrarNota(evento);
+      //   }
 
-        [...self.listar.children].forEach(nota => {
-          //click en el texto de la nota
-          nota.removeEventListener("click", self.editarNota);
-          nota.addEventListener("click", self.editarNota);
-          //btnEditar
-          nota.children[0].removeEventListener("click", editar);
-          nota.children[0].addEventListener("click", editar);
-          //btnBorrar
-          nota.children[1].removeEventListener("click", borrar);
-          nota.children[1].addEventListener("click", borrar);
-        });
-      }
+      //   [...self.listar.children].forEach(nota => {
+      //     //click en el texto de la nota
+      //     nota.removeEventListener("click", self.editarNota);
+      //     nota.addEventListener("click", self.editarNota);
+      //     //btnEditar
+      //     nota.children[0].removeEventListener("click", editar);
+      //     nota.children[0].addEventListener("click", editar);
+      //     //btnBorrar
+      //     nota.children[1].removeEventListener("click", borrar);
+      //     nota.children[1].addEventListener("click", borrar);
+      //   });
+      // }
 
       editarNota(evento) {
         const seleccionado = evento.target;
@@ -124,10 +124,11 @@
       }
 
       borrarNota(evento) {
+        const then = this;
         const seleccionado = evento.target;
         const id = seleccionado.parentElement.getAttribute("id");
          //Borramos desde el id sólo 1 elemento, es decir, sólo le borramos a él
-        console.dir("SE ELIMINARA DESDE " + (id-1) + " 1 elemento", this.notas.splice((id-1), 1));
+        console.dir("SE ELIMINARA DESDE " + (id-1) + " 1 elemento", then.notas.splice((id-1), 1));
         // console.dir("Se seleccionó para borrar la nota " + id, this.notas);
         this.actualizarDB();
         this.reinicializarDOM();
@@ -141,20 +142,23 @@
         // this.guardar.addEventListener("click", () => this.guardarNota());
         this.notas = JSON.parse(localStorage.getItem(AppNotas.DB)) ?? [];
         this.listarNotas();
-        this.eventosNotas();
+        // this.eventosNotas();
       }
 
       crearElementoNota(nota, id) {
         const elemento = document.createElement("li");
         const contenido = document.createTextNode(`${nota.fecha}: ${nota.valor}`);
         const btnEditar = this.crearBoton("📝", "editar");
+        btnEditar.addEventListener("click", this.editarNota);
         const btnEliminar = this.crearBoton("🗑", "borrar");
+        btnEliminar.addEventListener("click", this.borrarNota);
+
         elemento.setAttribute("id", id);
         elemento.appendChild(contenido);
         elemento.appendChild(btnEditar);
         elemento.appendChild(btnEliminar);
         this.listar.appendChild(elemento);
-        this.eventosNotas();
+        // this.eventosNotas();
       }
 
       //Editar: 📝

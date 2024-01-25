@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    [class^="row"] {
+      display: flex;
+      background-color: mediumspringgreen;
+      color: mediumspringgreen;
+      font-weight: bold;
+      padding: 32px;
+      text-align: center;
+    }
+
+
+
+    [class^="celda"] {
+      margin-inline: 10px;
+      background-color: white;
+      padding: 6px;
+      border-radius: 5px;
+    }
+
+    .celda {flex: 1;}
+    .celda2 {flex: 0 0 50%;}
+    .celda3 {flex: 0 0 33.33%;}
+    .celda4 {flex: 0 0 25%;}
+    .celda5 {flex: 0 0 20%;}
+
+  </style>
+</head>
+<body>
+  <div class="row1">
+    <div class="celda2">La mitad</div>
+    <div class="celda">Auto</div>
+    <div class="celda">Auto</div>
+  </div>
+  <div class="row2">
+    <div class="celda">Auto</div>
+    <div class="celda3">Un tercio</div>
+    <div class="celda">Auto</div>
+  </div>
+  <div class="row3">
+    <div class="celda4">Un cuarto</div>
+    <div class="celda">Auto</div>
+    <div class="celda5">Un quinto</div>
+    <div class="celda">Auto</div>
+  </div>
+</body>
+</html>

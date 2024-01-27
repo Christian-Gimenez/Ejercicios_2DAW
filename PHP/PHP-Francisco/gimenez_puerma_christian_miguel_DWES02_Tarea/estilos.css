@@ -2,7 +2,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(212, 212, 212);
+  background-color: rgb(150, 208, 255);
 }
 
 main {
@@ -17,24 +17,39 @@ main {
   padding-bottom: 25px;
 }
 
-#cerrar {
+header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+header > img {
+  width: 50px;
+}
+
+form:first-of-type {
+  display: flex;
+  align-items: end;
+  align-self: flex-end;
+}
+input[name="cerrar"] {
   padding: 5px 10px 5px 10px;
   border: none;
   background-color: rgb(218, 62, 62);
-  align-self: flex-end;
   color: white;
   font-size: 12px;
   font-weight: bold;
   text-align: center;
   border-radius: 10px;
   cursor: pointer;
+  width: 40px;
 }
 
-button[name="cerrar"]:hover {
+input[name="cerrar"]:hover {
   background-color: rgb(187, 0, 0);
 }
 
-button[name="cerrar"]:active {
+input[name="cerrar"]:active {
   background-color: rgb(78, 0, 0);
 }
 
@@ -52,8 +67,8 @@ table {
 table caption {
   font-size: 20px;
   font-weight: bold;
-  color: rgb(0, 0, 0);
-  border: 1px solid black;
+  color: rgb(9, 122, 113);
+  border: 1px solid rgb(9, 122, 113);;
   padding: 5px 0;
 }
 
@@ -81,31 +96,42 @@ table tr:nth-child(even) {
 form {
   display: flex;
   flex-direction: column;
+  width: 50%;
 }
 
 form > input {
   margin-bottom: 10px;
+  font-size: 14px;
+  padding: 10px;
+  padding-left: 5px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 1.5px solid rgb(88, 88, 88);
 }
 
 .botones {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  gap: 10px;
 }
 
 .botones > input {
   border-radius: 5px;
   padding: 8px;
   cursor: pointer;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
 }
 
 .botones > input:first-child {
   border: 1px solid rgb(48, 127, 216);
-  background-color: rgb(109, 187, 218);
+  background-color: rgb(69, 171, 211);
 }
 
 .botones > input:first-child:active {
-  border: 1px inset rgb(2, 56, 117);
   background-color: rgb(48, 127, 216);
 }
 
@@ -115,19 +141,34 @@ form > input {
 }
 
 .botones > input:last-child:active {
-  border: 1px inset rgb(0, 58, 17);
   background-color: rgb(10, 116, 42);
   
 }
 
-.error {
-  background-color: rgb(167, 32, 32);
+div[class="warning"], div[class="exito"] {
+  margin-top: 10px;
+}
+
+.error, .exito, .warning {
   border-radius: 2px;
   padding: 10px;
   font-family: Arial, Helvetica, sans-serif;
   color: white;
   margin: -10px 0 10px 0;
   font-size: 16px;
+}
+
+.error {
+  background-color: rgb(167, 32, 32);
+}
+
+.exito {
+  background-color: rgb(32, 167, 104);
+}
+
+.warning {
+  background-color: rgb(231, 189, 2);
+  color: rgb(68, 68, 68);
 }
 
 .vacia {

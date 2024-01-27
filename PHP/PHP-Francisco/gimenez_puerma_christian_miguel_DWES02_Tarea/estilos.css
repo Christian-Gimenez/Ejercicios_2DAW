@@ -1,0 +1,136 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(212, 212, 212);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  border-radius: 10px;
+  min-height: 400px;
+  padding-bottom: 25px;
+}
+
+#cerrar {
+  padding: 5px 10px 5px 10px;
+  border: none;
+  background-color: rgb(218, 62, 62);
+  align-self: flex-end;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+button[name="cerrar"]:hover {
+  background-color: rgb(187, 0, 0);
+}
+
+button[name="cerrar"]:active {
+  background-color: rgb(78, 0, 0);
+}
+
+h1 {
+  font-size: 30px;
+}
+
+
+table {
+  text-align: center;
+  border: 1px solid white;
+  width: 50%;
+}
+
+table caption {
+  font-size: 20px;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  border: 1px solid black;
+  padding: 5px 0;
+}
+
+table tr td,
+table tr th {
+  padding: 5px 10px;
+}
+
+table tr th {
+  background-color: rgb(9, 122, 113);
+  font-weight: bold;
+  color: white;
+}
+
+table tr:nth-child(odd) {
+  background-color: rgb(48, 189, 153);
+}
+
+
+table tr:nth-child(even) {
+  background-color: rgb(121, 212, 190);
+}
+
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form > input {
+  margin-bottom: 10px;
+}
+
+.botones {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.botones > input {
+  border-radius: 5px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.botones > input:first-child {
+  border: 1px solid rgb(48, 127, 216);
+  background-color: rgb(109, 187, 218);
+}
+
+.botones > input:first-child:active {
+  border: 1px inset rgb(2, 56, 117);
+  background-color: rgb(48, 127, 216);
+}
+
+.botones > input:last-child {
+  border: 1px solid rgb(10, 116, 42);
+  background-color: rgb(49, 168, 85);
+}
+
+.botones > input:last-child:active {
+  border: 1px inset rgb(0, 58, 17);
+  background-color: rgb(10, 116, 42);
+  
+}
+
+.error {
+  background-color: rgb(167, 32, 32);
+  border-radius: 2px;
+  padding: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  margin: -10px 0 10px 0;
+  font-size: 16px;
+}
+
+.vacia {
+  background-color: gray;
+  padding: 10px;
+}

@@ -112,8 +112,10 @@ form > input {
 
 .botones {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   gap: 10px;
+  width: 100%;
 }
 
 .botones > input {
@@ -142,7 +144,10 @@ form > input {
 
 .botones > input:last-child:active {
   background-color: rgb(10, 116, 42);
-  
+}
+
+.botones > input:hover {
+  transform: scale(1.05);
 }
 
 div[class="warning"], div[class="exito"] {
@@ -174,4 +179,9 @@ div[class="warning"], div[class="exito"] {
 .vacia {
   background-color: gray;
   padding: 10px;
+}
+
+footer p {
+  font-size: 8px;
+  font-style: italic;
 }

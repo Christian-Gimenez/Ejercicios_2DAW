@@ -12,17 +12,16 @@ function Persona(nombre, fechaNac) {
 function Empleado(nombre, fechaNac, puesto, salario) {
   Persona.call(this, nombre, fechaNac); //Llamamos al constructor del padre
   //Props publicas
-  this.puesto = puesto;
-  this.salario = salario;
+  this.numeroEmpleado = generarNumEmpleado();
+
 
   //Método privado
-  let generarNumEmpleado = function() {
+  const generarNumEmpleado = function() {
     Empleado.addEmpleado();
     return Empleado.empleadosTotales;
   }
 
   //Props privadas
-  let _numeroEmpleado = generarNumEmpleado();
   let _dni;
 
   //Getter y Setter dni con Object.defineProperties
@@ -41,6 +40,8 @@ function Empleado(nombre, fechaNac, puesto, salario) {
   } 
 }
 
+const ahmed = new Persona("Ahmed", "1/1/2000");
+
 //Hacemos que Empleado herede de Persona
 //Ponemos el prototype de Persona a Empleado
 Empleado.prototype = Object.create(Persona.prototype);
@@ -55,7 +56,6 @@ Empleado.addEmpleado = function () {
   Empleado.empleadosTotales++;
 }
 
-//Método privado
 Empleado.generarNumEmpleado = function() {
   Empleado.addEmpleado();
   return Empleado.empleadosTotales;
@@ -67,9 +67,21 @@ Empleado.numeroEmpleado = Empleado.generarNumEmpleado();
 
 /////////////////////////ES6/////////////////////////
 class Persona {
+  //Props privadas
+  #nombre;
+  #fechaNac;
+
   constructor(nombre, fechaNac) {
-    this.nombre = nombre;
-    this.fechaNac = fechaNac;
+    this.#nombre = nombre;
+    this.#fechaNac = fechaNac;
+  }
+
+  get nombre() {
+    return this.#nombre;
+  }
+
+  get fechaNac() {
+    return this.#fechaNac;
   }
 }
 
@@ -77,19 +89,20 @@ class Empleado extends Persona {
   //Prop estática
   static empleadosTotales = 0;
 
-    //Props privadas
-    #numeroEmpleado;
-    #dni;
+  //Props privadas
+  #dni;
+  #puesto;
+  #salario;
   
   //Constructor
   constructor(nombre, fechaNac, puesto, salario) {
     //Llamamos al constructor del padre
     super(nombre, fechaNac);
     //Props publicas
-    this.puesto = puesto;
-    this.salario = salario;
+    this.#puesto = puesto;
+    this.#salario = salario;
     //Inicializamos la prop privada
-    this.#numeroEmpleado = this.#generarNumEmpleado();
+    this.numeroEmpleado = this.#generarNumEmpleado();
   }
 
   //Método estático
@@ -103,10 +116,17 @@ class Empleado extends Persona {
     return Empleado.empleadosTotales;
   }
 
-  //Getters y Setters
+  trabajar() {
+    console.log("Estoy trabajando...");
+  }
 
-  get numeroEmpleado() {
-    return this.#numeroEmpleado;
+  //Getters y Setters
+  get puesto() {
+    return this.#puesto;
+  }
+
+  get salario() {
+    return this.#salario;
   }
 
   get dni() {

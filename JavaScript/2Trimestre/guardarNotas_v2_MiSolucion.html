@@ -64,10 +64,6 @@
       // }
     }
 
-    class GestorEvenetos {
-
-    }
-
     class AppNotas {
       static DB = "MisNotas2";
 
@@ -83,51 +79,23 @@
         this.guardar.addEventListener("click", () => this.guardarNota());
         this.notas = JSON.parse(localStorage.getItem(AppNotas.DB)) ?? [];
         this.listarNotas();
-        // this.eventosNotas();
       }
 
       listarNotas() {
         this.notas.forEach((nota, i) => this.crearElementoNota(nota, i + 1));
       }
 
-      // eventosNotas() {
-      //   let self = this;
-
-      //   function editar(evento) {
-      //     evento.stopPropagation();
-      //     self.editarNota(evento);
-      //   }
-
-      //   function borrar(evento) {
-      //     evento.stopPropagation();
-      //     self.borrarNota(evento);
-      //   }
-
-      //   [...self.listar.children].forEach(nota => {
-      //     //click en el texto de la nota
-      //     nota.removeEventListener("click", self.editarNota);
-      //     nota.addEventListener("click", self.editarNota);
-      //     //btnEditar
-      //     nota.children[0].removeEventListener("click", editar);
-      //     nota.children[0].addEventListener("click", editar);
-      //     //btnBorrar
-      //     nota.children[1].removeEventListener("click", borrar);
-      //     nota.children[1].addEventListener("click", borrar);
-      //   });
-      // }
-
       editarNota(evento) {
         const seleccionado = evento.target;
         const id = seleccionado.parentElement.getAttribute("id");
-        //Falta mucha implementación
-        console.log("Se seleccionó para editar la nota " + id);
+        console.dir(this.notas[id]);
       }
 
       borrarNota(evento) {
         const seleccionado = evento.target;
         const id = seleccionado.parentElement.getAttribute("id");
-         //Borramos desde el id sólo 1 elemento, es decir, sólo le borramos a él
-        console.dir("SE ELIMINARA DESDE " + (id-1) + " 1 elemento", this.notas.splice((id-1), 1));
+        //Borramos desde el id sólo 1 elemento, es decir, sólo le borramos a él
+        this.notas.splice((id - 1), 1);
         // console.dir("Se seleccionó para borrar la nota " + id, this.notas);
         this.actualizarDB();
         this.reinicializarDOM();
@@ -148,9 +116,10 @@
         const elemento = document.createElement("li");
         const contenido = document.createTextNode(`${nota.fecha}: ${nota.valor}`);
         const btnEditar = this.crearBoton("📝", "editar");
-        btnEditar.addEventListener("click", this.editarNota);
         const btnEliminar = this.crearBoton("🗑", "borrar");
-        btnEliminar.addEventListener("click", this.borrarNota);
+        //Hay que llamar a this.editarNota() en vez de hacer callback porque si no se pierde this
+        btnEditar.addEventListener("click", (evt) => {this.editarNota(evt)});
+        btnEliminar.addEventListener("click", (evt) => {this.borrarNota(evt)});
 
         elemento.setAttribute("id", id);
         elemento.appendChild(contenido);

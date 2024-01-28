@@ -93,10 +93,6 @@
       ?> <p class="vacia">Actualmente la agenda está vacía</p>
       <?php
       }
-      if ($eliminado) {
-        echo "<div class='exito'>El contacto ha sido eliminado con éxito de la agenda.</div>";
-        $eliminado = false;
-      }
       ?>
       <hr />
       <!--Formulario para introducir nombre y teléfono-->
@@ -106,12 +102,10 @@
         <input type="text" name="nombre" placeholder="Christian" />
         <?php
         if (isset($_POST["guardar"])) {
-
           //Si el nombre está vacío, se mostrará una advertencia.
           if (empty($_POST["nombre"])) {
             echo "<span class='error'>El campo nombre no puede estar vacío.</span>";
           }
-
         }
         ?>
 
@@ -124,6 +118,10 @@
           <input type="submit" value="Guardar contacto" name="guardar" />
         </div>
       </form>
+
+      <footer>
+        <p>Desarrollado por: <strong>Christian Miguel Giménez Puerma</strong> - 2ºDAW</p>
+      </footer>
 
   </main>
 </body>

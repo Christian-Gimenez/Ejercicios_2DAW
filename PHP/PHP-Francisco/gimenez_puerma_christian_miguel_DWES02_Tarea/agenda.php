@@ -11,12 +11,19 @@
 
 <body>
   <?php
+  //Inicializamos una sesión para poder almacenar los datos sin persistencia en fichero/BBDD
+  //si los datos ya existen, se recuperarán
   session_start();
+  //Si no existe ya una agenda en la sesión, la creamos
   if (!isset($_SESSION["agenda"])) {
+    //La agenda es un array asociativo que representa la agenda 
+    //con clave "nombre" y valor "telefono" ["Christian" => "612345678"]
     $_SESSION["agenda"] = [];
   }
   ?>
+
   <main>
+    <!--Botón para destruir la sesión actual y eliminar todos los datos almacenados -->
     <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
       <input type="submit" name="cerrar" title="Cierra la sesión actual y reinicializa los datos (Borra la agenda)" value="X"></input>
     </form>
@@ -29,10 +36,10 @@
     ?>
 
     <?php
-    //Array que representa la agenda con clave "nombre" y valor "nºtlfn"
-
+    function validarDatos() {
+      
+    }
     //Si se le dió al botón de Guardar
-
     if (isset($_POST["guardar"])) {
       //Si se introdujo nombre por el formulario
       if (isset($_POST["nombre"]) && !empty($_POST["nombre"])) {
@@ -80,14 +87,14 @@
       }
       echo "</table>";
     }
-    //Mostrar contenido de la agenda
       ?>
       <header>
         <img src="./ico.png" alt="AgendAPP Logo" />
         <h1>AgendAPP de Contactos</h1>
       </header>
 
-      <?php if (!empty($_SESSION["agenda"])) {
+      <?php //Si la agenda está vacía se lo indica al usuario
+      if (!empty($_SESSION["agenda"])) {
         mostrarAgenda();
       } else {
       ?> <p class="vacia">Actualmente la agenda está vacía</p>
@@ -101,17 +108,12 @@
         <label for="nombre">Nombre del contacto:</label>
         <input type="text" name="nombre" placeholder="Christian" />
         <?php
-        if (isset($_POST["guardar"])) {
-          //Si el nombre está vacío, se mostrará una advertencia.
-          if (empty($_POST["nombre"])) {
-            echo "<span class='error'>El campo nombre no puede estar vacío.</span>";
-          }
-        }
-        ?>
-
+        //Si le dieron al botón de guardar y el nombre está vacío
+        if (isset($_POST["guardar"]) && empty($_POST["nombre"])) {
+          echo "<span class='error'>El campo nombre no puede estar vacío.</span>";
+        } ?>
         <label for="telefono">Nº Teléfono:</label>
-        <input type="text" name="telefono" placeholder="612345789" />
-
+        <input type="number" min="0" name="telefono" placeholder="612345789" />
 
         <div class="botones">
           <input type="reset" value="Limpiar formulario" name="limpiar" />

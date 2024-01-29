@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(4%, 1fr));
+      grid-template-rows: repeat(3, 3em);
+      
+      background-color: crimson;
+      color: crimson;
+      font-weight: bold;
+      padding: 32px;
+      text-align: center;
+    }
+
+    .celda {
+      margin: 10px;
+      background-color: white;
+      padding: 6px;
+      border-radius: 5px;
+    }
+
+    .celda:nth-of-type(1) {grid-column: span 12;}
+    .celda:nth-of-type(2) {grid-column: span 6;}
+    .celda:nth-of-type(3) {grid-column: span 6;}
+
+    .celda:nth-of-type(4) {grid-column: span 8;}
+    .celda:nth-of-type(5) {grid-column: span 8;}
+    .celda:nth-of-type(6) {grid-column: span 8;}
+
+    .celda:nth-of-type(7) {grid-column: span 6;}
+    .celda:nth-of-type(8) {grid-column: span 6;}
+    .celda:nth-of-type(9) {grid-column: span 4;}
+    .celda:nth-of-type(10) {grid-column: span 8;}
+
+
+
+  </style>
+</head>
+<body>
+  <div class="grid">
+    <div class="celda _1/2">La mitad</div>
+    <div class="celda">Auto</div>
+    <div class="celda">Auto</div>
+
+    <div class="celda">Auto</div>
+    <div class="celda _1/3">Un tercio</div>
+    <div class="celda">Auto</div>
+
+    <div class="celda _1/4">Un cuarto</div>
+    <div class="celda">Auto</div>
+    <div class="celda _1/5">Un quinto</div>
+    <div class="celda">Auto</div>
+  </div>
+</body>
+</html>

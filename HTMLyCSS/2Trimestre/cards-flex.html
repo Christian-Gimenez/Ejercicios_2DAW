@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      
+    }
+
+    .cars {padding: 2rem;}
+    .car {padding: 2rem; text-align: center;}
+    .car h3 {font-size: 1.5rem;}
+    .car > figure {
+      width: 160px;
+      height: 160px;
+      margin: 0 auto;
+      border-radius: 50%;
+      background-color: #a4d7a588;
+      padding: 2rem;
+    }
+    .car > figure > img {
+      opacity: 0.7;
+    }
+    .car + .car {margin-top: 2rem; border-top: 2px solid chocolate;}
+    .car > div {margin-top: 2rem;}
+    .car > div > p {margin-top: 2rem;}
+
+  </style>
+</head>
+
+<body>
+  <div class="contenedor">
+    <div class="cars">
+      <div class="car">
+        <figure><img src="imgs/light-bulb.svg" alt=""></figure>
+        <div>
+          <h3>Bombilla</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus magnam nihil et laboriosam libero ab soluta. Excepturi error, vitae ducimus minima blanditiis quidem perspiciatis facilis commodi repellat ipsum voluptates placeat?</p>
+        </div>
+      </div>
+
+
+
+      <div class="car">
+        <figure><img src="imgs/target-icon.svg" alt=""></figure>
+        <div>
+          <h3>Diana</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus magnam nihil et laboriosam libero ab soluta. Excepturi error, vitae ducimus minima blanditiis quidem perspiciatis facilis commodi repellat ipsum voluptates placeat?</p>
+        </div>
+      </div>
+
+      <div class="car">
+        <figure><img src="imgs/pin-line-icon.svg" alt=""></figure>
+        <div>
+          <h3>Pin...</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus magnam nihil et laboriosam libero ab soluta. Excepturi error, vitae ducimus minima blanditiis quidem perspiciatis facilis commodi repellat ipsum voluptates placeat?</p>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</body>
+
+</html>

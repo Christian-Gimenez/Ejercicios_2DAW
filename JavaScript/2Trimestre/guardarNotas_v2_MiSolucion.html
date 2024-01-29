@@ -76,16 +76,23 @@
       }
 
       listarNotas() {
-        this.notas.forEach((nota, i) => this.crearElementoNota(nota, i + 1));
+        this.notas.forEach((nota, i) => {
+          nota.fecha = new Date(nota.fecha);
+          this.crearElementoNota(nota, i + 1);
+        });
       }
 
       editarNota(evento) {
         const seleccionado = evento.target;
         const id = seleccionado.parentElement.getAttribute("id");
+        console.log(this.notas[id])
         const nota = this.notas[id-1];
-        console.dir(nota);
-        this.nota.innerHTML = nota.valor;
+        this.nota.value = nota.valor;
         this.nota.setAttribute("idNota", id);
+        seleccionado.parentElement.parentElement.removeChild(seleccionado.parentElement);
+
+        this.actualizarDB();
+        
       }
 
       borrarNota(evento) {
@@ -97,7 +104,6 @@
         // console.dir("Se seleccionó para borrar la nota " + id, this.notas);
         this.actualizarDB();
         this.reinicializarDOM();
-        //Falta actualizar
       }
 
       reinicializarDOM() {
@@ -112,7 +118,7 @@
 
       crearElementoNota(nota, id) {
         const elemento = document.createElement("li");
-        const contenido = document.createTextNode(`${nota.fecha}: ${nota.valor}`);
+        const contenido = document.createTextNode(`${nota.fecha.toLocaleString("es-ES")}: ${nota.valor}`);
         const btnEditar = this.crearBoton("📝", "editar");
         const btnEliminar = this.crearBoton("🗑", "borrar");
         //Hay que llamar a this.editarNota() en vez de hacer callback porque si no se pierde this
@@ -143,14 +149,12 @@
           const id = Number(this.nota.getAttribute("idNota"));
           console.log(this.notas);
           const _nota = new Nota(valor);
-          if(this.notas[id-1]) {
-            this.notas[id-1] = _nota;
-          } else {
-            this.notas.push(_nota);
-          }
+          this.notas[id] = _nota;
           this.nota.value = "";
+          this.nota.setAttribute("idnota", id);
+          this.crearElementoNota(_nota, id);
+          console.log(this.notas);
           this.actualizarDB();
-          this.crearElementoNota(_nota, this.notas.length);
         }
       }
 
@@ -159,7 +163,7 @@
       }
     }
 
-    new AppNotas("#contenidoNota", "#btnGuardar", "#listadoDeNotas");
+    const app = new AppNotas("#contenidoNota", "#btnGuardar", "#listadoDeNotas");
   </script>
 </body>
 

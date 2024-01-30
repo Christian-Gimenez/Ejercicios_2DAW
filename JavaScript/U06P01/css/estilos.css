@@ -1,0 +1,6 @@
+body { font-family: Verdana, Geneva, sans-serif;  margin: 0; padding: 0;  }
+header { margin:0; padding: 0.5em; height:200px; background-color:lightsalmon; text-align: center;}
+#caja { position: relative; cursor: pointer; }
+#contenedor {height: 600px; }
+button {padding:.5em; border-radius:5px; cursor: pointer;}
+.oculto { display: none; }

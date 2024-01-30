@@ -13,13 +13,13 @@
 <body>
   <?php
   //Si No existe la agenda con campos ocultos, la creamos vacía
+  // var_dump($_POST["agenda"]);
   if (!isset($_POST["agenda"])) {
     $agenda = [];
-    echo"Aqui";
   } else {
     //Si existe, volcamos los datos en la misma
-    $agenda = $_POST["agenda"];
-    echo "Otrolao";
+    $agenda = htmlentities(serialize(($_POST["agenda"])));
+
   }
   //Validamos nada más recargar la página por si hubieran entrado datos por $_POST
   validarDatosConCamposOcultos($agenda);
@@ -47,6 +47,7 @@
     <!--Formulario para introducir nombre y teléfono-->
     <h2>Registre un nuevo contacto:</h2>
     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+      <input type="hidden" value="<?php htmlentities(serialize($agenda));?>" name="agenda[]" />
       <label for="nombre">Nombre del contacto:</label>
       <input type="text" name="nombre" placeholder="Christian" />
       <?php
@@ -60,7 +61,7 @@
       <div class="botones">
         <input type="reset" value="Limpiar formulario" name="limpiar" />
         <input type="submit" value="Guardar contacto" name="guardar" />
-        <?php mostrarInputCamposOcultos($agenda); ?>
+        <?php //mostrarInputCamposOcultos($agenda); ?>
       </div>
     </form>
 

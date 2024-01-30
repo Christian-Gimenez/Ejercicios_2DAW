@@ -102,7 +102,7 @@ function mostrarAgendaConCamposOcultos($agenda, $titulo = "Mi agenda personal")
 
 function mostrarInputCamposOcultos($agenda) {
   foreach($agenda as $nombre => $telefono) {
-    echo "<input type='hidden' name='agenda[]' value='$nombre,$telefono'/>";
+    echo "<input type='hidden' name='agenda[]' value='" . htmlentities(serialize("$nombre,$telefono")) . "'/>";
   }
 }
 

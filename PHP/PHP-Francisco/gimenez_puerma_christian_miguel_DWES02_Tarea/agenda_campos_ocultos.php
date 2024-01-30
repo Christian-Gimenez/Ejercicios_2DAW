@@ -6,16 +6,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AgendAPP - Christian Gimenez 2DAW</title>
-  <link rel="icon" href="./ico.png" type="image/png">
-  <link rel="stylesheet" type="text/css" href="./estilos.css">
+  <link rel="icon" href="./imgs/ico.png" type="image/png">
+  <link rel="stylesheet" href="./css/estilos.css" type="text/css">
 </head>
 
 <body>
   <?php
-  //Iniciamos la sesión para recuperar los datos anteriormente almacenados en $_SESSION
-  iniciarSesion();
+  //Si No existe la agenda con campos ocultos, la creamos vacía
+  if (!isset($_POST["agenda"])) {
+    $agenda = [];
+    echo"Aqui";
+  } else {
+    //Si existe, volcamos los datos en la misma
+    $agenda = $_POST["agenda"];
+    echo "Otrolao";
+  }
   //Validamos nada más recargar la página por si hubieran entrado datos por $_POST
-  validarDatos();
+  validarDatosConCamposOcultos($agenda);
   ?>
 
   <main>
@@ -24,13 +31,13 @@
     botonCerrarSesion();
     ?>
     <header>
-      <img src="./ico.png" alt="AgendAPP Logo" />
-      <h1>AgendAPP de Contactos</h1>
+      <img src="./imgs/ico.png" alt="AgendAPP Logo" />
+      <h1>AgendAPP de Contactos v2</h1>
     </header>
 
     <?php //Si la agenda está vacía se lo indica al usuario
-    if (!empty($_SESSION["agenda"])) {
-      mostrarAgenda();
+    if (!empty($agenda)) {
+      mostrarAgendaConCamposOcultos($agenda);
     } else {
     ?> <p class="vacia">Actualmente la agenda está vacía</p>
     <?php
@@ -39,7 +46,7 @@
     <hr />
     <!--Formulario para introducir nombre y teléfono-->
     <h2>Registre un nuevo contacto:</h2>
-    <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
       <label for="nombre">Nombre del contacto:</label>
       <input type="text" name="nombre" placeholder="Christian" />
       <?php
@@ -53,6 +60,7 @@
       <div class="botones">
         <input type="reset" value="Limpiar formulario" name="limpiar" />
         <input type="submit" value="Guardar contacto" name="guardar" />
+        <?php mostrarInputCamposOcultos($agenda); ?>
       </div>
     </form>
 

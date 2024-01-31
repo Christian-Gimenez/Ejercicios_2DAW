@@ -137,12 +137,12 @@ form > input {
   background-color: rgb(48, 127, 216);
 }
 
-.botones > input:last-child {
+.botones > input[type="submit"] {
   border: 1px solid rgb(10, 116, 42);
   background-color: rgb(49, 168, 85);
 }
 
-.botones > input:last-child:active {
+.botones > input[type="submit"]:active {
   background-color: rgb(10, 116, 42);
 }
 
@@ -169,11 +169,13 @@ div[class="warning"], div[class="exito"] {
 
 .exito {
   background-color: rgb(32, 167, 104);
+  margin: 0 auto;
 }
 
 .warning {
   background-color: rgb(231, 189, 2);
   color: rgb(68, 68, 68);
+  margin: 0 auto;
 }
 
 .vacia {
@@ -182,6 +184,6 @@ div[class="warning"], div[class="exito"] {
 }
 
 footer p {
-  font-size: 8px;
+  font-size: 10px;
   font-style: italic;
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+</head>
+<body>
+  <h2>Eventos de tecla</h2>
+  <div></div>
+  <div></div>
+  <div></div>
+
+  <script>
+    window.addEventListener("keydown", keydown);
+    window.addEventListener("keyup", keyup);
+    window.addEventListener("keypress", keypress);
+
+    const divs = document.querySelectorAll("div");
+
+    function keydown(e) {
+      divs[0].innerHTML = `
+      <p><code>${e.type}</code> keyCode: ${e.keyCode} keyChar: ${e.charCode} key: ${e.key} code: ${e.code}</p>
+      `;
+    }
+
+    function keyup(e) {
+      divs[1].innerHTML = `
+      <p><code>${e.type}</code> keyCode: ${e.keyCode} keyChar: ${e.charCode} key: ${e.key} code: ${e.code}</p>
+      `;
+    }
+
+    function keypress(e) {
+      divs[2].innerHTML = `
+      <p><code>${e.type}</code> keyCode: ${e.keyCode} keyChar: ${e.charCode} key: ${e.key} code: ${e.code}</p>
+      `;
+    }
+  </script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-<?php include_once "../funciones.php"; ?>
+<?php include_once "../funciones_old.php"; ?>
 <!DOCTYPE html>
 <html lang="es">
 

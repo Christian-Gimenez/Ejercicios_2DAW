@@ -70,8 +70,8 @@
 
       constructor(selectorBotones, selectorFigura, selectorTReaccion, selectorTMedio) {
         this.botones = document.querySelectorAll(selectorBotones);
-        this.parrafoTReaccion = document.querySelector(selectorTReaccion);
-        this.parrafoTMedio =document.querySelector(selectorTMedio);
+        this.spanTReaccion = document.querySelector(selectorTReaccion);
+        this.spanTMedio =document.querySelector(selectorTMedio);
         this.pararJuego = true;
         this.selectorFigura = selectorFigura;
         this.figura = this.selectorFigura;
@@ -93,32 +93,31 @@
       comenzarJuego(evento) {
         this.pararJuego = false; 
         this.toggleBotones();
-        if(this.parrafoTReaccion.classList.contains("oculto")) {
-          this.parrafoTReaccion.classList.toggle("oculto");
-          this.parrafoTMedio.classList.toggle("oculto");
+        if(this.spanTReaccion.parentElement.classList.contains("oculto")) {
+          this.spanTReaccion.parentElement.classList.toggle("oculto");
+          this.spanTMedio.parentElement.classList.toggle("oculto");
         }
-        this.figura.caja.classList.toggle("oculto");
+        
         this.iteracionJuego();
         
       }
 
       eventoClickFigura(evento) {
+        this.figura.caja.classList.toggle("oculto");
         this.tiempoFinal = new Date(); 
-        this.registrarTiempo();
-        //FALLA
-        this.parrafoTReaccion.firstElementChild.textContent = this.tiemposRegistrados[this.tiemposRegistrados -1];
+        const tiempo = this.registrarTiempo();
+        this.spanTReaccion.textContent = tiempo;
         this.figura.caja.removeEventListener("click", this.eventoClickFigura);
         
-        return this.iteracionJuego();
+        setTimeout(() => {this.iteracionJuego()}, NumAleatorio.generar(0, 2500));
       }
 
       terminarJuego(evento) {
         this.toggleBotones();
-        this.parrafoTReaccion.classList.toggle("oculto");
-        this.parrafoTMedio.classList.toggle("oculto");
+        this.spanTReaccion.parentElement.classList.toggle("oculto");
+        this.spanTMedio.parentElement.classList.toggle("oculto");
         this.calcularTiempoMedio();
-        //FALLA
-        this.parrafoTMedio.firstElementChild.textContent = this.tiempoMedio;
+        this.spanTMedio.textContent = this.tiempoMedio;
         this.pararJuego = true;
         this.figura.caja.classList.toggle("oculto");
         console.log("Juego finalizado. Los tiempos son: ");
@@ -127,6 +126,7 @@
 
       iteracionJuego() {
         if(!this.pararJuego) {
+          this.figura.caja.classList.toggle("oculto");
           this.figura = this.selectorFigura;
           this.tiempoInicial = new Date();
           this.figura.caja.addEventListener("click", this.eventoClickFigura);
@@ -139,13 +139,14 @@
         tiempoRealizado = tiempoRealizado / 1000; //Transformamos de ms a seg
         this.tiemposRegistrados.push(tiempoRealizado);
         console.log("Tiempo: " + tiempoRealizado + " seg");
+        return tiempoRealizado;
       }
 
       calcularTiempoMedio() {
         if(this.tiemposRegistrados.length > 0) {
           let suma = 0;
           this.tiemposRegistrados.forEach(e => suma += e);
-          this.tiempoMedio = suma / this.tiemposRegistrados.length;
+          this.tiempoMedio = (suma / this.tiemposRegistrados.length).toFixed(3);
         }
       }
 
@@ -176,6 +177,6 @@
     //EJECUCIÓN PRINCIPAL
     // const figura = new Figura("#caja");
     // figura.caja.classList.toggle("oculto");
-    const juego = new Juego("header > button", "#caja", "header > p:nth-child(2)", "header > p:nth-child(3)");
+    const juego = new Juego("header > button", "#caja", "header > p:nth-of-type(2) > span", "header > p:nth-of-type(3) > span");
   });
 })();

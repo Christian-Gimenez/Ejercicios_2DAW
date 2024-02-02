@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delegacion</title>
+  <style>
+    * {
+      margin: 20px;
+      padding: 20px;
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      background-color: blueviolet;
+    }
+
+    li {
+      border: 2px dotted violet;
+      background-color: turquoise;
+    }
+
+    a {
+      color: black;
+      text-decoration: none;
+      border: 2px solid black;
+      border-radius: 6px;
+      text-align: center;
+      background-color: deeppink;
+    }
+
+    .activo {
+      background-color: green;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="contenedor">
+    <ul>
+      <li><a href="" class="activo">Pulsa<em>me!</em></a></li>
+      <li><a href="">Pulsa<em>me!</em></a></li>
+      <li><a href="">Pulsa<em>me!</em></a></li>
+      <li><a href="">Pulsa<em>me!</em></a></li>
+    </ul>
+  </div>
+
+  <script>
+    document.querySelector("ul").addEventListener("click", pulsado);
+    const a = document.querySelectorAll("a");
+
+
+    function pulsado(e) {
+      e.preventDefault();
+      const pulsado = e.target.closest("a");
+      console.log(e.target, pulsado);
+      
+      if(!pulsado) return;
+      a.forEach(a => a.classList.remove("activo"));
+      pulsado.classList.add("activo");
+    }
+  </script>
+</body>
+
+</html>

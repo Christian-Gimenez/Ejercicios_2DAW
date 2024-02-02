@@ -44,7 +44,7 @@ function validarDatosConCamposOcultos(&$agenda, &$telefonoBorrado, &$contactoAgr
   if (isset($_POST["guardar"])) {
     //Si se introdujo nombre por el formulario
     if (isset($_POST["nombre"]) && !empty($_POST["nombre"])) {
-      $nombre = trim(htmlspecialchars($_POST["nombre"]));
+      $nombre = trim(ucfirst(htmlspecialchars($_POST["nombre"])));
       //Si se introdujo nºtlfn en el formulario
       if (isset($_POST["telefono"]) && !empty($_POST["telefono"])) {
         $telefono = trim(htmlspecialchars($_POST["telefono"]));

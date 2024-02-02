@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+
+    }
+
+    .cars {
+      padding: 2rem;
+      color: #beecc0;
+      background-color: #3a8a3b;
+    }
+
+    .car {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .car h3 {
+      font-size: 1.5rem;
+    }
+
+    .car>figure {
+      width: 160px;
+      height: 160px;
+      margin: 0 auto;
+      border-radius: 50%;
+      background-color: #a4d7a588;
+      padding: 2rem;
+    }
+
+    .car>figure>img {
+      opacity: 0.7;
+    }
+
+    .car+.car {
+      margin-top: 2rem;
+      border-top: 2px solid #a4d7a5;
+    }
+
+    .car>div {
+      margin-top: 2rem;
+    }
+
+    .car>div>p {
+      margin-top: 2rem;
+    }
+
+    @media screen and (min-width: 480px) {
+      .car {
+        /* display: flex;
+        align-items: center; */
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        text-align: left;
+      }
+
+      .car>figure{
+        grid-row: 1/2;
+        grid-column: 1/2;
+      }
+
+      .car>div {
+        /* flex: 1; */
+        grid-row: 1/3;
+        grid-column: 2/3;
+
+        margin-top: 0;
+        margin-left: 2rem;
+      }
+
+      .car>div>p {
+        text-align: justify;
+      }
+
+      .car:nth-of-type(even) {
+        /* flex-direction: row-reverse; */
+        text-align: right;
+      }
+
+      .car:nth-of-type(even)>figure{
+        grid-column: 2 / 3;
+      }
+
+      .car:nth-of-type(even)>div {
+        grid-column: 1 / 2;
+        margin-left: 0rem;
+        margin-right: 2rem;
+      }
+
+      @media screen and (min-width: 960px) {
+        .cars {
+          /* display: flex; */
+        }
+
+        .car+.car {
+          margin-top: 0;
+          border-top: none;
+          border-left: 2px solid #a4d7a5;
+        }
+
+        .car:nth-of-type(n) {
+          text-align: center;
+          /* flex-direction: column; */
+        }
+
+        .car:nth-of-type(n)>div {
+          margin: 0rem;
+          margin-top: 2rem;
+        }
+
+        .car>div>p {
+          text-align: center;
+        }
+
+        .car {
+          /* flex: 1; */
+        }
+      }
+
+      @media screen and (min-width: 1200px) {
+        .car:nth-of-type(n) {
+          /* display: flex;
+          flex-direction: row;
+          align-items: center; */
+          text-align: left;
+        }
+
+        .car:nth-of-type(n)>div {
+          /* flex: 1; */
+          margin: 0 0 0 2rem;
+        }
+
+        .car>div>p {
+          text-align: left;
+        }
+
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="contenedor">
+    <div class="cars">
+      <div class="car">
+        <figure><img src="imgs/light-bulb.svg" alt=""></figure>
+        <div>
+          <h3>Bombilla</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus magnam nihil et laboriosam libero ab
+            soluta. Excepturi error, vitae ducimus minima blanditiis quidem perspiciatis facilis commodi repellat ipsum
+            voluptates placeat?</p>
+        </div>
+      </div>
+
+
+
+      <div class="car">
+        <figure><img src="imgs/target-icon.svg" alt=""></figure>
+        <div>
+          <h3>Diana</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus magnam nihil et laboriosam libero ab
+            soluta. Excepturi error, vitae ducimus minima blanditiis quidem perspiciatis facilis commodi repellat ipsum
+            voluptates placeat?</p>
+        </div>
+      </div>
+
+      <div class="car">
+        <figure><img src="imgs/pin-line-icon.svg" alt=""></figure>
+        <div>
+          <h3>Pin...</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus magnam nihil et laboriosam libero ab
+            soluta. Excepturi error, vitae ducimus minima blanditiis quidem perspiciatis facilis commodi repellat ipsum
+            voluptates placeat?</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+body, input, textarea, select, button, .normal {
+  font-family: "Open Sans","lucida grande","Segoe UI",arial,verdana,"lucida sans unicode",tahoma,sans-serif;
+  font-size: 13px;
+  color: #3d464d;
+  font-weight: normal;
+}
+
+h3, p {
+  margin: 0 0 1em 0;
+  font-weight: normal;
+} 
+
+a {
+  color: #2895F1;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+}
+ 
+
+*::before, *::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+body > div {
+  vertical-align: middle;
+  width: 350px;
+  margin: 60px auto;
+}
+
+section > h3 {
+  float: left;
+  font-size: 18px;
+}
+
+section > p {
+  float: right;
+  margin-top: 5px;
+}
+
+section > p a {
+  display: inline-block;
+}
+
+form > div {
+  position: relative;
+  margin-bottom: 1em;
+}
+
+
+form > div:nth-last-of-type(1) { float: right;}
+form > div:nth-last-of-type(2) { float: left; line-height: 30px; }
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  border: 1px solid #bdc4c9;
+  font-size: 16px;
+  padding: 5px 6px;
+  width: 100%;
+  margin: 2px 0 5px;
+  min-height: 34px;
+  line-height: normal;
+  box-sizing: border-box;
+  border-radius: 3px;
+  -webkit-appearance: none;
+}
+
+input[type="text"]  + label,
+input[type="password"]  + label,
+input[type="email"] + label {
+  color: #aaa;
+  cursor: text;
+  font-size: 16px;
+  text-align: left;
+  box-sizing: border-box;
+  position: absolute;
+  padding: 8px;
+  left: 0;
+  right: 0;
+  top: 0;
+  right: 0;
+  transition: color 0.2s linear 0s;
+  pointer-events: none;    
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+  height: 14px;
+  width: 14px;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+}
+
+input[type="checkbox"] + label {
+  cursor: pointer;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+ /* Botones */
+button {  
+  box-sizing: border-box;
+  margin: 2px 0 5px;
+  min-height: 34px;
+  padding: 6px 16px;
+
+  background-color: #007ee5;
+  background-image: linear-gradient(#168add, #007ee5);
+
+  border: 1px solid #0c6ebe;
+  border-radius: 3px;
+
+  color: white;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+}

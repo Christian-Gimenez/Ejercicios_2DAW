@@ -1,6 +1,10 @@
 "use strict";
 
 class Formulario {
+  static REG_EXP_EMAIL = "^[a-zA-Z\d\._]{1,}@[a-zA-Z\d\._]{1,}\.[a-zA-Z]{2,3}$";
+  static REG_EXP_PASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$%&=!¡]).{6,}$";
+  static REG_EXP_NOMBRE = "^[^\s][a-zA-Z\s]{1,}[^\s]$";
+
   constructor(titulo, tipo = "register") {
     this.form;
     this.titulo = titulo;
@@ -31,6 +35,10 @@ class Formulario {
     const label = document.createElement("label");
     label.setAttribute("for", id);
     label.textContent = txtLabel;
+
+    if(tipo === "email") {input.setAttribute("pattern", Formulario.REG_EXP_EMAIL)}
+    if(tipo === "password") {input.setAttribute("pattern", Formulario.REG_EXP_PASSWORD)}
+    if(tipo === "text") {input.setAttribute("pattern", Formulario.REG_EXP_NOMBRE)}
 
     //Unir elementos
     div.appendChild(input);
@@ -107,7 +115,7 @@ class ValidarInput {
 
   email() {
     const self = this;
-    this.input.addEventListener("keyup", function (e) {
+    this.input.addEventListener("input", function (e) {
       const email = self.input.value;
       if (self.regExpEmail.test(email)) {
         self.input.title = "Email correcto :)";
@@ -121,7 +129,7 @@ class ValidarInput {
 
   password() {
     const self = this;
-    this.input.addEventListener("keyup", function (e) {
+    this.input.addEventListener("input", function (e) {
       const password = self.input.value;
       if (self.regExpPassword.test(password)) {
         self.input.title = "Contraseña válida :)";
@@ -135,7 +143,7 @@ class ValidarInput {
 
   nombre(campo = "Nombre") {
     const self = this;
-    this.input.addEventListener("keyup", function (e) {
+    this.input.addEventListener("input", function (e) {
       const nombre = self.input.value;
       if (self.regExpNombre.test(nombre)) {
         self.input.title = `${campo} correcto :)`;

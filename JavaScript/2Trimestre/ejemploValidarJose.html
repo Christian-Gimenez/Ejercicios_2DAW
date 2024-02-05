@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h2>Debajo del campo</h2>
+  <form action="">
+    <div>
+      <label for="nombre">Nombre:</label>
+      <input type="text" name="nombre" required="">
+    </div>
+
+    <div>
+      <label for="email">Email:</label>
+      <input type="text" name="email" required="">
+    </div>
+
+    <div>
+      <button>Enviar</button>
+    </div>
+  </form>
+  <script>
+    function gestorMostrarErrores(form) {
+      //Quitar los popups
+      form.addEventListener("invalid", function (event) {
+        event.preventDefault();
+      }, true);
+
+      //Por defecto, no enviar el formulario
+      form.addEventListener("submit", function (event) {
+        if (!this.checkValidity()) {
+          event.preventDefault();
+        }
+      });
+    }
+
+    const botonEnvio = form.querySelector("button:not([type=button]), input[type=submit]");
+    botonEnvio.addEventListener("click", function (event) {
+      const camposNoValidos = form.querySelectorAll(":invalid"),
+        camposValidos = form.querySelectorAll("input:not([type=submit]):valid"),
+        mensajesError = form.querySelectorAll("span");
+
+      camposValidos.forEach(c => {
+        c.parentElement.classList.remove("error");
+        c.parentElement.classList.add("bien");
+        c.parentNode.insertAdjacentHTMLElement("beforeend", `<span>&#10003;</span>`);
+      })
+
+      //Quitar mensajes existentes
+      mensajesError.forEach(m => m.parentElement.removeChild(m));
+
+      camposNoValidos.forEach(c => {
+        c.parentElement.classList.remove("error");
+        c.parentElement.classList.add("bien");
+        c.parentNode.insertAdjacentHTMLElement("beforeend", `<span>&#x2714;</span>`);
+        c.parentNode.insertAdjacentHTMLElement("beforeend", `<span class='.msg-error-debajo'>${c.validationMessage}</span>`);
+
+        //Si hay errores ,poner el foco en el primer campo con error
+        if (camposNoValidos.length > 0) {
+          camposNoValidos[0].focus();
+        }
+      });
+    });
+
+    //Para todos los formularios
+    let forms = document.querySelectorAll("form");
+    for (let i = 0; i < forms.length; i++) {
+      gestorMostrarErrores(forms[i]);
+    }
+  </script>
+</body>
+
+</html>

@@ -15,7 +15,7 @@
       static MAX_TOP = 500;
       static MIN_LEFT = 100;
       static MAX_LEFT = 600;
-      static COLOR_MAX_DEC = 16777215;
+      static COLOR_MAX_DEC = 16777215; //#ffffff
 
       constructor(selectorCaja) {
         this.#ancho = NumAleatorio.generar(Figura.MIN_ANCHO, Figura.MAX_ANCHO);
@@ -41,9 +41,11 @@
 
       #generarColor() {
         let color = NumAleatorio.generar(0, Figura.COLOR_MAX_DEC).toString(16);
-        while (color.length < 6) {
-          color += "0";
-        }
+        let resto = 6 - color.length;
+        color = color.padStart(resto, "0");
+        // while (color.length < 6) {
+        //   color += "0";
+        // }
         return color;
       }
 
@@ -71,14 +73,14 @@
       constructor(selectorBotones, selectorFigura, selectorTReaccion, selectorTMedio) {
         this.botones = document.querySelectorAll(selectorBotones);
         this.spanTReaccion = document.querySelector(selectorTReaccion);
-        this.spanTMedio =document.querySelector(selectorTMedio);
+        this.spanTMedio = document.querySelector(selectorTMedio);
         this.pararJuego = true;
         this.selectorFigura = selectorFigura;
         this.figura = this.selectorFigura;
         //Eventos botones
         this.botones[0].addEventListener("click", (evento) => this.comenzarJuego(evento));
         this.botones[1].addEventListener("click", (evento) => this.terminarJuego(evento));
-        
+
         this.tiemposRegistrados = [];
         this.tiempoMedio = 0;
         //Para que no pierda el this en la llamda de eventos y se puedan añadir/eliminar los mismos
@@ -88,28 +90,28 @@
       toggleBotones() {
         this.botones[0].classList.toggle("oculto");
         this.botones[1].classList.toggle("oculto");
-        
+
       }
       comenzarJuego(evento) {
-        this.pararJuego = false; 
+        this.pararJuego = false;
         this.toggleBotones();
-        if(this.spanTReaccion.parentElement.classList.contains("oculto")) {
+        if (this.spanTReaccion.parentElement.classList.contains("oculto")) {
           this.spanTReaccion.parentElement.classList.toggle("oculto");
           this.spanTMedio.parentElement.classList.toggle("oculto");
         }
-        
+
         this.iteracionJuego();
-        
+
       }
 
       eventoClickFigura(evento) {
         this.figura.caja.classList.toggle("oculto");
-        this.tiempoFinal = new Date(); 
+        this.tiempoFinal = new Date();
         const tiempo = this.registrarTiempo();
         this.spanTReaccion.textContent = tiempo;
         this.figura.caja.removeEventListener("click", this.eventoClickFigura);
-        
-        setTimeout(() => {this.iteracionJuego()}, NumAleatorio.generar(0, 2500));
+
+        setTimeout(() => { this.iteracionJuego() }, NumAleatorio.generar(0, 2500));
       }
 
       terminarJuego(evento) {
@@ -125,7 +127,7 @@
       }
 
       iteracionJuego() {
-        if(!this.pararJuego) {
+        if (!this.pararJuego) {
           this.figura.caja.classList.toggle("oculto");
           this.figura = this.selectorFigura;
           this.tiempoInicial = new Date();
@@ -143,7 +145,7 @@
       }
 
       calcularTiempoMedio() {
-        if(this.tiemposRegistrados.length > 0) {
+        if (this.tiemposRegistrados.length > 0) {
           let suma = 0;
           this.tiemposRegistrados.forEach(e => suma += e);
           this.tiempoMedio = (suma / this.tiemposRegistrados.length).toFixed(3);

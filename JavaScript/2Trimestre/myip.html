@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button>IP</button>
+  <p>Tu IP publica es: <b><span></span></b></p>
+
+  <button>Fotos</button>
+  <figure></figure>
+
+  <script>
+    //Peticion con JSONP
+    const URL_IP = "https://api.ipify.org?format=jsonp&callback=imprimirIP";
+    const URL_FLIKRL = "https://api.flickr.com/services/feeds/photos_public.gne?format=json&jsoncallback=imprimirIMG";
+    
+    document
+    .querySelector("button")
+    .addEventListener("click",e => {
+      const script = document.createElement("script");
+      script.setAttribute("type", "application/javascript");
+      script.setAttribute("src", URL_IP);
+      
+      const head = document.querySelector("head").appendChild(script);
+
+      setTimeout(() => script.parentElement.removeChild(script), 0);
+    });
+
+    function imprimirIP(datos) {
+      document.querySelector("p span").textContent = datos.ip;
+      console.log(datos);
+    }
+
+    //Falta implementarlo
+    function imprimirIMG(datos) {
+      document.querySelector("p span").textContent = datos.ip;
+      console.log(datos);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+App para dar de alta videojuegos Full-FRONTEND
+Iniciar sesión en la APP:
+1-Nombre usuario admin (text)
+2-Password (password)
+Comprobar en LocalStorage si el usuario existe
+
+Si accede, mostrar formulario dar de alta videojuegos:
+1-ID videojuego (text)
+   (empieza por #, seguido de numeros y letras mayus, no puede empezar ni acabar por espacios en blanco)
+2-Nombre videojuego (text)
+   (transformar la 1ª letra en mayus, el resto en minus)
+3-Plataforma (datalist->option)
+   (lista ya establecida)
+4-Categoria (select)(lista ya establecido, por defecto RPG)
+   (RPG | Acción | Beat'em up | Shooter | Lucha | Deporte | Plataformas
+   | Aventura | Survival | Terror | Simulación | Arcade | Otro)
+5-En stock (checkbox)
+   *-Unidades (number)
+   *-Precio por ud (number)
+   *-Nuevo || Semi-nuevo (radio)
+6-Puntuación (range 1 - 10) con un span para la puntuación seleccionada
+7-URL sitio oficial (url)
+8-Email contacto fabricante (email)
+9-Fecha de lanzamiento (date)
+10-Guardar videojuego (submit) se valida
+
+Guardar los datos en LocalStorage si el ID no existe en la DB, previamente habiendo validado todos los datos
+Con validación nativa HTML, previniendo el submit hasta que estén validados, cuando todo esté OK guardarlo.
+
+<button>Mostrar los juegos actuales:
+Boton para mostrar los videojuegos en una table
+Darle estilos con CSS Grid y Flexbox

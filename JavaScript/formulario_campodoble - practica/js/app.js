@@ -187,7 +187,7 @@ class ValidarInput {
 }
 
 
-/*RESTRICCIONEs
+/*RESTRICCIONES
 1- Validar el correo con @
    el texto a la izquierda de @ debe empezar por 1 o + letras
    después puede tener digitos/puntos/_
@@ -219,6 +219,37 @@ app.a.addEventListener("click", function (evento) {
     app.setFormulario(formInicioSesion.form, formInicioSesion.titulo, formRegistro.titulo);
     botonEnviar = document.querySelector("button");
     ValidarInput.submit(botonEnviar, false);
+  }
+});
+formInicioSesion.form.addEventListener("keypress", function(e) {
+  if(e.target.tagName.toLowerCase() === "input" && e.target.type !== "checkbox") {
+    const label = e.target.parentElement.children[1];
+    label.style.top = "-26px";
+  }
+});
+
+formRegistro.form.addEventListener("keypress", function(e) {
+  if(e.target.tagName.toLowerCase() === "input" && e.target.type !== "checkbox") {
+    const label = e.target.parentElement.children[1];
+    label.style.top = "-26px";
+  }
+});
+
+formInicioSesion.form.addEventListener("input", function(e) {
+  if(e.target.tagName.toLowerCase() === "input" && e.target.type !== "checkbox") {
+    if(e.target.value === "") {
+      const label = e.target.parentElement.children[1];
+      label.style.top = "0";
+    }
+  }
+});
+
+formRegistro.form.addEventListener("input", function(e) {
+  if(e.target.tagName.toLowerCase() === "input" && e.target.type !== "checkbox") {
+    if(e.target.value === "") {
+      const label = e.target.parentElement.children[1];
+      label.style.top = "0";
+    }
   }
 });
 

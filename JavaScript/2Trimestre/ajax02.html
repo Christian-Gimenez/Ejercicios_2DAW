@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <main>
+
+  </main>
+  <script>
+    const nombreUsuario = "Microsoft";
+    const URL = `https://api.github.com/users/${nombreUsuario}/repos?type=owner&sort=recented`;
+
+    const xhr = new XMLHttpRequest();
+
+    xhr.addEventListener("readystatechange", e => {
+      if (xhr.readyState === 4) {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          mostrarDatos(JSON.parse(xhr.responseText));
+        } else {
+          console.error(`Error: ${xhr.status} -> ${xhr.statusText}.`);
+        }
+      } else {
+        // console.error(`Error de estado: ${xhr.readyState}.`);
+        setTimeout(function () { }, 5000);
+      }
+    });
+
+    xhr.open("GET", URL + "/users");
+    xhr.send();
+
+    function mostrarDatos(datos) {
+      console.log(datos);
+
+      const html = datos.map(r => `
+  <li>
+    <a href='${r.html_url}'>${r.name}</a>
+    (⭐ ${r.stargazers_count})
+  </li>`
+      ).join("");
+
+      document
+        .querySelector("main")
+        .innerHTML = `<ul>${html}</ul>`;
+    }
+  </script>
+
+</body>
+
+</html>

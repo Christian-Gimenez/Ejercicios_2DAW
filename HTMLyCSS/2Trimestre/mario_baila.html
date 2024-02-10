@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+/* 
+    @keyframes marioBaila {
+      0% {background-position: 64px 213px;}
+
+      25% {background-position: 134px 213px;}
+
+      50% {background-position: 200px 213px;}
+
+      75% {background-position: -4px 213px;}
+
+      100% {background-position: -72px 213px;}
+    } */
+
+    .mario {
+      background-image: url("mario.png");
+      width: 50px;
+      height: 65px;
+      background-position: 273px -124px;
+      animation: marioBaila 0.5s steps(2) infinite;
+    }
+
+    .mario:hover {
+      animation: none;
+      background-position: 275px -194px;
+    }
+
+    @keyframes marioBaila {
+      from {background-position: 273px -124px; }
+      to {background-position: 415px -124px;}
+    }
+
+    @keyframes marioSaluda {
+      from {background-position: 275px -194px;}
+      to {background-position: 275px -194px;}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="mario"></div>
+</body>
+
+</html>

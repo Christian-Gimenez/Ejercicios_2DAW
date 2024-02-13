@@ -5,10 +5,10 @@
   <style>
     .container {
       column-count: 5;
-      column-gap: 40px;
-      width: 90%;
+      column-gap: 10px;
+      width: 100%;
       margin: auto;
-      min-height: 200px;
+    
     }
 
     .container div {
@@ -16,8 +16,8 @@
       background-color: #f2f2f2;
       padding: 10px;
       margin-bottom: 20px;
-      height: 300px;
-      column-rule: solid 2px blue;
+
+      border: 2px solid blue;
     }
 
     .container .span-all {
@@ -32,7 +32,7 @@
   <div class="container">
     <div>Columna 1. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum magni, iste rerum totam tempora maxime quidem aliquam inventore id, tenetur architecto facilis sed consequuntur ullam voluptatum debitis fugit neque nemo? Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
     <div>Columna 2. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-    <div class="">Columna 5. Este div abarca todas las columnas.</div>
+    <div class="span-all">Columna 5. Este div abarca todas las columnas.</div>
     <div>Columna 3. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
       consequat.</div>
     <div>Columna 4. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla

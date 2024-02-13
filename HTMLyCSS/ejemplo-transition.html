@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+
+div:only-child {
+  display: flex;
+  perspective: preserve-3d;
+
+}
+
+.caja {
+  width: 200px;
+  height: 200px;
+  background-color: #ff0000;
+  animation: cambia-color 5s ease infinite;
+}
+
+@keyframes cambia-color {
+      from {border-radius: 50%;}
+      to {transform: translateX(200px);
+      
+        border-radius: 50%;}
+}
+
+</style>
+<body>
+  <div>
+    <div class="caja"></div>
+  </div>
+</body>
+</html>

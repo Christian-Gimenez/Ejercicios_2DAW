@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+
+  <main>
+
+  </main>
+  <script>
+    const URL = "https://jsonplaceholder.typicode.com";
+
+    // pedirJSON(URL + "/users", mostrarDatos, mostrarError);
+    // pedirJSON_fetchP(URL + "/users", mostrarDatos, mostrarError);
+    // pedirJSON_fetchA(URL + "/users", mostrarDatos, mostrarError);
+    pedirJSON_axiosA(URL + "/users", mostrarDatos, mostrarError);
+
+    //Con XMLHttpRequest
+    function pedirJSON(url, ok, noOk) {
+      const xhr = new XMLHttpRequest();
+
+      xhr.addEventListener("readystatechange", e => {
+        if (xhr.readyState !== 4) return;
+
+        if (xhr.status >= 200 && xhr.status < 300) {
+          ok(JSON.parse(xhr.responseText));
+        } else {
+          noOk(`Error: ${xhr.status} -> ${xhr.statusText}.`);
+        }
+      });
+
+      xhr.open("GET", URL);
+      xhr.send();
+    }
+
+    //Con fetch y Promises
+    function pedirJSON_fetchP(url, ok, noOk) {
+      fetch(url)
+        .then(respuesta => respuesta.json())
+        .then(json => ok(json))
+        .catch(e => noOk(`Error: ${e.status} -> ${e.statusText}.`));
+    }
+
+    //Con fetch y async/await
+    async function pedirJSON_fetchA(url, ok, noOk) {
+      try {
+        const respuesta = await fetch(url);
+        const json = await respuesta.json();
+        ok(json);
+      } catch (e) {
+        noOk(`Error: ${e.status} -> ${e.statusText}.`);
+      }
+    }
+
+    //Con axios y Promises
+    function pedirJSON_axiosP(url, ok, noOk) {
+      axios
+        .get(url)
+        .then(respuesta => ok(respuesta.data))
+        .catch(e => noOk(`Error: ${e.response.status} -> ${e.response.statusText}.`));
+    }
+
+    //Con axios y async/await
+    async function pedirJSON_axiosA(url, ok, noOk) {
+      try {
+        const respuesta = await axios.get(url);
+        ok(respuest.data);
+      } catch (e) {
+        noOk(`Error: ${e.response.status} -> ${e.response.statusText}.`);
+      }
+    }
+
+    function mostrarDatos(datos) {
+      console.log(datos);
+
+      const html = datos.map(obj => `
+<li>
+  <h6>${obj.name}</h6>
+  <p>${obj.email}</p>
+  <address>
+    <p>${obj.address.city}</p>
+    <p>${obj.address.zipcode}</p>
+    <p>${obj.address.geo.lat}; ${obj.address.geo.lng}</p>
+  </address>
+</li>`
+      ).join("");
+
+      document
+        .querySelector("main")
+        .innerHTML = `<ul>${html}</ul>`;
+    }
+
+    function mostrarError(error) {
+      console.error(error);
+    }
+  </script>
+
+</body>
+
+</html>

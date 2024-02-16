@@ -9,9 +9,9 @@
 
 <body>
 	<?php
-	// ini_set('display_errors', 1);
-	// ini_set('display_startup_errors', 1);
-	// error_reporting(E_ALL);
+	ini_set('display_errors', 1);
+	ini_set('display_startup_errors', 1);
+	error_reporting(E_ALL);
 
 	require_once "./conectorDB.php";
 	require_once "./crud_utils.php";
@@ -48,7 +48,11 @@ No es necesario tener en cuenta las tareas de inserción
 			$productoSeleccionado = $_POST["productos"];
 			// echo $productoSeleccionado;
 			mostrarStockProducto($db, $productoSeleccionado);
-			modificarProducto($db, $tienda);
+			if (isset($_POST["nombre"]) && isset($_POST["unidades"])) {
+				modificarProducto($db);
+			} else {
+				echo "<p>Fallo en modificarProducto()</p>";
+			}
 		}
 		?>
 	</div>

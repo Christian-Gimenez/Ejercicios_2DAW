@@ -11,6 +11,32 @@
       align-items: center;
       justify-content: center;
     }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    form div {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .error {
+      border: 1px solid red;
+      color: red;
+    }
+
+    .bien {
+      border: 1px solid green;
+      color: green;
+    }
+
     #tablero {
       width: 100%;
 
@@ -184,6 +210,7 @@
       this.tableroJuego.setAttribute("id", "tablero");
       this.idPokemons = [];
       this.pokemonsActuales = [];
+      this.login = this.formularioUser();
     }
     VistaHTML.crearElemento = function (tag, txt) {
       const elemHtml = document.createElement(tag);
@@ -243,9 +270,72 @@
           }
         }
       }
+    }
+    VistaHTML.prototype.formularioUser = function() {
+      const form = VistaHTML.crearElemento("form");
+      form.setAttribute("action", "");
+
+      const divNombre = VistaHTML.crearElemento("div");
+      const labelNombre = VistaHTML.crearElemento("label", "Usuario:");
+      labelNombre.setAttribute("for", "nombre");
+      const inputNombre = VistaHTML.crearElemento("input");
+      inputNombre.setAttribute("type", "text");
+      inputNombre.setAttribute("name", "nombre");
+      inputNombre.setAttribute("require", "");
+      inputNombre.setAttribute("pattern", "^[\\S][a-zA-Z]{1,}[\\S]$");
+      divNombre.appendChild(labelNombre);
+      divNombre.appendChild(inputNombre);
+
+      const divPassword = VistaHTML.crearElemento("div");
+      const labelPassword = VistaHTML.crearElemento("label", "Contraseña:");
+      labelPassword.setAttribute("for", "password");
+      const inputPassword = VistaHTML.crearElemento("input");
+      inputPassword.setAttribute("type", "password");
+      inputPassword.setAttribute("name", "password");
+      inputPassword.setAttribute("require", "");
+      inputPassword.setAttribute("pattern", "^[a-zA-Z\\d\\S$!#-@%]{5,}$");
+      divPassword.appendChild(labelPassword);
+      divPassword.appendChild(inputPassword);
+
+      const divSubmit = VistaHTML.crearElemento("div");
+      const submit = VistaHTML.crearElemento("input");
+      submit.setAttribute("type", "submit");
+      submit.setAttribute("value", "Login");
+      divSubmit.appendChild(submit);
+
+      form.appendChild(divNombre);
+      form.appendChild(divPassword);
+      form.appendChild(divSubmit);
+
+      form.addEventListener("click", function(event) {
+        const camposNoValidos = form.querySelectorAll(":invalid");
+        const camposValidos = form.querySelectorAll("input:not([type=submit]):valid");
+        const mensajesError = form.querySelectorAll("span");
+
+        camposValidos.forEach(campo => {
+          campo.parentElement.classList.remove("error");
+          campo.parentElement.classList.add("bien");
+          const valido = VistaHTML.crearElemento("span", "&#10003;");
+          campo.parentNode.appendChild(valido);
+        });
+
+        mensajesError.forEach(err => err.parentElement.removeChild(err));
+
+        camposNoValidos.forEach(campo => {
+          campo.parentElement.classList.remove("bien");
+          campo.parentElement.classList.add("error");
+          const invalido = VistaHTML.crearElemento("span", `&#x2714; ${campo.validationMessage}`);
+          campo.parentElement.appendChild(invalido);
+        });
+
+        if(camposNoValidos.length > 0) {
+          camposNoValidos[0].focus();
+        }
+      });
+
+      return form;
 
     }
-
     //POKEMON y POKEAPI
     function Pokemon(datos) {
       this.datos = datos;
@@ -257,7 +347,17 @@
     const vista = new VistaHTML();
     const request = new ApiAJAX(Pokemon.URL_POKEAPI);
     vista.crearTableroJuego(request);
-    document.body.appendChild(vista.tableroJuego);
+    document.body.appendChild(vista.login);
+    vista.login.addEventListener("submit", function(event) {
+      if(!this.checkValidity()) {
+        event.preventDefault();
+      } else {
+        document.body.removeChild(vista.login);
+        document.body.appendChild(vista.tableroJuego);
+      }
+    });
+
+
 
   </script>
 </body>

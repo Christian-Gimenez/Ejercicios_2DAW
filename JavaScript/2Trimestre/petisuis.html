@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function petiAJAX(url, ok, error) {
+      const ajax = new XMLHttpRequest();
+
+      ajax.addEventListener("readystatechange", function (evento) {
+        if (ajax.readyState === 4) {
+          if (ajax.status >= 200 && ajax.status < 300) {
+            const response = JSON.parse(ajax.responseText);
+            ok(response);
+          } else {
+            error(`Error: ${ajax.status} -> ${ajax.statusText}`);
+          }
+        }
+      });
+      ajax.open("GET", url, true);
+      ajax.send(); //GET sera NULL
+    }
+
+    function petiFetchPromise(url, ok, error) {
+      fetch(url)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Error: ${response.status} -> ${response.statusText}`);
+          }
+          return response.json()
+        })
+        .then(json => ok(json))
+        .catch(err => error(`${err.status} -> ${err.statusText}`));
+    }
+
+    async function petiFetchAsync(url, ok, error) {
+      try {
+        const response = await fetch(url)
+        if(!response.ok) {throw new Error("Error: " + err.status + " -> " + err.statusText)}
+        const json = await response.json();
+        ok(json);
+      } catch (err) {
+        error("Error: " + err.status + " -> " + err.statusText);
+      }
+
+    }
+  </script>
+
+</body>
+
+</html>

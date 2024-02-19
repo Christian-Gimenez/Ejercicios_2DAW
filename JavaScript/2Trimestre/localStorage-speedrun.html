@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    
+    for(let i = 1; i < 100; i++ ) {
+      const datosUser = {user: i, password: "1234", email: i + "@gmail.com"};
+      localStorage.setItem(datosUser.email, JSON.stringify(datosUser));
+    }
+    
+    const usuarioBuscado = prompt("Indica que usuario quieres", 1);
+    const usuarioEncontrado = localStorage.getItem(usuarioBuscado + "@gmail.com");
+    console.log(usuarioEncontrado);
+  </script>
+</body>
+</html>

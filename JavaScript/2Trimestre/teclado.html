@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- <input type="submit" value="Aver" /> -->
+  <script>
+
+
+    // function Input(selector) {
+    //   this.elemento = document.querySelector(selector);
+    // }
+
+    // Input.prototype.evento = function () {
+    //   //NO LO MANDES WEY
+    //   this.elemento.addEventListener("submit", function (e) { e.target.preventDefault() });
+
+    //   this.elemento.addEventListener("click", funcionGestor);
+
+    //   //this === event.target -> input
+    //   function funcionGestor(event) {
+        
+    //   }
+    // }
+
+    // const input = new Input("input[type=submit]");
+    // input.evento();
+
+    document.addEventListener("keyup", funcionGestora);
+    document.addEventListener("keydown", funcionGestora);
+    document.addEventListener("keypress", funcionGestora);
+    
+    function funcionGestora(event) {
+      console.log(event.type + ": \n keyCode-> " + event.keyCode
+                            + "\n charCode-> " + event.charCode
+                            + "\n code-> " + event.code
+                            + "\n key-> " + event.key);
+    }
+
+
+
+
+  </script>
+</body>
+
+</html>

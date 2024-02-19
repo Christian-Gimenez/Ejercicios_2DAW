@@ -35,6 +35,16 @@
       form.addEventListener("submit", function (event) {
         if (!this.checkValidity()) {
           event.preventDefault();
+
+          const invalidos = document.querySelectorAll("input:not([type=submit]):invalid"); 
+          invalidos.forEach(input => {
+            // input.setCustomValidity("Error: " + input.validationMessage);
+            input.setAttribute("title", input.validationMessage);
+            const span = document.createElement("span");
+            span.innerText = input.validationMessage;
+            input.parentElement.appendChild(span);
+          });
+
         }
       });
     }

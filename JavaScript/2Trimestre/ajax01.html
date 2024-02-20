@@ -52,6 +52,42 @@
         .querySelector("main")
         .innerHTML = `<ul>${html}</ul>`;
     }
+
+    const li = (attr, hijos) => crearElemento("li", attr, hijos);
+    const p = (attr, hijos) => crearElemento("p", attr, hijos);
+    const h4 = (attr, hijos) => crearElemento("h4", attr, hijos);
+    const address = (attr, hijos) => crearElemento("address", attr, hijos);
+
+    function crearEstructuraUsuarios(usuarios) {
+      return crearElemento("ul", null, usuarios.map(usuario => crearEstructuraUser(usuario)));
+    }
+
+    function crearEstructuraUser(usuario) {
+      return li(null, [
+        h4(null, usuario.name),
+        p(null, usuario.email),
+        address(null, [
+          p(null, usuario.city),
+          p(null, usuario.zipcode),
+          p(null, usuario.address.geo.lat),
+        ])
+      ]);
+    }
+
+    function crearElemento(tipo, attr=null, contenido) {
+      const ele = document.createElement(tipo);
+      for (nomnbre in attr) {
+        ele.setAttribute(nombre, attr[nombre]);
+      }
+      if (typeof contenido === "string") {
+        ele.appendChild(document.createTextNode(contenido));
+      } else if (contenido instanceof HTMLElement) {
+        ele.appendChild(contenido);
+      } else if (Array.isArray(contenido)) {
+        contenido.forEach(hijo => ele.appendChild(hijo));
+      }
+      return ele;
+    }
   </script>
 
 </body>

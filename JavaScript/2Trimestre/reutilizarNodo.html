@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    const titulo = crearElemento("h1", {class: "oculto"}, "Un H1");
+    const lis = [];
+    for(let i = 1; i < 10; i ++) {
+      lis.push(crearElemento("li", {}, `${i}º li`));
+    }
+    // const ul = crearElemento("ul", {}, crearElemento("li", {}, "Un li"));
+    const ul = crearElemento("ul", {}, lis);
+
+    function crearElemento(tipo, attr, contenido)  {
+      const ele = document.createElement(tipo);
+      for(nomnbre in attr) {
+        ele.setAttribute(nombre, attr[nombre]);
+      }
+      if(typeof contenido === "string") {
+        ele.appendChild(document.createTextNode(contenido));
+      } else if(contenido instanceof HTMLElement) {
+        ele.appendChild(contenido);
+      } else if(Array.isArray(contenido)) {
+        contenido.forEach(hijo => ele.appendChild(hijo));
+      }
+
+      return ele;
+    }
+  </script>
+</body>
+</html>

@@ -315,7 +315,7 @@
         camposValidos.forEach(campo => {
           campo.parentElement.classList.remove("error");
           campo.parentElement.classList.add("bien");
-          const valido = VistaHTML.crearElemento("span", "&#10003;");
+          // const valido = VistaHTML.crearElemento("span", "&#10003;");
           campo.parentNode.appendChild(valido);
         });
 
@@ -324,7 +324,7 @@
         camposNoValidos.forEach(campo => {
           campo.parentElement.classList.remove("bien");
           campo.parentElement.classList.add("error");
-          const invalido = VistaHTML.crearElemento("span", `&#x2714; ${campo.validationMessage}`);
+          const invalido = VistaHTML.crearElemento("span", `Error: ${campo.validationMessage}`);
           campo.parentElement.appendChild(invalido);
         });
 

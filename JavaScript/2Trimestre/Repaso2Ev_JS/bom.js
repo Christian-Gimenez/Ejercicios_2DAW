@@ -1,5 +1,5 @@
-//Location y Screen
-/*(function () {
+/*Location y Screen
+(function () {
   //Saber info pantalla
   console.log("Altura disponible: " + screen.availHeight);
   console.log("Anchura disponible: " + screen.availWidth);
@@ -94,16 +94,16 @@
 //   });
 
 //   function moverArriba() { 
-//     ventana.moveBy(0, -10);
+//     ventana.resizeBy(0, -10);
 //   }
 //   function moverAbajo() {
-//     ventana.moveBy(0, 10);
+//     ventana.resizeBy(0, 10);
 //   }
 //   function moverDerecha() {
-//     ventana.moveBy(10, 0);
+//     ventana.resizeBy(10, 0);
 //   }
 //   function moverIzquierda() {
-//     ventana.moveBy(-10, 0);
+//     ventana.resizeBy(-10, 0);
 //   }
 
 // })()

@@ -1,7 +1,7 @@
 //Intl.NumberFormat
 const precios = [12.45, 20.99, 20.95, 9, 0.58, 100.1];
 const numeros = [1.12412412, 2124.124151, 92.12110, 12.00001];
-const lang = navigator.language || 'es-ES' //'es-ES'
+const lang = navigator.language || 'es-ES'; //'es-ES'
 const optsMoneda = {
   style: "currency",
   currency: "EUR",

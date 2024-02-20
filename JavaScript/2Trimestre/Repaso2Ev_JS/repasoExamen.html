@@ -4,14 +4,57 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Funciones constructoras y clases</title>
-  <script type="module" src="./main.js"></script>
-  <script type="module" src="./test.js"></script>
+  <!-- <script type="module" src="./main.js"></script> -->
+  <script async type="module" src="./test.js"></script>
   <style>
+    div {
+      cursor: pointer;
+    }
     form {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+    }
+
+    img {
+      width: 230px;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+    }
+    .contenedor {
+      margin-top: 20px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .dragNdrop {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 250px;
+      height: 200px;
+      border: 5px dashed black;
+      /* padding: 10px; */
+    }
+
+    div:only-child {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    div {
+      height: 100px;
+      width: 100px;
+      border: 5px solid black;
     }
   </style>
 </head>

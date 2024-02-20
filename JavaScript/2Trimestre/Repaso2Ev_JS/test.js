@@ -1,7 +1,7 @@
 import { User, AdminUser, StandardUser } from "./poo.js";
 // import { } from "./bom.js";
 // import { } from "./timeout-interval.js";
-import { } from "./intl.js";
+// import { } from "./intl.js";
 // import { } from "./form.js";
 // import { } from "./ajax.js";
 // import { } from "./promises.js";

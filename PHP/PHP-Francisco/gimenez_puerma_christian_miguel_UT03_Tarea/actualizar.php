@@ -2,38 +2,39 @@
 //Ralizar la consulta de actualización de datos y la redirección a listado.php.
 require_once "./db_conector.php";
 require_once "./db_utils.php";
-
-if(isset($_POST["actualizar"])) {
-  
-  actualizarProducto($db, $productoMod);
-} else if (isset($_POST["cancelar"])) {
-  
-}
 ?>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <title>Plantilla para Ejercicios Tema 3</title>
+  <title>Ejercicio: Actualizar/Cancelar modificación producto</title>
   <link href="dwes.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
+  <?php
+  if (isset($_POST["actualizar"])) {
+    $cod = trim($_POST["cod"]) ?? "";
+    $nombre = trim($_POST["nombre"]) ?? "";
+    $nombreCorto = trim($_POST["nombre_corto"]) ?? "";
+    $descripcion = trim($_POST["descripcion"]) ?? "";
+    $pvp = trim($_POST["PVP"]) ?? "";
+    actualizarProducto($db, $cod, $nombre, $nombreCorto, $descripcion, $pvp);
+  } else if (isset($_POST["cancelar"])) {
+  ?>
+    ?>
+    <div id="encabezado">
+      <h1>Ejercicio: Cancelación del proceso de actualización</h1>
+    </div>
 
-  <div id="encabezado">
-    <h1>Ejercicio: </h1>
-    <form id="form_seleccion" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-    </form>
-  </div>
-
-  <div id="contenido">
-    <h2>Contenido</h2>
-  </div>
-
-  <div id="pie">
-  </div>
+    <div id="contenido">
+      <h2>Se canceló la actualización del producto.</h2>
+      <button><a href="<?= htmlspecialchars("./listado.php"); ?>">Continuar<a /></button>
+    </div>
+  <?php
+  }
+  ?>
 </body>
 
 </html>

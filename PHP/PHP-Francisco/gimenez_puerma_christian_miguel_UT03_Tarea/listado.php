@@ -31,7 +31,6 @@ $idSeleccionado = $_GET["familias"] ?? "";
         <?php mostrarFamilias($db, $idSeleccionado); ?>
       </select>
       <input type="submit" name="mostrar_productos" value="Mostrar productos" />
-
     </form>
   </div>
 

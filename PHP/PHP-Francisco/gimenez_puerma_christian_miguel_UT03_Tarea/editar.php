@@ -16,8 +16,6 @@ require_once "./db_utils.php";
 
   <div id="encabezado">
     <h1>Tarea: Edición de un producto</h1>
-    <form id="form_seleccion" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-    </form>
   </div>
 
   <div id="contenido">

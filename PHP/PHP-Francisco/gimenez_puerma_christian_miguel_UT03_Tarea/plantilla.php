@@ -9,12 +9,8 @@
 <body>
 
 <div id="encabezado">
-	<h1>Tarea: Listado de productos de una familia </h1>
+	<h1>Ejercicio: </h1>
 	<form id="form_seleccion" action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
-	<label for="familia">Familia:</label>
-	<select name="familia">
-	</select>
-	<input type="submit" value="Mostrar productos"/>
 	</form>
 </div>
 

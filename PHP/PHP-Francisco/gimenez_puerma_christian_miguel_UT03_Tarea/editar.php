@@ -23,9 +23,17 @@ require_once "./db_utils.php";
   <div id="contenido">
     <h2>Producto:</h2>
     <?php
+    //Si se le dió a "editar" en algún producto
     if (isset($_POST["editar"])) {
+      //des-serializamos el objeto producto
       $producto = json_decode($_POST["producto"]);
-      mostrarProducto($producto);
+      //Y mostramos el formulario con cada campo editable del mismo
+      try {
+        editarProducto($producto);
+      } catch (Exception $e) {
+        //Cazamos la excepción si no se pudo editar el producto
+        echo "Hubo un error al editar el producto. Mensaje error: " . $e->getMessage();
+      }
     }
     ?>
   </div>

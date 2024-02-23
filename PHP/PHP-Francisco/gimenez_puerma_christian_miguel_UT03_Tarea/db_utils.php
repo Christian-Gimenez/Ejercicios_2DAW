@@ -6,12 +6,17 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 
-function mostrarFamilias($db)
+function mostrarFamilias($db, $optionSelec)
 {
   $query = $db->prepare("SELECT * FROM `familia`;");
   $query->execute();
   while ($fila = $query->fetch(PDO::FETCH_OBJ)) {
-    echo "<option value='$fila->cod'>$fila->nombre</option>";
+    if($fila->cod === $optionSelec) {
+      echo "<option value='$fila->cod' selected>$fila->nombre</option>";
+    } else {
+      echo "<option value='$fila->cod'>$fila->nombre</option>";
+    }
+    
 
   }
 }
@@ -25,12 +30,12 @@ function mostrarProductosFamilia($db, $seleccionado)
   $i = 1;
   while ($fila = $query->fetch(PDO::FETCH_OBJ)) {
 ?>
-    <form method='post' action='<?php echo htmlspecialchars("./editar.php"); ?>"'>
-      <label for="<?php echo "producto$i";
+    <form method='post' action='<?php echo "./editar.php"; ?>'>
+      <label for="<?php echo "producto";
                   $i++; ?>">
         <?php echo "Producto: $fila->nombre_corto. Precio: $fila->PVP." ?>
       </label>
-      <input type="hidden" name="<?php echo "producto$i"; ?>" value="<?php echo htmlspecialchars(json_encode($fila)); ?>" />
+      <input type="hidden" name="<?php echo "producto"; ?>" value="<?php echo htmlspecialchars(json_encode($fila)); ?>" />
       <input type='submit' name='editar' value='Editar' />
     </form>
 <?php

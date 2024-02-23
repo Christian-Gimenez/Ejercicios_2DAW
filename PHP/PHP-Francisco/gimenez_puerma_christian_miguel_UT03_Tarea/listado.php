@@ -8,6 +8,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+$idSeleccionado = $_GET["familias"] ?? "";
+
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +28,7 @@ error_reporting(E_ALL);
     <form id="form_seleccion" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
       <label for="familias">Familia:</label>
       <select name="familias">
-        <?php mostrarFamilias($db); ?>
+        <?php mostrarFamilias($db, $idSeleccionado); ?>
       </select>
       <input type="submit" name="mostrar_productos" value="Mostrar productos" />
 
@@ -36,8 +38,7 @@ error_reporting(E_ALL);
   <div id="contenido">
     <h2>Productos de la familia:</h2>
     <?php 
-    if(isset($_GET["mostrar_productos"])) {
-      $idSeleccionado = $_GET["familias"];
+    if($idSeleccionado !== "") {
       mostrarProductosFamilia($db, $idSeleccionado);
     }
     ?>

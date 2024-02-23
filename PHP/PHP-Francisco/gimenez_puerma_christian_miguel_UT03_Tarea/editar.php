@@ -9,7 +9,7 @@ require_once "./db_utils.php";
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <title>Tarea: Edición de un producto</title>
-  <link href="dwes.css" rel="stylesheet" type="text/css">
+  <link href="estilos/dwes.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>

@@ -18,7 +18,7 @@ $idSeleccionado = $_GET["familias"] ?? "";
 <head>
   <meta charset="utf-8">
   <title>Tarea: Listado de productos de una familia</title>
-  <link href="dwes.css" rel="stylesheet" type="text/css">
+  <link href="estilos/dwes.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>

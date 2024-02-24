@@ -6,17 +6,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
     body {
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
       font-family: 'Arial', sans-serif;
-      background: linear-gradient(to bottom, #4a90e2, #81d4fa);
-      /* Fondo degradado azul acorde a Pokémon */
+      background: linear-gradient(to bottom, #4a8ee2, #e6fa81);
       margin: 0;
       height: 100vh;
     }
+
+    header {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+    }
+
+    header img {
+      width: 300px;
+    }
+
+    header h1 {
+      font-family: 'Tahoma', sans-serif;
+      font-size: 30px;
+      font-weight: bold;
+      color: #ffe031;
+      text-shadow: 2px 2px 0 #396bba;
+      letter-spacing: 2px;
+    }
+
+
 
     #contenedor-tablero {
       display: flex;
@@ -35,20 +60,17 @@
       justify-items: center;
       margin-bottom: 20px;
       margin: auto;
-      /* Centra horizontalmente el tablero */
     }
 
     @media screen and (max-width: 600px) {
       #tablero {
         grid-template-columns: repeat(1, 1fr);
-        /* Una carta por fila en pantallas pequeñas */
       }
     }
 
     @media screen and (min-width: 601px) and (max-width: 900px) {
       #tablero {
         grid-template-columns: repeat(2, 1fr);
-        /* Dos cartas por fila en pantallas medianas */
       }
     }
 
@@ -106,7 +128,7 @@
     }
 
     .cara-oculta {
-      background-image: url("./whosthatpokemon.png");
+      background-image: url("imgs/whosthatpokemon.png");
       background-position: center;
       background-size: cover;
       opacity: 1;
@@ -246,15 +268,14 @@
       border-radius: 5px;
       cursor: pointer;
       font-size: 16px;
-      background-color: #555;
-      /* Color más definido */
+      background-color: rgb(89, 113, 186);
       color: #fff;
       transition: background-color 0.3s ease-in-out;
     }
 
     input[type="submit"]:hover,
     button:hover {
-      background-color: #333;
+      background-color: #35498d;
       /* Color guapo */
       color: #fff;
     }
@@ -267,10 +288,61 @@
 
     .resultado {
       font-size: 20px;
-      /* Tamaño de fuente más grande */
       color: #333;
-      /* Color de texto más oscuro */
       margin-top: 15px;
+    }
+
+    .logo-whos {
+      width: 200px;
+      margin: 0 auto;
+    }
+
+    .puntuaciones {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      max-width: 800px;
+      margin-top: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    caption {
+      font-size: 1.2em;
+      font-weight: bold;
+      padding: 10px;
+      background-color: #1524a4;
+      color: #fff;
+    }
+
+    thead {
+      background-color: #1b5a8d;
+      color: #fff;
+    }
+
+    th,
+    td {
+      padding: 15px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #e8cf2f;
+      color: #393939;
+      cursor: pointer;
+    }
+
+    tbody tr:nth-child(odd) {
+      background-color: #f2f2f2;
+    }
+
+    tbody tr:hover {
+      background-color: #e0e0e0;
     }
   </style>
 
@@ -280,8 +352,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
 
-
-      // Utils
+      // Generar números aleatoriamente
       function Random() { }
       Random.gen = function (limInf, limSup) {
         return Math.floor(Math.random() * (limSup - limInf + 1) + limInf);
@@ -308,19 +379,22 @@
         ajax.send();
       };
 
-      // Función principal del videojuego
+
       // Función principal del videojuego
       function WhosThatPokemon() {
+        this.keysPuntuaciones = Object.keys(localStorage);
         this.tableroJuego = WhosThatPokemon.crearElemento("div");
         this.tableroJuego.setAttribute("id", "tablero");
         this.idPokemons = [];
         this.pokemonsActuales = [];
-        this.login = this.formularioUser();
-        this.tiempoInicio = null; // Se inicializa en null
-        this.botonFinalizar = null; // Se inicializa en null
+        this.tiempoInicio = null;
+        this.botonFinalizar = null;
         this.pokemonsCompletados = [];
-        this.nombreUsuario = null; // Variable para almacenar el nombre del usuario
+        this.tiempoTotal = 0;
+        this.faltaron = null;
+        this.nombreUsuario = null;
         this.numCartas = 0;
+        this.dificultad = 0;
       }
       WhosThatPokemon.crearElemento = function (tag, txt) {
         const elemHtml = document.createElement(tag);
@@ -332,32 +406,86 @@
       };
 
 
-      WhosThatPokemon.prototype.reset = function () {
-        // Eliminar las cartas anteriores si existen
-        this.eliminarCartasAnteriores();
+      WhosThatPokemon.prototype.imprimirPuntuaciones = function () {
+        document.body.innerHTML = "";
 
-        // Reiniciar arrays
-        this.idPokemons = [];
-        this.pokemonsActuales = [];
+        // Obtener las claves almacenadas en localStorage
+        const keysPuntuaciones = Object.keys(localStorage);
 
-        // Reiniciar el tablero
-        this.tableroJuego.style.display = "none";
+        const div = WhosThatPokemon.crearElemento("div");
+        div.classList = "puntuaciones";
+        const logo = WhosThatPokemon.crearElemento("img");
+        logo.setAttribute("src", "imgs/logo-whosthatpokemon.png");
+        logo.classList = "logo-whos";
+        div.appendChild(logo);
+        // Crear la tabla
+        const table = WhosThatPokemon.crearElemento("table");
 
-        // Mostrar el botón de comenzar
-        document.getElementById("comenzarJuego").style.display = "block";
+        // Añadir el título de la tabla
+        const caption = WhosThatPokemon.crearElemento("caption", "PUNTUACIONES REGISTRADAS");
+        table.appendChild(caption);
+
+        // Crear el encabezado de la tabla
+        const thead = WhosThatPokemon.crearElemento("thead");
+        const thRow = WhosThatPokemon.crearElemento("tr");
+        thead.appendChild(thRow);
+
+        // Obtener las propiedades del primer objeto para usarlas como encabezados de columna
+        const firstData = JSON.parse(localStorage.getItem(keysPuntuaciones[0]));
+
+        // Añadir cada propiedad como un th en el encabezado
+        Object.keys(firstData).forEach((propiedad) => {
+          const th = WhosThatPokemon.crearElemento("th", propiedad.toUpperCase());
+          thRow.appendChild(th);
+        });
+
+        table.appendChild(thead);
+
+        // Crear el cuerpo de la tabla
+        const tbody = WhosThatPokemon.crearElemento("tbody");
+        table.appendChild(tbody);
+
+        // Añadir cada puntuación como una fila en la tabla
+        keysPuntuaciones.forEach((key) => {
+          // Obtener el valor asociado a la clave
+          const valor = localStorage.getItem(key);
+
+          // Crear fila de la tabla
+          const tr = WhosThatPokemon.crearElemento("tr");
+          tbody.appendChild(tr);
+
+          // Crear celda de la tabla para cada propiedad del objeto JSON
+          const data = JSON.parse(valor);
+          Object.values(data).forEach((value) => {
+            const td = WhosThatPokemon.crearElemento("td", String(value)); // Convertir a cadena
+            tr.appendChild(td);
+          });
+        });
+
+        // Añadir la tabla al cuerpo del documento
+        div.appendChild(table);
+        const a = WhosThatPokemon.crearElemento("a");
+        a.setAttribute("href", window.location.href)
+        const reset = WhosThatPokemon.crearElemento("button", "Jugar otra vez");
+        a.appendChild(reset);
+        div.appendChild(a);
+        document.body.appendChild(div);
       };
+
+
+
 
       WhosThatPokemon.prototype.iniciarJuego = function () {
         const botonComenzar = WhosThatPokemon.crearElemento("button", "Comenzar Juego");
         botonComenzar.setAttribute("id", "comenzarJuego");
 
         // Añadir el input de dificultad
-        const labelDificultad = WhosThatPokemon.crearElemento("label", "Dificultad:");
+        const labelDificultad = WhosThatPokemon.crearElemento("label", "Dificultad (1 - 5):");
         const inputDificultad = WhosThatPokemon.crearElemento("input");
         inputDificultad.setAttribute("type", "number");
         inputDificultad.setAttribute("min", "1");
         inputDificultad.setAttribute("max", "5");
-        inputDificultad.setAttribute("value", "3"); // Dificultad por defecto
+        inputDificultad.setAttribute("value", "1"); // Dificultad por defecto
         inputDificultad.setAttribute("id", "inputDificultad");
 
         document.body.appendChild(labelDificultad);
@@ -368,12 +496,12 @@
 
         function comenzarJuego() {
           // Obtener la dificultad seleccionada
-          const dificultad = parseInt(document.getElementById("inputDificultad").value);
+          self.dificultad = parseInt(document.getElementById("inputDificultad").value);
           // Bloquear el input de dificultad
           inputDificultad.disabled = true;
           // Establecer la cantidad de cartas según la dificultad
           let numCartas;
-          switch (dificultad) {
+          switch (self.dificultad) {
             case 1:
               numCartas = 2;
               break;
@@ -421,20 +549,19 @@
             // Calcular el tiempo total
             const numCartas = self.numCartas;
             const tiempoFin = new Date();
-            const tiempoTotal = tiempoFin - self.tiempoInicio;
+            self.tiempoTotal = tiempoFin - self.tiempoInicio;
 
             // Calcular la puntuación
-            const completados = self.pokemonsCompletados ? self.pokemonsCompletados.length : 0;
-            const faltaron = Math.max(0, numCartas - completados);
+            self.faltaron = Math.max(0, numCartas - self.pokemonsCompletados.length);
 
             // Crear elemento puntuación
             const puntuacionElement = WhosThatPokemon.crearElemento("p");
 
             // Mostrar la puntuación adecuada
-            puntuacionElement.textContent = `Has completado ${completados} de ${numCartas} Pokémon. Te faltaron ${faltaron}.`;
+            puntuacionElement.textContent = `Has completado ${self.pokemonsCompletados.length} de ${numCartas} Pokémon. Te faltaron ${self.faltaron}.`;
 
             // Mostrar el tiempo total
-            puntuacionElement.textContent += ` Tiempo total: ${tiempoTotal / 1000} segundos.`;
+            puntuacionElement.textContent += ` Tiempo total: ${self.tiempoTotal / 1000} segundos.`;
 
             // Mostrar la puntuación en el cuerpo del documento
             document.body.appendChild(puntuacionElement);
@@ -443,10 +570,10 @@
             self.tableroJuego.style.display = "none";
             self.botonFinalizar.style.display = "none";
 
-            // Reiniciar arrays
-            self.idPokemons = [];
-            self.pokemonsActuales = [];
-            self.pokemonsCompletados = [];
+            // // Reiniciar arrays
+            // self.idPokemons = [];
+            // self.pokemonsActuales = [];
+            // self.pokemonsCompletados = [];
 
             // Crear formulario de puntuación
             const formularioPuntuacion = self.crearFormularioPuntuacion();
@@ -454,7 +581,7 @@
             // Actualizar el campo de tiempo total en el formulario
             const tiempoTotalInput = formularioPuntuacion.querySelector("#tiempoTotal");
             if (tiempoTotalInput) {
-              tiempoTotalInput.value = `${tiempoTotal / 1000} segundos`;
+              tiempoTotalInput.value = `${self.tiempoTotal / 1000} segundos`;
             } else {
               console.error("Elemento con ID 'tiempoTotal' no encontrado en el formulario.");
             }
@@ -559,7 +686,7 @@
 
         const input = WhosThatPokemon.crearElemento("input");
         input.setAttribute("type", "text");
-        input.setAttribute("placeholder", "Ingrese el nombre del Pokémon");
+        input.setAttribute("placeholder", "Nombre del Pokémon");
         figure.appendChild(input);
 
         // Añadir temporizador para quitar la clase de opacidad después de un tiempo
@@ -645,6 +772,7 @@
         }
       };
 
+      /*
       WhosThatPokemon.prototype.formularioUser = function () {
         const form = WhosThatPokemon.crearElemento("form");
         form.setAttribute("action", "");
@@ -692,7 +820,7 @@
 
         return form;
       };
-
+*/
       WhosThatPokemon.prototype.crearFormularioPuntuacion = function () {
         const self = this; // Guardar la referencia a la instancia actual
 
@@ -717,7 +845,7 @@
         // Botón de envío
         const submitPuntuacion = WhosThatPokemon.crearElemento("input");
         submitPuntuacion.setAttribute("type", "submit");
-        submitPuntuacion.setAttribute("value", "Guardar Puntuación");
+        submitPuntuacion.setAttribute("value", "Guardar puntuación");
 
         // Agregar elementos al formulario
         formPuntuacion.appendChild(labelNombreUsuario);
@@ -727,26 +855,23 @@
         formPuntuacion.addEventListener("submit", function (event) {
           event.preventDefault();
 
-          // Obtener la puntuación del localStorage
-          const puntuacionInfo = JSON.parse(localStorage.getItem("puntuacion"));
-
           // Obtener el nombre del usuario del formulario
           const nombreUsuario = inputNombreUsuario.value.trim();
 
           // Crear un objeto con la información de la puntuación y el nombre del usuario
           const puntuacionFinal = {
             nombreUsuario: nombreUsuario,
-            completados: puntuacionInfo.completados,
-            faltaron: puntuacionInfo.faltaron,
-            tiempoTotal: puntuacionInfo.tiempoTotal,
-            dificultad: puntuacionInfo.dificultad
+            completados: self.pokemonsCompletados.length,
+            faltaron: self.faltaron,
+            tiempoTotal: self.tiempoTotal,
+            dificultad: self.dificultad
           };
 
           // Almacenar la puntuación en localStorage
-          localStorage.setItem("puntuacion", JSON.stringify(puntuacionInfo));
+          localStorage.setItem((self.keysPuntuaciones.length + 1) + "-Puntuacion", JSON.stringify(puntuacionFinal));
 
-          // Resetear el juego
-          self.reset();
+          // Imprimir tabla de puntuaciones
+          self.imprimirPuntuaciones();
         });
 
         return formPuntuacion;
@@ -769,6 +894,12 @@
     })
 
   </script>
+
+  <header>
+    <img src="imgs/logo-short-whosthatpokemon.png" alt="">
+    <h1> - THE GAME</h1>
+  </header>
+
 
 </body>
 

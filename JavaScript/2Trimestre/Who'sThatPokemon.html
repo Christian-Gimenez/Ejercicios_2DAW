@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom, #4a90e2, #81d4fa);
+      /* Fondo degradado azul acorde a Pokémon */
+      margin: 0;
+      height: 100vh;
+    }
+
+    #contenedor-tablero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      /* Ajusta la altura al 100% del viewport */
+    }
+
+    #tablero {
+      width: 100%;
+      max-width: 800px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      justify-items: center;
+      margin-bottom: 20px;
+      margin: auto;
+      /* Centra horizontalmente el tablero */
+    }
+
+    @media screen and (max-width: 600px) {
+      #tablero {
+        grid-template-columns: repeat(1, 1fr);
+        /* Una carta por fila en pantallas pequeñas */
+      }
+    }
+
+    @media screen and (min-width: 601px) and (max-width: 900px) {
+      #tablero {
+        grid-template-columns: repeat(2, 1fr);
+        /* Dos cartas por fila en pantallas medianas */
+      }
+    }
+
+    .carta {
+      min-width: 170px;
+      min-height: 151px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid #333;
+      border-radius: 10px;
+      cursor: pointer;
+      position: relative;
+      background-color: #fff;
+      overflow: hidden;
+      transition: all 0.5s ease-in-out;
+    }
+
+    @media screen and (max-width: 600px) {
+      .carta {
+        min-width: 100%;
+        /* Ancho completo en pantallas pequeñas */
+      }
+    }
+
+    .carta figcaption {
+      text-transform: uppercase;
+      font-size: 16px;
+      font-weight: bold;
+      font-family: 'Arial', sans-serif;
+      margin-top: 10px;
+      transition: all 0.5s ease-in-out;
+    }
+
+    .carta img {
+      border-radius: 50%;
+      transition: all 0.5s ease-in-out;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .carta input[type="text"] {
+      padding: 5px;
+      margin-top: 10px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      text-align: center;
+      transition: border 0.3s ease-in-out;
+    }
+
+    .carta input[type="text"]:focus {
+      outline: none;
+      border-color: #3498db;
+    }
+
+    .cara-oculta {
+      background-image: url("./whosthatpokemon.png");
+      background-position: center;
+      background-size: cover;
+      opacity: 1;
+    }
+
+    .ocultar-imagen,
+    .ocultar-texto {
+      opacity: 0;
+    }
+
+    .oscurecer-imagen {
+      filter: brightness(0%);
+    }
+
+    .bug {
+      background-color: #88950c;
+    }
+
+    .electric {
+      background-color: #f6b918;
+    }
+
+    .fire {
+      background-color: #cc2200;
+    }
+
+    .grass {
+      background-color: #73c136;
+    }
+
+    .normal {
+      background-color: #c6c0b9;
+    }
+
+    .rock {
+      background-color: #9d873a;
+    }
+
+    .dark {
+      background-color: #3e2d23;
+    }
+
+    .fairy {
+      background-color: #f2b6f5;
+    }
+
+    .flying {
+      background-color: #8293d7;
+    }
+
+    .ground {
+      background-color: #d1b25a;
+    }
+
+    .poison {
+      background-color: #914393;
+    }
+
+    .steel {
+      background-color: #8f8e9e;
+    }
+
+    .dragon {
+      background-color: #725ad2;
+    }
+
+    .fighting {
+      background-color: #79341d;
+    }
+
+    .ghost {
+      background-color: #57569f;
+    }
+
+    .ice {
+      background-color: #7cd9f6;
+    }
+
+    .psychic {
+      background-color: #e9457e;
+    }
+
+    .water {
+      background-color: #2f82d4;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    form div {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    form div.error {
+      color: red;
+    }
+
+    form div.bien {
+      color: green;
+    }
+
+    label {
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="number"] {
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      transition: border 0.3s ease-in-out;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    input[type="number"]:focus {
+      outline: none;
+      border-color: #3498db;
+    }
+
+    input[type="submit"],
+    button {
+      padding: 10px 15px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      background-color: #555;
+      /* Color más definido */
+      color: #fff;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    input[type="submit"]:hover,
+    button:hover {
+      background-color: #333;
+      /* Color guapo */
+      color: #fff;
+    }
+
+    input:disabled,
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .resultado {
+      font-size: 20px;
+      /* Tamaño de fuente más grande */
+      color: #333;
+      /* Color de texto más oscuro */
+      margin-top: 15px;
+    }
+  </style>
+
+</head>
+
+<body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+
+      // Utils
+      function Random() { }
+      Random.gen = function (limInf, limSup) {
+        return Math.floor(Math.random() * (limSup - limInf + 1) + limInf);
+      };
+
+      // AJAX
+      function ApiAJAX(URL_BASE) {
+        this.URL_BASE = URL_BASE;
+      }
+      ApiAJAX.prototype.pedirJSON = function (endpoint, ok, error) {
+        const ajax = new XMLHttpRequest();
+
+        ajax.addEventListener("readystatechange", (event) => {
+          if (ajax.readyState !== 4) return;
+
+          if (ajax.status >= 200 && ajax.status < 300) {
+            ok(JSON.parse(ajax.responseText));
+          } else {
+            error(`Error: ${ajax.status} -> ${ajax.statusText}`);
+          }
+        });
+
+        ajax.open("GET", this.URL_BASE + endpoint);
+        ajax.send();
+      };
+
+      // Función principal del videojuego
+      // Función principal del videojuego
+      function WhosThatPokemon() {
+        this.tableroJuego = WhosThatPokemon.crearElemento("div");
+        this.tableroJuego.setAttribute("id", "tablero");
+        this.idPokemons = [];
+        this.pokemonsActuales = [];
+        this.login = this.formularioUser();
+        this.tiempoInicio = null; // Se inicializa en null
+        this.botonFinalizar = null; // Se inicializa en null
+        this.pokemonsCompletados = [];
+        this.nombreUsuario = null; // Variable para almacenar el nombre del usuario
+        this.numCartas = 0;
+      }
+      WhosThatPokemon.crearElemento = function (tag, txt) {
+        const elemHtml = document.createElement(tag);
+        if (txt) {
+          const elemTxt = document.createTextNode(txt);
+          elemHtml.appendChild(elemTxt);
+        }
+        return elemHtml;
+      };
+
+
+      WhosThatPokemon.prototype.reset = function () {
+        // Eliminar las cartas anteriores si existen
+        this.eliminarCartasAnteriores();
+
+        // Reiniciar arrays
+        this.idPokemons = [];
+        this.pokemonsActuales = [];
+
+        // Reiniciar el tablero
+        this.tableroJuego.style.display = "none";
+
+        // Mostrar el botón de comenzar
+        document.getElementById("comenzarJuego").style.display = "block";
+      };
+
+      WhosThatPokemon.prototype.iniciarJuego = function () {
+        const botonComenzar = WhosThatPokemon.crearElemento("button", "Comenzar Juego");
+        botonComenzar.setAttribute("id", "comenzarJuego");
+
+        // Añadir el input de dificultad
+        const labelDificultad = WhosThatPokemon.crearElemento("label", "Dificultad:");
+        const inputDificultad = WhosThatPokemon.crearElemento("input");
+        inputDificultad.setAttribute("type", "number");
+        inputDificultad.setAttribute("min", "1");
+        inputDificultad.setAttribute("max", "5");
+        inputDificultad.setAttribute("value", "3"); // Dificultad por defecto
+        inputDificultad.setAttribute("id", "inputDificultad");
+
+        document.body.appendChild(labelDificultad);
+        document.body.appendChild(inputDificultad);
+        document.body.appendChild(botonComenzar);
+
+        const self = this;
+
+        function comenzarJuego() {
+          // Obtener la dificultad seleccionada
+          const dificultad = parseInt(document.getElementById("inputDificultad").value);
+          // Bloquear el input de dificultad
+          inputDificultad.disabled = true;
+          // Establecer la cantidad de cartas según la dificultad
+          let numCartas;
+          switch (dificultad) {
+            case 1:
+              numCartas = 2;
+              break;
+            case 2:
+              numCartas = 4;
+              break;
+            case 3:
+              numCartas = 8;
+              break;
+            case 4:
+              numCartas = 12;
+              break;
+            case 5:
+              numCartas = 16;
+              break;
+            default:
+              numCartas = 8; // Valor por defecto para casos no contemplados
+              break;
+          }
+
+          // Eliminar las cartas anteriores si existen
+          self.eliminarCartasAnteriores();
+
+          // Ocultar el botón de comenzar
+          botonComenzar.style.display = "none";
+
+          // Crear y mostrar el tablero
+          const request = new ApiAJAX(Pokemon.URL_POKEAPI);
+          self.crearTableroJuego(request, numCartas);
+
+          // Asignar el valor a la propiedad del objeto
+          self.numCartas = numCartas;
+
+          // Iniciar el temporizador (tiempo de juego)
+          self.tiempoInicio = new Date(); // Se inicia el temporizador
+
+          // Agregar evento al botón de finalizar juego
+          self.botonFinalizar = WhosThatPokemon.crearElemento("button", "Finalizar Juego");
+          self.botonFinalizar.setAttribute("id", "finalizarJuego");
+          document.body.appendChild(self.botonFinalizar);
+          self.botonFinalizar.addEventListener("click", finalizarJuego);
+
+          // Función para finalizar el juego
+          function finalizarJuego() {
+            // Calcular el tiempo total
+            const numCartas = self.numCartas;
+            const tiempoFin = new Date();
+            const tiempoTotal = tiempoFin - self.tiempoInicio;
+
+            // Calcular la puntuación
+            const completados = self.pokemonsCompletados ? self.pokemonsCompletados.length : 0;
+            const faltaron = Math.max(0, numCartas - completados);
+
+            // Crear elemento puntuación
+            const puntuacionElement = WhosThatPokemon.crearElemento("p");
+
+            // Mostrar la puntuación adecuada
+            puntuacionElement.textContent = `Has completado ${completados} de ${numCartas} Pokémon. Te faltaron ${faltaron}.`;
+
+            // Mostrar el tiempo total
+            puntuacionElement.textContent += ` Tiempo total: ${tiempoTotal / 1000} segundos.`;
+
+            // Mostrar la puntuación en el cuerpo del documento
+            document.body.appendChild(puntuacionElement);
+
+            // Ocultar el tablero y el botón de finalizar
+            self.tableroJuego.style.display = "none";
+            self.botonFinalizar.style.display = "none";
+
+            // Reiniciar arrays
+            self.idPokemons = [];
+            self.pokemonsActuales = [];
+            self.pokemonsCompletados = [];
+
+            // Crear formulario de puntuación
+            const formularioPuntuacion = self.crearFormularioPuntuacion();
+
+            // Actualizar el campo de tiempo total en el formulario
+            const tiempoTotalInput = formularioPuntuacion.querySelector("#tiempoTotal");
+            if (tiempoTotalInput) {
+              tiempoTotalInput.value = `${tiempoTotal / 1000} segundos`;
+            } else {
+              console.error("Elemento con ID 'tiempoTotal' no encontrado en el formulario.");
+            }
+
+
+            // Mostrar el formulario de puntuación
+            document.body.appendChild(formularioPuntuacion);
+          }
+        }
+
+        // Agregar evento al botón de comenzar
+        botonComenzar.addEventListener("click", comenzarJuego);
+      };
+
+      WhosThatPokemon.prototype.finalizarJuego = function () {
+        // Calcular el tiempo total
+        const self = this;
+        const numCartas = self.numCartas;
+        const tiempoFin = new Date();
+        const tiempoTotal = tiempoFin - this.tiempoInicio;
+
+        // Calcular la puntuación
+        const completados = this.pokemonsCompletados.length;
+        const faltaron = Math.max(0, numCartas - completados);
+
+        // Crear elemento puntuación
+        const puntuacionElement = WhosThatPokemon.crearElemento("p");
+
+        // Mostrar la puntuación adecuada
+        puntuacionElement.textContent = `Has completado ${completados} de ${numCartas} Pokémon. Te faltaron ${faltaron}.`;
+
+        // Mostrar el tiempo total
+        puntuacionElement.textContent += ` Tiempo total: ${tiempoTotal / 1000} segundos.`;
+
+        // Mostrar la puntuación en el cuerpo del documento
+        document.body.appendChild(puntuacionElement);
+
+        // Ocultar el tablero y el botón de finalizar
+        this.tableroJuego.style.display = "none";
+        this.botonFinalizar.style.display = "none";
+
+        // Reiniciar arrays
+        this.idPokemons = [];
+        this.pokemonsActuales = [];
+        this.pokemonsCompletados = [];
+
+        // Crear formulario de puntuación
+        const formularioPuntuacion = this.crearFormularioPuntuacion();
+
+        // Actualizar el campo de tiempo total en el formulario
+        const tiempoTotalInput = formularioPuntuacion.querySelector("#tiempoTotal");
+        if (tiempoTotalInput) {
+          tiempoTotalInput.value = `${tiempoTotal / 1000} segundos`;
+        } else {
+          console.error("Elemento con ID 'tiempoTotal' no encontrado en el formulario.");
+        }
+
+        // Mostrar el formulario de puntuación
+        document.body.appendChild(formularioPuntuacion);
+      };
+
+      WhosThatPokemon.prototype.eliminarCartasAnteriores = function () {
+        const cartasAnteriores = document.querySelectorAll(".carta");
+        cartasAnteriores.forEach((carta) => carta.remove());
+      };
+
+      WhosThatPokemon.prototype.mostrarDatos = function (datos) {
+        console.dir(datos);
+      };
+
+      WhosThatPokemon.prototype.mostrarError = function (error) {
+        console.error(error);
+      };
+
+      WhosThatPokemon.prototype.crearCarta = function (pokemon) {
+        // Extraer datos
+
+        const self = this;
+        this.pokemonsActuales.push(pokemon);
+        const id = pokemon.id;
+        this.idPokemons.push(id);
+        const nombre = pokemon.name;
+        const sprite = pokemon.sprites.front_default;
+
+        const figure = WhosThatPokemon.crearElemento("figure");
+        figure.classList.add("carta");
+        figure.classList.add("cara-oculta");
+        figure.classList.add("oculta-inicial");
+        figure.classList.add(pokemon.types[0]["type"]["name"]);
+        figure.setAttribute("id", id);
+        figure.setAttribute("name", nombre);
+
+        // Imagen oscurecida del Pokémon
+        const imgOscurecida = WhosThatPokemon.crearElemento("img");
+        imgOscurecida.setAttribute("src", sprite);
+        imgOscurecida.classList.add("oscurecer-imagen");
+        figure.appendChild(imgOscurecida);
+
+        const figCaption = WhosThatPokemon.crearElemento("figcaption", nombre);
+        figCaption.classList.add("ocultar-texto");
+        figure.appendChild(figCaption);
+
+        const input = WhosThatPokemon.crearElemento("input");
+        input.setAttribute("type", "text");
+        input.setAttribute("placeholder", "Ingrese el nombre del Pokémon");
+        figure.appendChild(input);
+
+        // Añadir temporizador para quitar la clase de opacidad después de un tiempo
+        setTimeout(() => {
+          figure.classList.remove("oculta-inicial");
+        }, 1000);
+
+        input.addEventListener("keypress", function (event) {
+          if (event.key === "Enter") {
+            const inputNombre = input.value.trim().toLowerCase();
+            const nombrePokemon = figure.getAttribute("name").toLowerCase();
+
+            if (inputNombre === nombrePokemon) {
+              mostrarPokemonReal(nombrePokemon);
+              // Verificar si todas las cartas han sido completadas
+              if (self.pokemonsCompletados.length === self.idPokemons.length) {
+                finalizarJuego();
+              }
+            } else {
+              ocultarPokemonReal();
+            }
+          }
+        });
+
+        function mostrarPokemonReal(nombrePokemon) {
+          figure.classList.remove("cara-oculta");
+          figure.children[2].classList.remove("ocultar-texto");
+          imgOscurecida.style.filter = "brightness(100%)";
+          self.pokemonsCompletados.push(id);
+
+          // Crear el título del Pokémon
+          const tituloPokemon = WhosThatPokemon.crearElemento("figcaption", nombre.toUpperCase());
+
+          // Agregar el título como un hijo de la figura
+          figure.appendChild(tituloPokemon);
+
+          // Restaurar el estado del input
+          input.style.display = "none";
+          input.value = "";
+
+          // Verificar si todas las cartas han sido completadas
+          if (self.pokemonsCompletados.length === self.idPokemons.length) {
+            finalizarJuego();
+          }
+        }
+
+        function ocultarPokemonReal() {
+          const inputNombre = input.value.trim().toLowerCase();
+          const nombrePokemon = figure.getAttribute("name").toLowerCase();
+
+          if (inputNombre !== nombrePokemon && inputNombre.length === nombrePokemon.length) {
+            setTimeout(() => {
+              figure.classList.add("cara-oculta");
+              imgOscurecida.classList.add("ocultar-imagen");
+              figure.children[2].classList.add("ocultar-texto");
+              imgOscurecida.style.filter = "brightness(40%)";
+            }, 200);
+          }
+        }
+
+        this.tableroJuego.appendChild(figure);
+      };
+
+      WhosThatPokemon.prototype.crearTableroJuego = function (request, numCartas) {
+        const maxIntentos = 50;
+
+        for (let i = 0; i < numCartas; i++) {
+          let intentos = 0;
+          let idRandom;
+
+          do {
+            idRandom = Random.gen(1, 150);
+            intentos++;
+          } while (this.idPokemons.includes(idRandom) && intentos < maxIntentos);
+
+          if (intentos === maxIntentos) {
+            console.error("No se pudo generar un Pokémon único en el límite de intentos.");
+            break;
+          }
+
+          request.pedirJSON(idRandom, this.crearCarta.bind(this), this.mostrarError.bind(this));
+          this.idPokemons.push(idRandom);
+        }
+      };
+
+      WhosThatPokemon.prototype.formularioUser = function () {
+        const form = WhosThatPokemon.crearElemento("form");
+        form.setAttribute("action", "");
+
+        const divNombre = WhosThatPokemon.crearElemento("div");
+        const labelNombre = WhosThatPokemon.crearElemento("label", "Usuario:");
+        labelNombre.setAttribute("for", "nombre");
+        const inputNombre = WhosThatPokemon.crearElemento("input");
+        inputNombre.setAttribute("type", "text");
+        inputNombre.setAttribute("name", "nombre");
+        inputNombre.setAttribute("required", "");
+        inputNombre.setAttribute("pattern", "^[\\S][a-zA-Z]{1,}[\\S]$");
+        divNombre.appendChild(labelNombre);
+        divNombre.appendChild(inputNombre);
+
+        const divPassword = WhosThatPokemon.crearElemento("div");
+        const labelPassword = WhosThatPokemon.crearElemento("label", "Contraseña:");
+        labelPassword.setAttribute("for", "password");
+        const inputPassword = WhosThatPokemon.crearElemento("input");
+        inputPassword.setAttribute("type", "password");
+        inputPassword.setAttribute("name", "password");
+        inputPassword.setAttribute("required", "");
+        inputPassword.setAttribute("pattern", "^[a-zA-Z\\d\\S$!#-@%]{5,}$");
+        divPassword.appendChild(labelPassword);
+        divPassword.appendChild(inputPassword);
+
+        const divSubmit = WhosThatPokemon.crearElemento("div");
+        const submit = WhosThatPokemon.crearElemento("input");
+        submit.setAttribute("type", "submit");
+        submit.setAttribute("value", "Login");
+        divSubmit.appendChild(submit);
+
+        form.appendChild(divNombre);
+        form.appendChild(divPassword);
+        form.appendChild(divSubmit);
+
+        const self = this;
+
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          // Obtener el nombre del usuario y almacenarlo en la instancia
+          self.nombreUsuario = inputNombre.value.trim();
+        });
+
+        return form;
+      };
+
+      WhosThatPokemon.prototype.crearFormularioPuntuacion = function () {
+        const self = this; // Guardar la referencia a la instancia actual
+
+        const formPuntuacion = WhosThatPokemon.crearElemento("form");
+
+        // Nombre de Usuario
+        const labelNombreUsuario = WhosThatPokemon.crearElemento("label", "Nombre de Usuario:");
+        const inputNombreUsuario = WhosThatPokemon.crearElemento("input");
+        inputNombreUsuario.setAttribute("type", "text");
+        inputNombreUsuario.setAttribute("id", "nombreUsuario");
+        inputNombreUsuario.setAttribute("required", "");
+        labelNombreUsuario.appendChild(inputNombreUsuario);
+
+        // Tiempo Total
+        const labelTiempoTotal = WhosThatPokemon.crearElemento("label", "Tiempo Total:");
+        const inputTiempoTotal = WhosThatPokemon.crearElemento("input");
+        inputTiempoTotal.setAttribute("type", "text");
+        inputTiempoTotal.setAttribute("id", "tiempoTotal"); // Agregar el ID "tiempoTotal"
+        inputTiempoTotal.setAttribute("readonly", ""); // Hacer que el campo sea de solo lectura
+        labelTiempoTotal.appendChild(inputTiempoTotal);
+
+        // Botón de envío
+        const submitPuntuacion = WhosThatPokemon.crearElemento("input");
+        submitPuntuacion.setAttribute("type", "submit");
+        submitPuntuacion.setAttribute("value", "Guardar Puntuación");
+
+        // Agregar elementos al formulario
+        formPuntuacion.appendChild(labelNombreUsuario);
+        formPuntuacion.appendChild(labelTiempoTotal); // Agregar el elemento de tiempo total al formulario
+        formPuntuacion.appendChild(submitPuntuacion);
+
+        formPuntuacion.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          // Obtener la puntuación del localStorage
+          const puntuacionInfo = JSON.parse(localStorage.getItem("puntuacion"));
+
+          // Obtener el nombre del usuario del formulario
+          const nombreUsuario = inputNombreUsuario.value.trim();
+
+          // Crear un objeto con la información de la puntuación y el nombre del usuario
+          const puntuacionFinal = {
+            nombreUsuario: nombreUsuario,
+            completados: puntuacionInfo.completados,
+            faltaron: puntuacionInfo.faltaron,
+            tiempoTotal: puntuacionInfo.tiempoTotal,
+            dificultad: puntuacionInfo.dificultad
+          };
+
+          // Almacenar la puntuación en localStorage
+          localStorage.setItem("puntuacion", JSON.stringify(puntuacionInfo));
+
+          // Resetear el juego
+          self.reset();
+        });
+
+        return formPuntuacion;
+      };
+
+
+      // POKEMON y POKEAPI
+      function Pokemon(datos) {
+        this.datos = datos;
+      }
+      Pokemon.URL_POKEAPI = "https://pokeapi.co/api/v2/pokemon/";
+      Pokemon.URL_POKEAPI_150 = "https://pokeapi.co/api/v2/pokemon?limit=151&offset=0";
+
+      const vista = new WhosThatPokemon();
+      vista.iniciarJuego();
+      const contenedor = document.createElement("div");
+      contenedor.classList = "contenedor-tablero";
+      contenedor.appendChild(vista.tableroJuego);
+      document.body.appendChild(contenedor);
+    })
+
+  </script>
+
+</body>
+
+</html>
